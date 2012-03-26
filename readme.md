@@ -77,6 +77,13 @@ Stylesheets
 `print.css` the stylesheet for print.
 
 
+Other
+
+`readme.md` this file.
+`screenshot.jpg` an image of this theme.
+`license.txt` license text for the theme.
+
+
 To Do
 --------------------------------------
 Microformats.
@@ -106,13 +113,19 @@ Configurable footer through GUI
   ?>
   
 Stylesheet for print.
+Language
+Modernizer for HTML5 on ie.
 
   
 History
 --------------------------------------
 
-v0.1.0 (2012-03-26)
+v0.1.1 (2012-03-26)
 
+* Added `style.top.css` to have the information about the theme, added to `style.css`at each compilation.
+
+
+v0.1.0 (2012-03-26)
 
 * Tried to create a base which can be used for customed themes without need of subtheming.
 * Adaptions for customer project.

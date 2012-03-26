@@ -21,8 +21,8 @@ function auto_compile_less($less_fname, $css_fname) {
   $changed = false;
   $new_cache = lessc::cexecute($cache);
   if (!is_array($cache) || $new_cache['updated'] > $cache['updated']) {
-    file_put_contents($cache_fname, serialize($new_cache));
-    file_put_contents($css_fname, $new_cache['compiled']);
+    file_put_contents($cache_fname, serialize($new_cache));    
+    file_put_contents($css_fname, file_get_contents(__DIR__.'/style.top.css') . $new_cache['compiled']);
     $changed = true;
   }
   return $changed;
