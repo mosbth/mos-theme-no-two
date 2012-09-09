@@ -1,23 +1,15 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-  <header class="entry-header">  
-    <?php if ( 'post' == get_post_type() ) : ?>
-    <div class="entry-meta"><?=mos_posted_on()?></div>
-    <?php endif; ?>
-    <h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
-  </header><!-- .entry-header -->
+<section id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+  <?php if ( 'post' == get_post_type() ) : ?><span class="published"><?=mos_posted_on()?></span><?php endif; ?>
+  <h2><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?=the_title()?></a></h2>
 
   <?php if ( is_search() ) : // Only display Excerpts for Search ?>
-  <div class="entry-summary">
-    <?php the_excerpt(); ?>
-  </div><!-- .entry-summary -->
+  <?php the_excerpt(); ?>
   <?php else : ?>
-  <div class="entry-content">
-    <?php the_content( __( '&raquo; läs mer', 'mos' ) ); ?>
-    <?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Sidor:', 'mos' ) . '</span>', 'after' => '</div>' ) ); ?>
-  </div><!-- .entry-content -->
+  <?php the_content( __( '&raquo; läs mer', 'mos' ) ); ?>
+  <?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Sidor:', 'mos' ) . '</span>', 'after' => '</div>' ) ); ?>
   <?php endif; ?>
 
-  <footer class="entry-meta">
+  <footer class="footer">
     <?php $show_sep = false; ?>
     <?php if('post' == get_post_type()) : // Hide category and tag text for pages on Search ?>
       <?php
@@ -53,4 +45,4 @@
 
     | <?=edit_post_link( __( 'Redigera', 'mos' ), '<span class="edit-link">', '</span>' ); ?>
   </footer><!-- #entry-meta -->
-</article><!-- #post-<?php the_ID(); ?> -->
+</section><!-- #post-<?php the_ID(); ?> -->

@@ -1,28 +1,33 @@
 <?=get_header()?>
+<?php if(mos_has_content('flash')): ?>
 <div id='outer-wrap-flash'>
-  <div id='inner-wrap-flash'>
-    <div id='flash'>
-      flash
-    </div>
-  </div>
+	<div id='inner-wrap-flash'>
+		<div id='flash'><?=mos_get_content('flash')?></div>
+	</div>
 </div>
+<?php endif; ?>
+
+<?php if(mos_has_content('featured-first', 'featured-middle', 'featured-last')): ?>
 <div id='outer-wrap-featured'>
-  <div id='inner-wrap-featured'>
-    <footer id='featured'>
-      <div id='featured-first'><?='featured-first'?></div>
-      <div id='featured-middle'><?='featured-middle'?></div>
-      <div id='featured-last'><?='featured-last'?></div>
-    </footer>
-  </div>
+	<div id='inner-wrap-featured'>
+		<div id='featured-first'><?=mos_get_content('featured-first')?></div>
+		<div id='featured-middle'><?=mos_get_content('featured-middle')?></div>
+		<div id='featured-last'><?=mos_get_content('featured-last')?></div>
+	</div>
 </div>
+<?php endif; ?>
+
 <div id='outer-wrap-main'>
   <div id='inner-wrap-main'>
     <div id='main'>
       <div id='primary'>
         <div id='content'>
-          <?php if(have_posts()): while(have_posts()): the_post()?>
+          <?php if(have_posts()): ?>
+          <article class='blog'>
+          	<?php while(have_posts()): the_post()?>
               <?=get_template_part('content', get_post_format())?>
             <?php endwhile?>
+          </article>
           <?php else:?>
             <article id='post-0' class='post no-results not-found'>
               <header class='entry-header'>

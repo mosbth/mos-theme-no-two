@@ -5,19 +5,36 @@ Second try to make a robust WP-theme easy to customize. This version of the them
 at http://dbwebb.se/blogg and the intention is to make it easy to use for other projects as well.
 
 
-Inspiration from
---------------------------------------
-Thanks to:
+Use of external libraries
+-----------------------------------
 
-http://lesscss.org/
-http://leafo.net/lessphp/
-http://semantic.gs/
-http://blueprintcss.org/
-http://meyerweb.com/eric/tools/css/reset/
-http://html5boilerplate.com/
-http://www.modernizr.com/
+The following external modules are included in the theme.
 
-and the original Wordpress theme Twentyeleven.
+### lessphp
+lessphp by leaf to compile LESS.
+* Website: http://leafo.net/lessphp
+* Version: 0.3.8 (2012-08-18)
+* License: Dual license, MIT LICENSE and GPL VERSION 3
+* Path: `lessphp/*`
+
+
+### The Semantic Grid System
+by Tyler Tate/TwigKit to get grid layout through LESS.
+* Website: http://semantic.gs/
+* Version: 1.2 (2012-01-11)
+* License: Apache License
+* Path: included in `style.less`
+
+### Modernizr
+by .
+
+
+### style.less
+by Mikael Roos, included in Lydia.
+
+### style.php
+by Mikael Roos
+
 
 
 Files and directories
@@ -52,8 +69,8 @@ Images
 
 Includes and addons
 
-`incl` any include files used to extend theme.
-`incl/less.inc.php` less PHP compiler.
+`lessphp` any include files used to extend theme.
+`lessphp/less.inc.php` less PHP compiler.
 
 
 JavaScript
@@ -79,7 +96,7 @@ Stylesheets
 
 Other
 
-`readme.md` this file.
+`README.md` this file.
 `screenshot.jpg` an image of this theme.
 `license.txt` license text for the theme.
 
@@ -119,6 +136,12 @@ Modernizer for HTML5 on ie.
   
 History
 --------------------------------------
+
+v0.1.x (latest)
+
+* Updated to latest version v0.3.8 of lessphp. Added file LICENSE and README.md for lessphp.
+* Latest version of style.php.
+* Changed name of `style.top.css` to `style_meta.css`.
 
 v0.1.1 (2012-03-26)
 

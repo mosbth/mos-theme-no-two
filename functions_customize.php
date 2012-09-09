@@ -6,14 +6,21 @@
 
 /**
  * Add existing filters.
- *
  */
 add_filter( 'the_content', 'make_clickable', 12); // After shortcodes are executed
 
 
 /**
+ * Enable menues.
+ */
+register_nav_menus( array(
+	'primary' => 'Primary Navigation',
+	'secondary' => 'Secondary Navigation',
+) );
+
+
+/**
  * Set content data
- *
  */
 $mos_current_url = mos_get_current_url();
 $mos_content_array = array(
@@ -22,126 +29,60 @@ $mos_content_array = array(
   'stylesheet_print' => get_stylesheet_directory_uri().'/print.css',
   'modernizer' => get_stylesheet_directory_uri().'/js/modernizer.js',
   'google-analytics' => 'UA-22093351-1',
-  'site-copyright' => __('Copyright &copy; Mikael Roos (mos@dbwebb.se)'),
   'site-logo' => "src='" . get_stylesheet_directory_uri() . "/img/logo_40x40.png' height='40' width='40'",
   'favicon' => get_stylesheet_directory_uri().'/img/favicon.png',
-  'triptych-first' => "
-    <h4>Senaste i bloggen</h4>
-  ",
-  'triptych-middle' => "
-    <h4>Senaste i forumet</h4>
-  ",
-  'triptych-last' => "
-    <h4>Senaste i chatten</h4>
-  ",
+
+	// Breadcrumb
+	'breadcrumb_on_home' => false, 
+	'breadcrumb_start' => __('Hem'),
+	'breadcrumb_delimiter' => '&raquo;',
+	'breadcrumb_show_current' => true,
+
+	// Flash
+  'flash' 	=> "<h4>Flash</h4>",
+  
+	// Featured
+  'featured-first' 	=> "<h4>Featured first</h4>",
+  'featured-middle' => "<h4>Featured middle</h4>",
+  'featured-last' 	=> "<h4>Featured last</h4>",
+  
+	// Triptych
+  'triptych-first' 	=> "<h4>Triptych first</h4>",
+  'triptych-middle' => "<h4>Triptych middle</h4>",
+  'triptych-last' 	=> "<h4>Triptych last</h4>",
+  
+  // Footer
+  'footer' 	=> __('Copyright &copy; Mikael Roos (me@mikaelroos.se)') . ' &ndash; Theme Mos-Theme-No-Two by Mikael Roos (me@mikaelroos.se)',
   'footer-first-col' => "
     <nav>
-      <h4>Validatorer</h4>
-      <a href='http://validator.w3.org/check/referer'>HTML5</a>
-      <a href='http://jigsaw.w3.org/css-validator/check/referer?profile=css3'>CSS3</a>
-      <a href='http://jigsaw.w3.org/css-validator/check/referer?profile=css21'>CSS21</a>
-      <a href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance'>Unicorn</a>
+      <h4>Validators</h4>
+      <a href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance&amp;profile=css3'>Unicorn</a>
       <a href='http://validator.w3.org/checklink?uri=<?=$mos_current_url?>'>Links</a>
       <a href='http://validator.w3.org/i18n-checker/check?uri=<?=$mos_current_url?>'>i18n</a>
-      <!-- <a href='link?'>http-header</a> -->
-      <a href='http://csslint.net/'>CSS-lint</a>
-      <a href='http://jslint.com/'>JS-lint</a>
-      <a href='http://jsperf.com/'>JS-perf</a>
     </nav>
   ",
   'footer-second-col' => "
     <nav>
-      <h4>Manualer</h4>
-      <a href='http://www.w3.org/2009/cheatsheet'>Cheatsheet</a>
-      <a href='http://dev.w3.org/html5/spec/spec.html'>HTML5</a>
-      <a href='http://www.w3.org/TR/CSS2'>CSS2</a>
-      <a href='http://www.w3.org/Style/CSS/current-work#CSS3'>CSS3</a>
-      <a href='http://php.net/manual/en/index.php'>PHP</a>
-      <a href='http://www.sqlite.org/lang.html'>SQLite</a>
-      <a href='http://dev.mysql.com/doc/'>MySQL</a>
-      <a href='http://http://www.w3.org/'>W3C</a>      
-      <a href='http://www.w3schools.com/'>w3schools</a>
+      <h4>Second</h4>
     </nav>
   ",
   'footer-third-col' => "
     <nav>
-      <h4>Verktyg</h4>
-      <a href='http://www.workwithcolor.com/hsl-color-schemer-01.htm'>Colors</a>
+      <h4>Third</h4>
     </nav>
   ",
-  'footer-fourth-col' => "
+  'footer-fourth-col' 	=> "
     <nav>
-      <h4>Boilerplates & Kod</h4>
-      <a href='http://html5boilerplate.com/'>html5boilerplate</a>
-      <a href='http://www.blueprintcss.org/'>Blueprint</a>
-      <a href='http://lesscss.org/'>LESS</a>
-      <a href='http://leafo.net/lessphp/'>lessphp</a>      
-      <a href='http://semantic.gs/'>semantic.gs/</a>
-      <a href='http://www.modernizr.com/'>Modernizer</a>
-      <a href='http://jquery.com/'>jQuery</a>
-      <a href='http://sass-lang.com/'>Sass</a>
+      <h4>Fourth</h4>
     </nav>
   ",
-  'footer-fifth-col' => "
-    <nav>
-      <h4>Utvecklingsverktyg</h4>
-      <a href='https://github.com/'>GitHub</a>
-      <a href='http://git-scm.com/'>Git</a>
-      <a href='http://www.simpletest.org/'>Simpletest</a>
-      <a href='http://seleniumhq.org/'>Selenium</a>
-    </na>
-  ",
-  'footer-sixth-col' => "
-    <nav>
-      <h4>MVC / CMS / CMF</h4>
-      <a href='http://wordpress.org'>Wordpress</a>
-      <a href='http://drupal.org'>Drupal</a>
-      <a href='http://www.phpbb.com/'>phpBB</a>
-      <a href='http://codeigniter.com'>CodeIgniter</a>
-    </nav>
-  ",
-  'footer-seventh-col' => "
-    <nav>
-      <h4>Artiklar & Magasin</h4>
-      <a href='http://www.alistapart.com/'>A List Apart</a>
-      <a href='http://net.tutsplus.com/'>nettuts+</a>
-      <a href='http://coding.smashingmagazine.com/'>Smashing Magazine</a>
-      <a href='http://www.sitepoint.com/'>Sitepoint</a>
-      <a href='http://html5doctor.com/'>HTML5 Doctor</a>
-    </nav>
-  ",
-  'footer-eight-col' => "
-    <nav>
-      <h4>Från webbvärlden</h4>
-      <a href=''></a>
-    </nav>
-  ",
-  'footer-nine-col' => "
-    <nav>
-      <h4>Studerandeadm</h4>
-      <a href=''></a>
-    </nav>
-  ",
-  'footer-ten-col' => "
-    <nav>
-      <h4>Händer på BTH & COM</h4>
-      <a href=''></a>
-    </nav>
-  ",
-  'footer-eleven-col' => "
-    <nav>
-      <h4>Vad gör Mos?</h4>
-      <a href=''></a>
-    </nav>
-  ",
-  'footer-twelve-col' => "
-    <nav>
-      <h4>dbwebb.se</h4>
-      <a href='http://dbwebb.se/blog'>blog</a>
-      <a href='http://dbwebb.se/forum'>forum</a>
-      <a href='http://dbwebb.se/style'>style</a>
-      <a href='https://github.com/mosbth'>github</a>
-    </na>
-  ",
+  'footer-fifth-col' 	=> null,
+  'footer-sixth-col' 	=> null,
+  'footer-seventh-col' 	=> null,
+  'footer-eight-col' 	=> null,
+  'footer-nine-col' 	=> null,
+  'footer-ten-col' 		=> null,
+  'footer-eleven-col' 	=> null,
+  'footer-twelve-col' 	=> null,
 );
 

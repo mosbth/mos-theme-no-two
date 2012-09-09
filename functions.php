@@ -20,11 +20,30 @@ if(is_file($mos_customize_file)) {
  */
 function mos_get_content($region) {
   global $mos_content_array;
-  if(array_key_exists($region, $mos_content_array)) {
+  if(isset($mos_content_array[$region])) {
     return $mos_content_array[$region];
   } else {
     return __('No content for this region.');
   }  
+}
+
+
+/**
+ * Check if content is defined for area.
+ *
+ * @param string ... $region one or severla regions to check.
+ * @returns boolean true if content exists for any region, else false.
+ *
+ */
+function mos_has_content($region) {
+  global $mos_content_array;
+  $regions = func_get_args($region);
+  foreach($regions as $val) {
+  	if(isset($mos_content_array[$region]) && !is_null($mos_content_array[$region])) {
+  		return true;
+  	}
+  }
+  return false;
 }
 
 
@@ -80,14 +99,15 @@ function mos_posted_on() {
 
 
 /**
- * From http://dimox.net/wordpress-breadcrumbs-without-a-plugin/
+ * Create a breadcrumb, based on dimox_breadcrumbs()
  */
-function dimox_breadcrumbs() {
- 
-  $showOnHome = 0; // 1 - show breadcrumbs on the homepage, 0 - don't show
-  $delimiter = '&raquo;'; // delimiter between crumbs
-  $home = 'Blog'; // text for the 'Home' link
-  $showCurrent = 1; // 1 - show current post/page title in breadcrumbs, 0 - don't show
+function mos_breadcrumb() {
+ 	global $mos_content_array;
+ 	
+  $showOnHome 	= $mos_content_array['breadcrumb_on_home'];
+  $home 				= $mos_content_array['breadcrumb_start'];
+  $delimiter 		= $mos_content_array['breadcrumb_delimiter'];
+  $showCurrent 	= $mos_content_array['breadcrumb_show_current'];
   $before = '<span class="current">'; // tag before the current crumb
   $after = '</span>'; // tag after the current crumb
  
@@ -96,11 +116,11 @@ function dimox_breadcrumbs() {
  
   if (is_home() || is_front_page()) {
  
-    if ($showOnHome == 1) echo '<div id="crumbs"><a href="' . $homeLink . '">' . $home . '</a></div>';
+    if ($showOnHome) echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a><li></ul>';
  
   } else {
  
-    echo '<div id="crumbs"><a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' ';
+    echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a></li> ' . $delimiter . ' ';
  
     if ( is_category() ) {
       global $wp_query;
@@ -108,16 +128,16 @@ function dimox_breadcrumbs() {
       $thisCat = $cat_obj->term_id;
       $thisCat = get_category($thisCat);
       $parentCat = get_category($thisCat->parent);
-      if ($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
+      if ($thisCat->parent != 0) echo(get_category_parents($parentCat, true, ' ' . $delimiter . ' '));
       echo $before . single_cat_title('', false) . $after;
  
     } elseif ( is_day() ) {
-      echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
-      echo '<a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
+      echo '<li><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li> ' . $delimiter . ' ';
+      echo '<li><a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a></li> ' . $delimiter . ' ';
       echo $before . get_the_time('d') . $after;
  
     } elseif ( is_month() ) {
-      echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+      echo '<li><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li> ' . $delimiter . ' ';
       echo $before . get_the_time('F') . $after;
  
     } elseif ( is_year() ) {
@@ -127,11 +147,11 @@ function dimox_breadcrumbs() {
       if ( get_post_type() != 'post' ) {
         $post_type = get_post_type_object(get_post_type());
         $slug = $post_type->rewrite;
-        echo '<a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a> ' . $delimiter . ' ';
+        echo '<li><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a></li> ' . $delimiter . ' ';
         if ($showCurrent == 1) echo $before . get_the_title() . $after;
       } else {
         $cat = get_the_category(); $cat = $cat[0];
-        echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+        echo get_category_parents($cat, true, ' ' . $delimiter . ' ');
         if ($showCurrent == 1) echo $before . get_the_title() . $after;
       }
  
@@ -143,7 +163,7 @@ function dimox_breadcrumbs() {
       $parent = get_post($post->post_parent);
       $cat = get_the_category($parent->ID); $cat = $cat[0];
       echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
-      echo '<a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a> ' . $delimiter . ' ';
+      echo '<li><a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a><li> ' . $delimiter . ' ';
       if ($showCurrent == 1) echo $before . get_the_title() . $after;
  
     } elseif ( is_page() && !$post->post_parent ) {
@@ -154,7 +174,7 @@ function dimox_breadcrumbs() {
       $breadcrumbs = array();
       while ($parent_id) {
         $page = get_page($parent_id);
-        $breadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+        $breadcrumbs[] = '<li><a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a></li>';
         $parent_id  = $page->post_parent;
       }
       $breadcrumbs = array_reverse($breadcrumbs);
@@ -182,10 +202,9 @@ function dimox_breadcrumbs() {
       if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
     }
  
-    echo '</div>';
- 
+    echo '</ul>';
   }
-} // end dimox_breadcrumbs()
+} 
 
 
 /**
