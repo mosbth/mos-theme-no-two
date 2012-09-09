@@ -17,7 +17,7 @@
 	<div id='inner-wrap-header'>
 		<div id='header'>
 			<div id='banner'>
-        <a href='<?=esc_url(get_home_url())?>'><img <?=mos_get_content('site-logo')?> alt='logo' /></a>
+        <a href='<?=esc_url(get_home_url())?>'><img id='site-logo' <?=mos_get_content('site-logo')?> alt='logo' /></a>
         <span id='site-title'><a href='<?=esc_url(get_home_url())?>' title='<?=esc_attr(get_bloginfo('name', 'display'))?>'><?=get_bloginfo('name')?></a></span>
         <span id='site-slogan'><?=get_bloginfo('description')?></span>
 			</div>
