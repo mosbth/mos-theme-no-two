@@ -1,4 +1,4 @@
-a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:16780:"@import url(geshi.less);
+a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:17683:"@import url(geshi.less);
 html,
 body,
 div,
@@ -1047,6 +1047,62 @@ figure figcaption {
 .box h4 {
   margin-top: 0;
 }
+#header {
+  border-bottom: none;
+}
+#banner #site-logo {
+  vertical-align: top;
+}
+#banner #site-title {
+  vertical-align: top;
+}
+#banner #site-slogan {
+  vertical-align: bottom;
+  padding-left: 80px;
+  color: #666;
+  font-style: italic;
+  font-size: 1.3em;
+}
+#flash {
+  border: 1px dotted #eee;
+}
+#navbar {
+  display: inline;
+  float: left;
+  width: 950px;
+  margin: 0 5px;
+  background-color: #f3f3ff;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  height: 22px;
+}
+#navbar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#navbar ul li {
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+#navbar ul li a {
+  text-decoration: none;
+  border: none;
+  padding: 0 0.5em;
+  font-size: 22px px;
+}
+#navbar ul li a:hover {
+  background: #dadaff;
+  border: none;
+}
+#navbar ul li a.selected {
+  background: #dadaff;
+  border: none;
+}
+#navbar ul li:first-child {
+  padding-left: 0.5em;
+}
 .category-archive-meta {
   margin-bottom: 88px;
 }
@@ -1092,4 +1148,4 @@ figure figcaption {
   color: #666;
   font-size: smaller;
 }
-";s:5:"files";a:2:{s:79:"/usr/home/mos/htdocs/sifero.se/wp/wp-content/themes/mos-theme-no-two/style.less";i:1347198081;s:85:"/usr/home/mos/htdocs/sifero.se/wp/wp-content/themes/mos-theme-no-two/style_lydia.less";i:1347192234;}s:7:"updated";i:1347198084;}
+";s:5:"files";a:2:{s:79:"/usr/home/mos/htdocs/sifero.se/wp/wp-content/themes/mos-theme-no-two/style.less";i:1347203006;s:85:"/usr/home/mos/htdocs/sifero.se/wp/wp-content/themes/mos-theme-no-two/style_lydia.less";i:1347192234;}s:7:"updated";i:1347203010;}

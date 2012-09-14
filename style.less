@@ -12,13 +12,49 @@
 .post h2{margin-top:0;}
 .box h4{margin-top:0;}
 
+#header{border-bottom:none;}
 
+#banner{
+	#site-logo{vertical-align:top;}
+	#site-title{vertical-align:top;}
+	#site-slogan{vertical-align:bottom;padding-left:80px;color:#666;font-style:italic;font-size:1.3em;}
+}
 
+#flash{border:1px dotted #eee;}
+
+/** --------------------------------------------------------------
+ * Navbar
+ */
+#navbar{.column(24);background-color:@bgcolor1;border-top:1px solid #ccc;border-bottom:1px solid #ccc;height:@magic-number;
+  ul{list-style-type:none;padding:0;margin:0;
+    li{padding:0;margin:0;display:inline;
+      a{text-decoration:none;border:none;padding:0 0.5em;font-size:@magic-number px;
+        &:hover{background:darken(@bgcolor1, 5%);border:none;}
+        &.selected{background:darken(@bgcolor1, 5%);border:none;}
+      }
+    }
+    li:first-child{padding-left:0.5em;}
+  }
+}
+
+/*
+#navbar{.column(24);
+  ul{list-style-type:none;padding:2px 8px;margin:0;
+    li{padding:0;margin:0;display:inline;
+      a{padding:6px 8px;text-decoration:none;border:2px solid transparent;
+        &:hover{background:#ddd;border:2px solid #999;}
+        &.selected{background:#ccc;border:2px solid #999;}
+      }
+    }
+  }
+}
+*/
+
+/*
 @font-color-article-title = #222;
 
 #content{}
 
-/*
 article{margin-bottom:@magic-number*4;
   &.page{
     h1.entry-title{}

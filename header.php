@@ -21,7 +21,7 @@
         <span id='site-title'><a href='<?=esc_url(get_home_url())?>' title='<?=esc_attr(get_bloginfo('name', 'display'))?>'><?=get_bloginfo('name')?></a></span>
         <span id='site-slogan'><?=get_bloginfo('description')?></span>
 			</div>
-			<div id='navbar'><?=wp_nav_menu(array('theme_location'=>'primary'))?></div>
+			<div id='navbar'><?=wp_nav_menu(array('theme_location'=>'navbar'))?></div>
 		</div>
 	</div>
 </div>

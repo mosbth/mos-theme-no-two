@@ -14,7 +14,7 @@ add_filter( 'the_content', 'make_clickable', 12); // After shortcodes are execut
  * Enable menues.
  */
 register_nav_menus( array(
-	'primary' => 'Primary Navigation',
+	'navbar' => 'Navigation bar',
 	'secondary' => 'Secondary Navigation',
 ) );
 
