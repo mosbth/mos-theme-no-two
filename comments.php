@@ -1,3 +1,4 @@
+<?php if(mos_has_content('comments-enabled')): ?>
 <div id="comments">
 	<?php if ( post_password_required() ) : ?>
 		<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', 'twentyeleven' ); ?></p>
@@ -28,3 +29,4 @@
   <?=comment_form(array('title_reply'=>'Lämna en kommentar'))?>
 
 </div><!-- #comments -->
+<?php endif; ?>

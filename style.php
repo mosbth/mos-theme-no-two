@@ -58,6 +58,7 @@ function autoCompileLess($inputFile, $outputFile) {
 // Compile and output the resulting css-file, use caching whenever suitable.
 $less = 'style.less';
 $css  = 'style.css';
+date_default_timezone_set('UTC');
 $changed = autoCompileLess($less, $css);
 $time = filemtime($css);
 

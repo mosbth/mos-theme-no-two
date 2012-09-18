@@ -17,15 +17,27 @@
 	<div id='inner-wrap-header'>
 		<div id='header'>
 			<div id='banner'>
-        <a href='<?=esc_url(get_home_url())?>'><img id='site-logo' <?=mos_get_content('site-logo')?> alt='logo' /></a>
-        <span id='site-title'><a href='<?=esc_url(get_home_url())?>' title='<?=esc_attr(get_bloginfo('name', 'display'))?>'><?=get_bloginfo('name')?></a></span>
-        <span id='site-slogan'><?=get_bloginfo('description')?></span>
+        <?php if(mos_has_content('site-logo')): ?><span id='site-logo'><a href='<?=esc_url(get_home_url())?>'><?=mos_get_content('site-logo')?></a></span><?php endif; ?>
+        <?php if(mos_has_content('site-title')): ?><span id='site-title'><a href='<?=esc_url(get_home_url())?>' title='<?=esc_attr(get_bloginfo('name', 'display'))?>'><?=get_bloginfo('name')?></a></span><?php endif; ?>
+        <?php if(mos_has_content('site-slogan')): ?><span id='site-slogan'><?=get_bloginfo('description')?></span><?php endif; ?>
+        <?php if(mos_has_content('site-extra')): ?><span id='site-extra'><?=mos_get_content('site-extra')?></span><?php endif; ?>
 			</div>
-			<div id='navbar'><?=wp_nav_menu(array('theme_location'=>'navbar'))?></div>
+   	  <?php if(mos_has_content('navbar2-class')): ?><div id='navbar2' class='<?=mos_get_content('navbar2-class')?>'><?=wp_nav_menu(array('theme_location'=>'navbar2'))?></div><?php endif; ?>
 		</div>
 	</div>
 </div>
 
+<?php if(mos_has_content('navbar1-class')): ?>
+<div id='outer-wrap-navbar'>
+	<div id='inner-wrap-navbar'>
+		<div id='navbar'>
+      <div id='navbar1' class='<?=mos_get_content('navbar1-class')?>'><?=wp_nav_menu(array('theme_location'=>'navbar1'))?></div>
+		</div>
+	</div>
+</div>
+<?php endif; ?>
+
+<?php if(mos_has_content('breadcrumb_enable')): ?>
 <div id='outer-wrap-header-below'>
 	<div id='inner-wrap-header-below'>
 		<div id='header-below'>
@@ -33,4 +45,4 @@
 		</div>
 	</div>
 </div>
-
+<?php endif; ?>

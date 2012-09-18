@@ -4,6 +4,55 @@
 
 @import url('style_lydia.less');
 
+//body:hover{background:#fff url(img/grid_24_30_10.png) repeat-y center top;}
+
+
+/** --------------------------------------------------------------
+ * Typography.
+ *
+ */
+body{font-family:@font-family-calibri;}
+h1,h2,h3,h4,h5,h6{font-family:@font-family-helvetica-neue;}
+
+/** --------------------------------------------------------------
+ * Header.
+ *
+ */
+#inner-wrap-header{}
+#header{}
+#header{border-bottom:none;height:4.5*@magic-number;}
+
+#banner{position:relative;
+	#site-logo{}
+	#site-title{vertical-align:top;}
+	#site-slogan{vertical-align:bottom;padding-left:80px;color:#666;font-style:italic;font-size:1.3em;}
+	#site-extra{display:table-cell;position:absolute;left:815px;top:4px;}
+}
+
+#flash{border:1px dotted #eee;}
+
+
+/** --------------------------------------------------------------
+ * Navbar.
+ *
+ */
+.nb-anna{font-family:@font-family-helvetica-neue;font-size:12px;
+  li{padding-right:1em;}
+  a:hover, a.selected, li.current-menu-item a{color:#5c5c5c;border-bottom-color:#f7da38;border-top-color:#f7da38;}
+}
+
+
+/** --------------------------------------------------------------
+ * Content & Sidebars.
+ *
+ */
+#primary{.column(17);}
+#sidebar-left{.column(7);height:@magic-number*24;position:relative;}
+//#sidebar-right{}
+
+.sb-left{position:relative;right:16px;height:inherit;width:255px;background-color:#5c5c5c;.border-radius(10px);color:#fff;}
+.sb-content{padding:14px;}
+//.sb-top-image{padding-top:8px;margin:0 auto;}
 
 /** --------------------------------------------------------------
  * Posts.
@@ -12,43 +61,6 @@
 .post h2{margin-top:0;}
 .box h4{margin-top:0;}
 
-#header{border-bottom:none;}
-
-#banner{
-	#site-logo{vertical-align:top;}
-	#site-title{vertical-align:top;}
-	#site-slogan{vertical-align:bottom;padding-left:80px;color:#666;font-style:italic;font-size:1.3em;}
-}
-
-#flash{border:1px dotted #eee;}
-
-/** --------------------------------------------------------------
- * Navbar
- */
-#navbar{.column(24);background-color:@bgcolor1;border-top:1px solid #ccc;border-bottom:1px solid #ccc;height:@magic-number;
-  ul{list-style-type:none;padding:0;margin:0;
-    li{padding:0;margin:0;display:inline;
-      a{text-decoration:none;border:none;padding:0 0.5em;font-size:@magic-number px;
-        &:hover{background:darken(@bgcolor1, 5%);border:none;}
-        &.selected{background:darken(@bgcolor1, 5%);border:none;}
-      }
-    }
-    li:first-child{padding-left:0.5em;}
-  }
-}
-
-/*
-#navbar{.column(24);
-  ul{list-style-type:none;padding:2px 8px;margin:0;
-    li{padding:0;margin:0;display:inline;
-      a{padding:6px 8px;text-decoration:none;border:2px solid transparent;
-        &:hover{background:#ddd;border:2px solid #999;}
-        &.selected{background:#ccc;border:2px solid #999;}
-      }
-    }
-  }
-}
-*/
 
 /*
 @font-color-article-title = #222;

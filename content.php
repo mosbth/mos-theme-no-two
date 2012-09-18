@@ -1,6 +1,6 @@
 <section id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
   <?php if ( 'post' == get_post_type() ) : ?><span class="published"><?=mos_posted_on()?></span><?php endif; ?>
-  <h2><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?=the_title()?></a></h2>
+  <h2><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>"><?=the_title()?></a></h2>
 
   <?php if ( is_search() ) : // Only display Excerpts for Search ?>
   <?php the_excerpt(); ?>
@@ -36,7 +36,7 @@
       <?php endif; // End if $tags_list ?>
     <?php endif; // End if 'post' == get_post_type() ?>
 
-    <?php if ( comments_open() ) : ?>
+    <?php if ( mos_has_content('comments-enabled') && comments_open() ) : ?>
       <?php if ( $show_sep ) : ?>
         <span class="sep"> | </span>
       <?php endif; // End if $show_sep ?>

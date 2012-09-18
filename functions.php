@@ -8,7 +8,7 @@
  * Include customizations for this theme
  *
  */
-$mos_customize_file = __DIR__ . '/functions_customize.php';
+$mos_customize_file = __DIR__ . '/config.php';
 if(is_file($mos_customize_file)) {
   include($mos_customize_file); 
 }
@@ -39,7 +39,7 @@ function mos_has_content($region) {
   global $mos_content_array;
   $regions = func_get_args($region);
   foreach($regions as $val) {
-  	if(isset($mos_content_array[$region]) && !is_null($mos_content_array[$region])) {
+  	if(isset($mos_content_array[$region]) && !empty($mos_content_array[$region])) {
   		return true;
   	}
   }
@@ -104,10 +104,14 @@ function mos_posted_on() {
 function mos_breadcrumb() {
  	global $mos_content_array;
  	
-  $showOnHome 	= $mos_content_array['breadcrumb_on_home'];
-  $home 				= $mos_content_array['breadcrumb_start'];
-  $delimiter 		= $mos_content_array['breadcrumb_delimiter'];
-  $showCurrent 	= $mos_content_array['breadcrumb_show_current'];
+ 	if(!$mos_content_array['breadcrumb-enable']) {
+ 	  return;
+ 	}
+ 	
+  $showOnHome 	= $mos_content_array['breadcrumb-on-home'];
+  $home 				= $mos_content_array['breadcrumb-start'];
+  $delimiter 		= $mos_content_array['breadcrumb-delimiter'];
+  $showCurrent 	= $mos_content_array['breadcrumb-show-current'];
   $before = '<span class="current">'; // tag before the current crumb
   $after = '</span>'; // tag after the current crumb
  
