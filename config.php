@@ -52,17 +52,25 @@ $mos_content_array = array(
   // Sidebars
   'sidebar-left-enabled' => true,
   'sidebar-right-enabled' => false,
-  'sidebar-left-content' => "
-    <div class='sb-left'>
-      <div class='sb-content'>
-        <img src='/img/text1.jpg' class='sb-top-image' alt='Jag formger skriver ritar och designar på papper och webb'/>
-      </div>
-    </div>
-  ",
+  'sidebar-left-content-default' => false,
+  'sidebar-left-content-before' => false,
+  'sidebar-left-content-after' => false,
+  //'sidebar-left-content-2' => "<img src='/img/text1.jpg' class='sb-top-image' alt='Jag formger skriver ritar och designar på papper och webb'/>",
+  'sidebar-left-content-page-2' => 115,
+  'sidebar-left-content-page-10' => 121,
+  'sidebar-left-content-page-8' => 123,
+  'sidebar-left-content-page-12' => 125,
+  'sidebar-left-content-page-19' => 127,
+  'sidebar-left-content-page-17' => 129,
+  'sidebar-left-content-page-15' => 132,
+  'sidebar-left-content-page-21' => 134,
   
   // Comments
   'comments-enabled' => false,
-  
+
+  // Edit link at content
+  'edit-link-enabled' => false,
+ 
 	// Flash
   //'flash' 	=> "<h4>Flash</h4>",
   

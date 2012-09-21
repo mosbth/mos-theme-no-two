@@ -17,13 +17,15 @@ if(is_file($mos_customize_file)) {
 /**
  * Return content to template page.
  *
+ * @param string $region
+ * @param boolen $text return "No content" or null.
  */
-function mos_get_content($region) {
+function mos_get_content($region, $text=true) {
   global $mos_content_array;
   if(isset($mos_content_array[$region])) {
     return $mos_content_array[$region];
   } else {
-    return __('No content for this region.');
+    return $text ? __('No content for this region.') : null;
   }  
 }
 
@@ -39,7 +41,7 @@ function mos_has_content($region) {
   global $mos_content_array;
   $regions = func_get_args($region);
   foreach($regions as $val) {
-  	if(isset($mos_content_array[$region]) && !empty($mos_content_array[$region])) {
+  	if(!empty($mos_content_array[$region])) {
   		return true;
   	}
   }
@@ -54,7 +56,7 @@ function mos_has_content($region) {
 function mos_get_title() {
 	global $page, $paged;
 
-	$title = wp_title( '|', false, 'right' ) . bloginfo( 'name' );
+	$title = wp_title( ' | ', false, 'right' ) . get_bloginfo( 'name' );
 
 	// Add the blog description for the home/front page.
 	$site_description = get_bloginfo( 'description', 'display' );

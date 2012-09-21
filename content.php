@@ -43,6 +43,8 @@
       <span class="comments-link"><?php comments_popup_link( '<span class="leave-reply">' . __( 'Lämna en kommentar', 'mos' ) . '</span>', __( '<b>1</b> kommentar', 'twentyeleven' ), __( '<b>%</b> kommentarer', 'twentyeleven' ) ); ?></span>
     <?php endif; // End if comments_open() ?>
 
-    | <?=edit_post_link( __( 'Redigera', 'mos' ), '<span class="edit-link">', '</span>' ); ?>
+    <?php if ( mos_has_content('edit-link-enabled') ) : ?>
+      <?=edit_post_link( __( 'Redigera', 'mos' ), '<span class="edit-link">', '</span>' ); ?>
+    <?php endif; ?>
   </footer><!-- #entry-meta -->
 </section><!-- #post-<?php the_ID(); ?> -->
