@@ -36,7 +36,10 @@ $mos_content_array = array(
   'site-logo' => "<img src='/img/logo.jpg' height='34' width='137' alt='logo' />",
   'site-title' => false,
   'site-slogan' => false,
-  'site-extra' => "<img src='/img/sign_anna_handell.jpg' height='83' width='140' alt='Anna Handell' />",
+  'site-extra' => "<img src='/img/sign.jpg' height='53' width='111' alt='Anna Handell' />",
+
+  // General
+  'show-title-on-pages' => false,
 
 	// Navbars
 	'navbar1-class' => false, //'nb-standard', 

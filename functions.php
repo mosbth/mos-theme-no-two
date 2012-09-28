@@ -56,7 +56,7 @@ function mos_has_content($region) {
 function mos_get_title() {
 	global $page, $paged;
 
-	$title = wp_title( ' | ', false, 'right' ) . get_bloginfo( 'name' );
+	$title = wp_title( ' - ', false, 'right' ) . get_bloginfo( 'name' );
 
 	// Add the blog description for the home/front page.
 	$site_description = get_bloginfo( 'description', 'display' );
@@ -71,6 +71,29 @@ function mos_get_title() {
 	
 	return $title;
 }
+
+/*
+function mos_get_title( $title, $sep, $seplocation ) {
+    // account for $seplocation
+    $left_sep = ( $seplocation != 'right' ? ' ' . $sep . ' ' : '' );
+    $right_sep = ( $seplocation != 'right' ? '' : ' ' . $sep . ' ' );
+ 
+    // get special page type (if any)
+    if( is_category() ) $page_type = $left_sep . 'Category' . $right_sep;
+    elseif( is_tag() ) $page_type = $left_sep . 'Tag' . $right_sep;
+    elseif( is_author() ) $page_type = $left_sep . 'Author' . $right_sep;
+    elseif( is_archive() || is_date() ) $page_type = $left_sep . 'Archives'. $right_sep;
+    else $page_type = '';
+ 
+    // get the page number
+    if( get_query_var( 'paged' ) ) $page_num = $left_sep. get_query_var( 'paged' ) . $right_sep; // on index
+    elseif( get_query_var( 'page' ) ) $page_num = $left_sep . get_query_var( 'page' ) . $right_sep; // on single
+    else $page_num = '';
+ 
+    // concoct and return title
+    return get_bloginfo( 'name' ) . $page_type . $title . $page_num;
+}
+add_filter( 'wp_title', 'mos_get_title', 10, 3 );*/
 
 
 /**

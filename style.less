@@ -11,7 +11,7 @@
  * Typography.
  *
  */
-body{font-family:@font-family-calibri;}
+body{font-family:@font-family-calibri;font-size:14px;}
 h1,h2,h3,h4,h5,h6{font-family:@font-family-helvetica-neue;}
 
 /** --------------------------------------------------------------
@@ -36,7 +36,7 @@ h1,h2,h3,h4,h5,h6{font-family:@font-family-helvetica-neue;}
  * Navbar.
  *
  */
-.nb-anna{font-family:@font-family-helvetica-neue;font-size:12px;
+.nb-anna{font-family:@font-family-calibri;font-size:12px;
   li{padding-right:1em;}
   a:hover, a.selected, li.current-menu-item a{color:#5c5c5c;border-bottom-color:#f7da38;border-top-color:#f7da38;}
 }
@@ -50,14 +50,15 @@ h1,h2,h3,h4,h5,h6{font-family:@font-family-helvetica-neue;}
 #sidebar-left{.column(7);min-height:@magic-number*24;position:relative;}
 //#sidebar-right{}
 
-.sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#f5f5f5;color:#333;
+.sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#fff;color:#333;
   .sb-content{padding:14px;}
   
-  &.page-2{background-color:#5c5c5c;color:#fff;
+  &.page-2, &.page-21{background-color:#5c5c5c;color:#fff;
     a{color:#fff;
       &:hover{color:#f7da38;}
     }
   }
+  h1, h2{color:#fff;font-size:16px;font-weight:bold;text-decoration:none;}
 }
 
 

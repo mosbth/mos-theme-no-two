@@ -1197,6 +1197,7 @@ figure figcaption {
 }
 body {
   font-family: Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 h1,
 h2,
@@ -1233,7 +1234,7 @@ h6 {
   border: 1px dotted #eee;
 }
 .nb-anna {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
 .nb-anna li {
@@ -1268,21 +1269,31 @@ h6 {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   color: #333;
 }
 .sb-left .sb-content {
   padding: 14px;
 }
-.sb-left.page-2 {
+.sb-left.page-2,
+.sb-left.page-21 {
   background-color: #5c5c5c;
   color: #fff;
 }
-.sb-left.page-2 a {
+.sb-left.page-2 a,
+.sb-left.page-21 a {
   color: #fff;
 }
-.sb-left.page-2 a:hover {
+.sb-left.page-2 a:hover,
+.sb-left.page-21 a:hover {
   color: #f7da38;
+}
+.sb-left h1,
+.sb-left h2 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
 }
 .post h2 {
   margin-top: 0;
