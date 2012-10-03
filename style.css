@@ -1312,3 +1312,22 @@ html.mos-plain #footer {
   border: none;
   letter-spacing: 0.5px;
 }
+html.mos-sifero body {
+  background: #fff url(/img/stil/topp.jpg) no-repeat center top;
+}
+html.mos-sifero #header {
+  border-bottom: none;
+  padding-top: 66px;
+}
+html.mos-sifero #outer-wrap-footer {
+  border: none;
+  background: #fff url(/img/stil/botten_linje.jpg) no-repeat center top;
+  padding-top: 66px;
+}
+html.mos-sifero #inner-wrap-footer {
+  padding: 0;
+}
+html.mos-sifero #footer {
+  border: none;
+  letter-spacing: 1px;
+}
