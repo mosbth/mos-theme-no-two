@@ -1,8 +1,7 @@
 Wordpress base theme: Mos Theme No Two
 ======================================
 
-Second try to make a robust WP-theme easy to customize. This version of the theme is running live
-at http://dbwebb.se/blogg and the intention is to make it easy to use for other projects as well.
+Second try to make a robust WP-theme easy to customize. 
 
 
 Use of external libraries
@@ -26,15 +25,7 @@ by Tyler Tate/TwigKit to get grid layout through LESS.
 * Path: included in `style.less`
 
 ### Modernizr
-by .
-
-
-### style.less
-by Mikael Roos, included in Lydia.
-
-### style.php
-by Mikael Roos
-
+http://modernizr.com/
 
 
 Files and directories
@@ -56,15 +47,18 @@ Template files
 `sidebar-category.php` displays sidebar when a category is displayed.
 
 
-Functions
+Functions & settings
 
 `functions.php` theming functions and for fixed content.
-`functions_customize.php` instead of subtheming you may customize the theme with settings here.
+`config.php` instead of subtheming you may customize the theme with settings by creating this file.
+`config_default.php` if you do not create a `config.php` then this will be loaded as default.
+`config_plain.php` use this as base to get minimum content and style.
+`config_default.php` use this as base to get a view of full theme support.
 
 
 Images
 
-`img` here all images are stored.
+`img` here all images are stored that comes with the theme.
 
 
 Includes and addons
@@ -86,8 +80,11 @@ Languages
 
 Stylesheets
 
-`styles`directory for extra stylesheet files.
-`style.less` the site stylesheet in less language.
+`style.less` the site stylesheet, make your own modifications here.
+`style_lydia.less` style from lydia.
+`style_wordpress.less` style specific for wordpress.
+`style_theme.less` style specific for each `config_file.php`.
+`style_meta.css` contain informatino on the theme, displayed by wordpress admin, obsolete?
 `style.php` manage creation and caching of stylesheets when in development mode.
 `style.css` the latest by `style.php` generated stylesheet.
 `style.less.cache` a cached and compiled vaiant of the current stylesheet.
@@ -98,7 +95,7 @@ Other
 
 `README.md` this file.
 `screenshot.jpg` an image of this theme.
-`license.txt` license text for the theme.
+`LICENSE.txt` license text for the theme.
 
 
 To Do
@@ -131,17 +128,21 @@ Configurable footer through GUI
   
 Stylesheet for print.
 Language
-Modernizer for HTML5 on ie.
 
   
 History
 --------------------------------------
 
-v0.1.x (latest)
+v0.2.0 (2012-10-03)
 
+* Added `config_plain.php`, `config_default.php` and `config_all.php`. All customisations
+should be done in `config.php` which is no longer part of the distro.
 * Updated to latest version v0.3.8 of lessphp. Added file LICENSE and README.md for lessphp.
 * Latest version of style.php.
 * Changed name of `style.top.css` to `style_meta.css`.
+* Added modernizr javascript library.
+* Added functionality and rearranged files. Major rework.
+
 
 v0.1.1 (2012-03-26)
 
