@@ -9,8 +9,7 @@
  */
 $mos_current_url = mos_get_current_url();
 $mos_content_array = array(
-  'config-class' => 'mos-plain',
-  'stylesheet_all' => get_stylesheet_directory_uri().'/style.php', // development
+  'stylesheet-all' => get_stylesheet_directory_uri().'/style.php', // development
   //'stylesheet_all' => get_stylesheet_directory_uri().'/style.css', // production
   //'stylesheet_print' => get_stylesheet_directory_uri().'/print.css',
   'modernizer' => get_stylesheet_directory_uri().'/js/modernizer.js',
