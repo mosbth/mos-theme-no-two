@@ -1,4 +1,4 @@
-a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:21522:"html,
+a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:20689:"html,
 body,
 div,
 span,
@@ -662,6 +662,32 @@ body {
 .nb-standard ul li:first-child {
   padding-left: 0.5em;
 }
+.nb-plain ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.nb-plain li {
+  padding: 0;
+  padding-right: 1em;
+  margin: 0;
+  display: inline;
+}
+.nb-plain a {
+  text-decoration: none;
+  border: none;
+  text-transform: uppercase;
+  color: #222;
+  padding: 0.2em 0;
+}
+.nb-plain a:hover,
+.nb-plain a.selected,
+.nb-plain li.current-menu-item a,
+.nb-plain li.current_page_item a {
+  text-decoration: underline;
+  border: none;
+  color: #19194D;
+}
 .nb-anna ul {
   list-style-type: none;
   padding: 0;
@@ -982,14 +1008,6 @@ section {
 #footer-column-two a {
   display: block;
 }
-#footer-column-nine {
-  display: inline;
-  float: left;
-  width: 950px;
-  margin: 0 5px;
-  margin-top: 22px;
-  padding-bottom: 22px;
-}
 #outer-wrap-footer {
   background-color: #f3f3ff;
   border-top: 1px solid #bbb;
@@ -1195,106 +1213,6 @@ figure figcaption {
 .right {
   float: right;
 }
-body {
-  font-family: Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-#header {
-  border-bottom: none;
-  height: 99px;
-}
-#banner {
-  position: relative;
-}
-#banner #site-title {
-  vertical-align: top;
-}
-#banner #site-slogan {
-  vertical-align: bottom;
-  padding-left: 80px;
-  color: #666;
-  font-style: italic;
-  font-size: 1.3em;
-}
-#banner #site-extra {
-  display: table-cell;
-  position: absolute;
-  left: 815px;
-  top: 4px;
-}
-#flash {
-  border: 1px dotted #eee;
-}
-.nb-anna {
-  font-family: Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-}
-.nb-anna li {
-  padding-right: 1em;
-}
-.nb-anna a:hover,
-.nb-anna a.selected,
-.nb-anna li.current-menu-item a {
-  color: #5c5c5c;
-  border-bottom-color: #f7da38;
-  border-top-color: #f7da38;
-}
-#primary {
-  display: inline;
-  float: left;
-  width: 670px;
-  margin: 0 5px;
-}
-#sidebar-left {
-  display: inline;
-  float: left;
-  width: 270px;
-  margin: 0 5px;
-  min-height: 528px;
-  position: relative;
-}
-.sb-left {
-  min-height: 528px;
-  position: relative;
-  right: 16px;
-  width: 255px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  background-color: #fff;
-  color: #333;
-}
-.sb-left .sb-content {
-  padding: 14px;
-}
-.sb-left.page-2,
-.sb-left.page-21 {
-  background-color: #5c5c5c;
-  color: #fff;
-}
-.sb-left.page-2 a,
-.sb-left.page-21 a {
-  color: #fff;
-}
-.sb-left.page-2 a:hover,
-.sb-left.page-21 a:hover {
-  color: #f7da38;
-}
-.sb-left h1,
-.sb-left h2 {
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-}
 .post h2 {
   margin-top: 0;
 }
@@ -1358,4 +1276,40 @@ h6 {
   color: #666;
   font-size: smaller;
 }
-";s:5:"files";a:2:{s:80:"/usr/home/mos/htdocs/montage.se/wp/wp-content/themes/mos-theme-no-two/style.less";i:1348827164;s:86:"/usr/home/mos/htdocs/montage.se/wp/wp-content/themes/mos-theme-no-two/style_lydia.less";i:1348212728;}s:7:"updated";i:1348827168;}
+html.mos-default #header,
+html.mos-all #header {
+  border-bottom: none;
+}
+html.mos-default #banner #site-title,
+html.mos-all #banner #site-title {
+  vertical-align: top;
+}
+html.mos-default #banner #site-slogan,
+html.mos-default #banner #site-extra,
+html.mos-all #banner #site-slogan,
+html.mos-all #banner #site-extra {
+  vertical-align: middle;
+  padding-left: 80px;
+  color: #666;
+  font-style: italic;
+  font-size: 1.3em;
+}
+html.mos-default #banner #site-extra,
+html.mos-all #banner #site-extra {
+  display: table-cell;
+}
+html.mos-plain {
+  background-color: #fff;
+}
+html.mos-plain #outer-wrap-footer {
+  border: none;
+  background-color: #fff;
+}
+html.mos-plain #inner-wrap-footer {
+  padding: 0;
+}
+html.mos-plain #footer {
+  border: none;
+  letter-spacing: 0.5px;
+}
+";s:5:"files";a:4:{s:81:"/usr/home/mos/htdocs/lokauppi.se/wp/wp-content/themes/mos-theme-no-two/style.less";i:1349266087;s:87:"/usr/home/mos/htdocs/lokauppi.se/wp/wp-content/themes/mos-theme-no-two/style_lydia.less";i:1349267031;s:91:"/usr/home/mos/htdocs/lokauppi.se/wp/wp-content/themes/mos-theme-no-two/style_wordpress.less";i:1349264354;s:87:"/usr/home/mos/htdocs/lokauppi.se/wp/wp-content/themes/mos-theme-no-two/style_theme.less";i:1349266686;}s:7:"updated";i:1349267032;}

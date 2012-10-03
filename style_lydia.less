@@ -521,6 +521,13 @@ border-bottom:1px dotted #999;}
   }
 }
 
+.nb-plain{
+  ul{list-style-type:none;padding:0;margin:0;}
+  li{padding:0;padding-right:1em;margin:0;display:inline;}
+  a{text-decoration:none;border:none;text-transform:uppercase;color:#222;padding:0.2em 0;}
+  a:hover, a.selected, li.current-menu-item a, li.current_page_item a{text-decoration:underline;border:none;color:@anchorColor;}
+  //li:first-child{padding-left:0;}
+}
 
 .nb-anna{
   ul{list-style-type:none;padding:0;margin:0;}
@@ -670,7 +677,7 @@ section{margin-bottom:@magic-number*2;}
   a {display:block;}
 }
 
-#footer-column-nine{.column(24);margin-top:@magic-number;padding-bottom:@magic-number;}
+//#footer-column-nine{.column(24);margin-top:@magic-number;padding-bottom:@magic-number;}
 
 
 /** --------------------------------------------------------------

@@ -1,9 +1,15 @@
 /** 
  * Description: Grid theme for Lydia based on less, lessphp and semantic.gs.
  */
-
 @import url('style_lydia.less');
+@import url('style_wordpress.less');
+@import url('style_theme.less');
 
+
+/** --------------------------------------------------------------
+ * General.
+ *
+ */
 //body:hover{background:#fff url(img/grid_24_30_10.png) repeat-y center top;}
 
 
@@ -11,138 +17,27 @@
  * Typography.
  *
  */
-body{font-family:@font-family-calibri;font-size:14px;}
-h1,h2,h3,h4,h5,h6{font-family:@font-family-helvetica-neue;}
+
 
 /** --------------------------------------------------------------
  * Header.
  *
  */
-#inner-wrap-header{}
-#header{}
-#header{border-bottom:none;height:4.5*@magic-number;}
-
-#banner{position:relative;
-	#site-logo{}
-	#site-title{vertical-align:top;}
-	#site-slogan{vertical-align:bottom;padding-left:80px;color:#666;font-style:italic;font-size:1.3em;}
-	#site-extra{display:table-cell;position:absolute;left:815px;top:4px;}
-}
-
-#flash{border:1px dotted #eee;}
 
 
 /** --------------------------------------------------------------
  * Navbar.
  *
  */
-.nb-anna{font-family:@font-family-calibri;font-size:12px;
-  li{padding-right:1em;}
-  a:hover, a.selected, li.current-menu-item a{color:#5c5c5c;border-bottom-color:#f7da38;border-top-color:#f7da38;}
-}
 
 
 /** --------------------------------------------------------------
  * Content & Sidebars.
  *
  */
-#primary{.column(17);}
-#sidebar-left{.column(7);min-height:@magic-number*24;position:relative;}
-//#sidebar-right{}
-
-.sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#fff;color:#333;
-  .sb-content{padding:14px;}
-  
-  &.page-2, &.page-21{background-color:#5c5c5c;color:#fff;
-    a{color:#fff;
-      &:hover{color:#f7da38;}
-    }
-  }
-  h1, h2{color:#fff;font-size:16px;font-weight:bold;text-decoration:none;}
-}
-
-
-/*.sb-left.page-2{background-color:#5c5c5c;color:#fff;
-  a{color:#fff;
-    &:hover{color:#f7da38;}
-  }
-} */
-
-//.sb-top-image{padding-top:8px;margin:0 auto;}
-
-/** --------------------------------------------------------------
- * Posts.
- *
- */
-.post h2{margin-top:0;}
-.box h4{margin-top:0;}
-
-.edit-link{color:#eee;font-size:smaller;
-  a{color:#999;text-decoration:none;
-    &:hover{color:#666;text-decoration:underline;}
-  }
-}
-
-/*
-@font-color-article-title = #222;
-
-#content{}
-
-article{margin-bottom:@magic-number*4;
-  &.page{
-    h1.entry-title{}
-  }
-}
-
-.entry-header{
-  a{text-decoration:none;color:@font-color-article-title;
-    &:hover{color:@font-color-a}
-  }
-  .entry-meta{font-style:italic;color:#999;font-size:smaller;
-    a{color:#999;}
-  }
-}
-
-.entry-content{margin-bottom:@magic-number*2;}
-
-footer.entry-meta{font-style:italic;margin-bottom:@magic-number;font-size:smaller;color:#999;
-  a{color:#999;text-decoration:none;
-    &:hover{text-decoration:underline;color:@font-color-a;}
-  }
-}
-*/
-
-/** --------------------------------------------------------------
- * Category.
- *
- */
-.category-archive-meta{margin-bottom:@magic-number*4;}
 
 
 /** --------------------------------------------------------------
- * Comments.
+ * Footer.
  *
  */
-.nocomments{display:none;}
-#comments{
-  #comments-title,#reply-title{border-bottom:2px solid #222;}
-  .comment-author{color:#999;font-size:smaller;
-    a{color:#999;text-decoration:none;
-      &:hover{text-decoration:underline;}
-    }
-    img{float:right;}
-  }
-  .reply{font-size:smaller;
-    a{color:#999;text-decoration:none;
-      &:hover{text-decoration:underline;}
-    }    
-  }
-}
-
-#commentform{
-  input[type=text]{width:100%}
-  textarea{width:100%;}
-}
-
-.form-allowed-tags, .logged-in-as{color:#666;font-size:smaller;}
-
