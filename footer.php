@@ -46,6 +46,8 @@
 
 <?=wp_footer()?>
 
+<?php if(mos_has_content('development')): ?><?=mos_get_content('development')?><?php endif; ?>
+
 <?php if(mos_has_content('google-analytics')): ?>
 <script>
   var _gaq=[['_setAccount','<?=mos_get_content('google-analytics')?>'],['_trackPageview']];

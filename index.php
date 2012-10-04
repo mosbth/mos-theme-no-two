@@ -46,8 +46,8 @@
           <?php endif?>
         </div>
       </div>
-      <?php if(mos_has_content('sidebar-right')): ?>
-      <div id='sidebar-right' class='widget-area' role='complementary'>
+      <?php if(mos_has_content('sidebar-right-enabled')): ?>
+      <div id='sidebar-right'>
         <?=get_sidebar('right')?>
       </div>
       <?php endif; ?>

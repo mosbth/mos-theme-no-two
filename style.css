@@ -1219,14 +1219,19 @@ figure figcaption {
 .box h4 {
   margin-top: 0;
 }
+.cat-links,
+.tag-links,
 .edit-link {
-  color: #eee;
   font-size: smaller;
 }
+.cat-links a,
+.tag-links a,
 .edit-link a {
   color: #999;
   text-decoration: none;
 }
+.cat-links a:hover,
+.tag-links a:hover,
 .edit-link a:hover {
   color: #666;
   text-decoration: underline;
@@ -1312,12 +1317,135 @@ html.mos-plain #footer {
   border: none;
   letter-spacing: 0.5px;
 }
+html.mos-sifero {
+  background-color: #fff;
+}
 html.mos-sifero body {
   background: #fff url(/img/stil/topp.jpg) no-repeat center top;
+}
+html.mos-sifero body.page #inner-wrap-main,
+html.mos-sifero body.single-post #inner-wrap-main {
+  background-image: none;
+}
+html.mos-sifero body.page #inner-wrap-main #primary,
+html.mos-sifero body.single-post #inner-wrap-main #primary {
+  display: inline;
+  float: left;
+  width: 470px;
+  margin: 0 5px;
 }
 html.mos-sifero #header {
   border-bottom: none;
   padding-top: 66px;
+}
+html.mos-sifero #flash {
+  display: inline;
+  float: left;
+  width: 310px;
+  margin: 0 5px;
+  margin-bottom: 44px;
+}
+html.mos-sifero #flash h1 {
+  font-size: 1em;
+  line-height: 1;
+  border: none;
+  font-style: italic;
+  margin-bottom: 7.3333333333333px;
+}
+html.mos-sifero #flash p {
+  font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+  margin-bottom: 7.3333333333333px;
+}
+html.mos-sifero #inner-wrap-featured {
+  width: 960px;
+  margin: 0 auto;
+  *zoom: 1;
+  border: none;
+}
+html.mos-sifero #inner-wrap-featured:before,
+html.mos-sifero #inner-wrap-featured:after {
+  content: "";
+  display: table;
+}
+html.mos-sifero #inner-wrap-featured:after {
+  clear: both;
+}
+html.mos-sifero #featured-first,
+html.mos-sifero #featured-middle,
+html.mos-sifero #featured-last {
+  display: inline;
+  float: left;
+  width: 310px;
+  margin: 0 5px;
+  height: 100%;
+  padding-bottom: 22px;
+}
+html.mos-sifero #featured-first h2,
+html.mos-sifero #featured-middle h2,
+html.mos-sifero #featured-last h2 {
+  font-style: italic;
+  font-size: 1.375em;
+  line-height: 1;
+  border: none;
+  color: #0c1900;
+}
+html.mos-sifero #featured-first h2 a,
+html.mos-sifero #featured-middle h2 a,
+html.mos-sifero #featured-last h2 a {
+  text-decoration: none;
+  color: #0c1900;
+}
+html.mos-sifero #featured-first h2 a:hover,
+html.mos-sifero #featured-middle h2 a:hover,
+html.mos-sifero #featured-last h2 a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+html.mos-sifero #featured-first p,
+html.mos-sifero #featured-middle p,
+html.mos-sifero #featured-last p {
+  padding-right: 1em;
+  margin-bottom: 7.3333333333333px;
+}
+html.mos-sifero #inner-wrap-main {
+  background: transparent url(/img/stil/linje.jpg) no-repeat center top;
+  padding-top: 44px;
+}
+html.mos-sifero #inner-wrap-main h2 {
+  border: none;
+  color: #0c1900;
+}
+html.mos-sifero #inner-wrap-main h2 a {
+  text-decoration: none;
+}
+html.mos-sifero #inner-wrap-main h2 a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+html.mos-sifero #inner-wrap-main .blog {
+  border: none;
+}
+html.mos-sifero #inner-wrap-main #tags a {
+  text-decoration: none;
+}
+html.mos-sifero #inner-wrap-main #tags a:hover {
+  text-decoration: underline;
+}
+html.mos-sifero #inner-wrap-main #sidebar .box,
+html.mos-sifero #inner-wrap-main #sidebar-left .box,
+html.mos-sifero #inner-wrap-main #sidebar-right .box {
+  border: none;
+  padding-top: 0;
+  margin-bottom: 44px;
+  padding-left: 0;
+  padding-right: 0;
+}
+html.mos-sifero #inner-wrap-main #sidebar .box h4,
+html.mos-sifero #inner-wrap-main #sidebar-left .box h4,
+html.mos-sifero #inner-wrap-main #sidebar-right .box h4 {
+  font-style: italic;
+  color: #0c1900;
 }
 html.mos-sifero #outer-wrap-footer {
   border: none;
@@ -1330,4 +1458,10 @@ html.mos-sifero #inner-wrap-footer {
 html.mos-sifero #footer {
   border: none;
   letter-spacing: 1px;
+}
+html.mos-sifero a {
+  color: #615616;
+}
+html.mos-sifero a:hover {
+  color: #76681b;
 }
