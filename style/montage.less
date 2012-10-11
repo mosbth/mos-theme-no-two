@@ -38,14 +38,29 @@ html.mos-montage{background-color:#fff;
 
 
   /** --------------------------------------------------------------
+   * Firstpage.
+   *
+   */
+  .first-wrap{.row(17);}
+  .first-gutter{.column(1,17);}
+
+  .first-blog,
+  .first-twitter{.column(8,17);height:@magic-number*12;}
+
+  .first-blog{
+    h2{border:none;font-size: @font-size-h;line-height:1;}
+  }
+  .first-twitter{background: transparent url(/img/twitterruta.jpg) no-repeat top center;}
+
+
+  /** --------------------------------------------------------------
    * Navbar.
    *
    */
   .nb-anna{font-family:@font-family-calibri;font-size:12px;
     li{padding-right:2em;letter-spacing:1px;}
-    a:hover, a.selected, li.current-menu-item a{color:#5c5c5c;border-bottom-color:#5c5c5c;border-top-color:#5c5c5c;}
+    a:hover, a.selected, li.current-menu-item a, li.current_page_parent a{color:#5c5c5c;border-bottom-color:#5c5c5c;border-top-color:#5c5c5c;}
   }
-
 
   /** --------------------------------------------------------------
    * Content & Sidebars.
@@ -67,11 +82,18 @@ html.mos-montage{background-color:#fff;
         &:hover{color:#f7da38;}
       }
     }
-    h1, h2{color:#fff;font-size:@font-size-h;font-weight:bold;letter-spacing:2px;margin-bottom: 10px;
+    h1, h2{color:#333;font-size:@font-size-h;font-weight:bold;letter-spacing:2px;margin-bottom: 10px;
       a{text-decoration:none;}
     }
+
+    .widget{margin-bottom: @magic-number*2; margin-top: @magic-number*2;}
   }
   
+  .post{
+    h2 a {text-decoration:none;
+      &:hover{text-decoration: underline;}
+    }
+  }
   
   /** --------------------------------------------------------------
    * Footer.

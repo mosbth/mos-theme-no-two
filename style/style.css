@@ -740,6 +740,11 @@ body {
 .nb-anna li:first-child {
   padding-left: 0;
 }
+#breadcrumb {
+  font-size: 0.875em;
+  line-height: 1.5714;
+  color: #999;
+}
 #breadcrumb ul.breadcrumb {
   list-style-type: none;
   padding: 0;
@@ -749,8 +754,6 @@ body {
   padding: 0;
   margin: 0;
   display: inline;
-  font-size: 0.875em;
-  line-height: 1.5714;
 }
 #breadcrumb a {
   text-decoration: none;
@@ -1389,6 +1392,42 @@ html.mos-montage #banner #site-extra {
   left: 815px;
   top: 4px;
 }
+html.mos-montage .first-wrap {
+  display: block;
+  width: 690px;
+  margin: 0 -5px;
+  *zoom: 1;
+}
+html.mos-montage .first-wrap:before,
+html.mos-montage .first-wrap:after {
+  content: "";
+  display: table;
+}
+html.mos-montage .first-wrap:after {
+  clear: both;
+}
+html.mos-montage .first-gutter {
+  display: inline;
+  float: left;
+  width: 30px;
+  margin: 0 5px;
+}
+html.mos-montage .first-blog,
+html.mos-montage .first-twitter {
+  display: inline;
+  float: left;
+  width: 310px;
+  margin: 0 5px;
+  height: 264px;
+}
+html.mos-montage .first-blog h2 {
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+}
+html.mos-montage .first-twitter {
+  background: transparent url(/img/twitterruta.jpg) no-repeat top center;
+}
 html.mos-montage .nb-anna {
   font-family: Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
@@ -1399,7 +1438,8 @@ html.mos-montage .nb-anna li {
 }
 html.mos-montage .nb-anna a:hover,
 html.mos-montage .nb-anna a.selected,
-html.mos-montage .nb-anna li.current-menu-item a {
+html.mos-montage .nb-anna li.current-menu-item a,
+html.mos-montage .nb-anna li.current_page_parent a {
   color: #5c5c5c;
   border-bottom-color: #5c5c5c;
   border-top-color: #5c5c5c;
@@ -1447,7 +1487,7 @@ html.mos-montage .sb-left.page-21 a:hover {
 }
 html.mos-montage .sb-left h1,
 html.mos-montage .sb-left h2 {
-  color: #fff;
+  color: #333;
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 2px;
@@ -1456,6 +1496,16 @@ html.mos-montage .sb-left h2 {
 html.mos-montage .sb-left h1 a,
 html.mos-montage .sb-left h2 a {
   text-decoration: none;
+}
+html.mos-montage .sb-left .widget {
+  margin-bottom: 44px;
+  margin-top: 44px;
+}
+html.mos-montage .post h2 a {
+  text-decoration: none;
+}
+html.mos-montage .post h2 a:hover {
+  text-decoration: underline;
 }
 html.mos-montage #outer-wrap-footer {
   border: none;

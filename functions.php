@@ -144,13 +144,20 @@ function mos_posted_on() {
 
 /**
  * Create a breadcrumb, based on dimox_breadcrumbs()
+ *
+ * @param $pageTemplate to say what template is calling the method.
  */
-function mos_breadcrumb() {
+function mos_breadcrumb($pageTemplate=null) {
  	global $mos_content_array;
  	
- 	if(!$mos_content_array['breadcrumb-enable']) {
- 	  return;
- 	}
+ 	if($pageTemplate === null   && $mos_content_array['breadcrumb-enable'] ||
+     $pageTemplate === 'home' && $mos_content_array['breadcrumb-enable-home'] ||
+     $pageTemplate === 'archive' && $mos_content_array['breadcrumb-enable-archive'] ||
+     $pageTemplate === 'single' && $mos_content_array['breadcrumb-enable-single']) {
+    ; // pass
+  } else {
+    return;
+  }
  	
   $showOnHome 	= $mos_content_array['breadcrumb-on-home'];
   $home 				= $mos_content_array['breadcrumb-start'];
@@ -160,7 +167,7 @@ function mos_breadcrumb() {
   $after = '</span>'; // tag after the current crumb
  
   global $post;
-  $homeLink = get_bloginfo('url');
+  $homeLink = get_bloginfo('url') . '/' . $mos_content_array['breadcrumb-start-url'];
  
   if (is_home() || is_front_page()) {
  
