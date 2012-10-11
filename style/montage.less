@@ -1,0 +1,85 @@
+/** --------------------------------------------------------------
+ * Sifero style.
+ *
+ */
+@font-size-h: 18px;
+@font-size-p: 13px;
+@line-height-p: 1.3em;
+@font-family-apercu: "ApercuRegular", Arial, Helvetica, sans-serif;
+ 
+//@color-headers: #0c1900;
+/*
+@font-family-helvetica: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-calibri: Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-helvetica-neue: "Helvetica Neue", Helvetica, Arial, sans-serif;
+*/
+
+html.mos-montage{background-color:#fff;
+  //body:hover{background:#fff url(img/grid_24_30_10.png) repeat-y center top;}
+
+  /** --------------------------------------------------------------
+   * Typography.
+   *
+   */
+  body{font-family:@font-family-calibri;font-size:@font-size-p;line-height:@line-height-p;}
+  h1,h2,h3,h4,h5,h6{font-family:@font-family-calibri;}
+
+
+  /** --------------------------------------------------------------
+   * Header.
+   *
+   */
+  #header{border-bottom:none;height:4.5*@magic-number;}
+  #banner{position:relative;
+    #site-title{vertical-align:top;}
+    #site-slogan{vertical-align:bottom;padding-left:80px;color:#666;font-style:italic;font-size:1.3em;}
+    #site-extra{display:table-cell;position:absolute;left:815px;top:4px;}
+  }
+
+
+  /** --------------------------------------------------------------
+   * Navbar.
+   *
+   */
+  .nb-anna{font-family:@font-family-calibri;font-size:12px;
+    li{padding-right:2em;letter-spacing:1px;}
+    a:hover, a.selected, li.current-menu-item a{color:#5c5c5c;border-bottom-color:#5c5c5c;border-top-color:#5c5c5c;}
+  }
+
+
+  /** --------------------------------------------------------------
+   * Content & Sidebars.
+   *
+   */
+  #primary{.column(17);}
+  #sidebar-left{.column(7);min-height:@magic-number*24;position:relative;}
+  //#sidebar-right{}
+  
+  .sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#f5f5f5;color:#333;
+    .sb-content{padding:14px;
+      //p:first-child{letter-spacing:0.5px;}
+      //p{letter-spacing:0px;}
+      //p:last-child{letter-spacing:1px;}
+    }
+    
+    &.page-2, &.page-21{background-color:#5c5c5c;color:#fff;
+      a{color:#fff;
+        &:hover{color:#f7da38;}
+      }
+    }
+    h1, h2{color:#fff;font-size:@font-size-h;font-weight:bold;letter-spacing:2px;margin-bottom: 10px;
+      a{text-decoration:none;}
+    }
+  }
+  
+  
+  /** --------------------------------------------------------------
+   * Footer.
+   *
+   */
+  #outer-wrap-footer{border:none;background-color:#fff;}
+  #inner-wrap-footer{padding:0;}
+  #footer{border:none;letter-spacing:0.5px;}
+
+
+}
