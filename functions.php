@@ -24,8 +24,8 @@ register_nav_menus( array(
  * Include customizations for this theme
  *
  */
-$mos_customize_file = __DIR__ . '/config.php';
-$mos_customize_file_default = __DIR__ . '/config_default.php';
+$mos_customize_file = __DIR__ . '/config/config.php';
+$mos_customize_file_default = __DIR__ . '/config/config_default.php';
 if(is_file($mos_customize_file)) {
   include($mos_customize_file); 
 } elseif(is_file($mos_customize_file_default)) {

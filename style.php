@@ -22,7 +22,7 @@
  *
  */
 // Include the lessphp-compiler
-include dirname(__FILE__)."/lessphp/lessc.inc.php";
+include dirname(__FILE__)."/style/lessphp/lessc.inc.php";
 
 // Use gzip if available
 ob_start("ob_gzhandler") or ob_start();
@@ -56,8 +56,8 @@ function autoCompileLess($inputFile, $outputFile) {
 
 
 // Compile and output the resulting css-file, use caching whenever suitable.
-$less = 'style.less';
-$css  = 'style.css';
+$less = 'style/style.less';
+$css  = 'style/style.css';
 date_default_timezone_set('UTC');
 $changed = autoCompileLess($less, $css);
 $time = filemtime($css);
