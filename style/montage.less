@@ -23,6 +23,8 @@ html.mos-montage{background-color:#fff;
    */
   body{font-family:@font-family-calibri;font-size:@font-size-p;line-height:@line-height-p;}
   h1,h2,h3,h4,h5,h6{font-family:@font-family-calibri;}
+  h1{font-size: @font-size-h+4;font-weight: bold;}
+  h2{font-size: @font-size-h;font-weight: bold;}
 
 
   /** --------------------------------------------------------------
@@ -36,6 +38,7 @@ html.mos-montage{background-color:#fff;
     #site-extra{display:table-cell;position:absolute;left:815px;top:4px;}
   }
 
+  #breadcrumb{margin-bottom:@magic-number;}
 
   /** --------------------------------------------------------------
    * Firstpage.
@@ -48,9 +51,21 @@ html.mos-montage{background-color:#fff;
   .first-twitter{.column(8,17);height:@magic-number*12;}
 
   .first-blog{
-    h2{border:none;font-size: @font-size-h;line-height:1;}
+    h2{border:none;font-size: @font-size-h;line-height:1;margin:0;padding: 0;}
   }
-  .first-twitter{background: transparent url(/img/twitterruta.jpg) no-repeat top center;}
+  .first-twitter{background: transparent url(/img/twitterruta.jpg) no-repeat left 20px;
+    h3 {font-size:@font-size-p;line-height: 1;margin: 0;padding: 0;
+      a {text-decoration:none;
+        &:hover {text-decoration:underline;}
+      }
+    }
+    p{font-style:italic;font-family:times serif;padding:0.5em 4em 1em 1em;color: #fff;
+      .time{font-style:normal;font-family:@font-family-calibri;text-transform:uppercase;color:#666;}
+    }
+  }
+
+
+
 
 
   /** --------------------------------------------------------------
@@ -70,6 +85,8 @@ html.mos-montage{background-color:#fff;
   #sidebar-left{.column(7);min-height:@magic-number*24;position:relative;}
   //#sidebar-right{}
   
+  section{margin-bottom:0;}
+
   .sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#f5f5f5;color:#333;
     .sb-content{padding:14px;
       //p:first-child{letter-spacing:0.5px;}
@@ -95,6 +112,7 @@ html.mos-montage{background-color:#fff;
     }
   }
   
+
   /** --------------------------------------------------------------
    * Footer.
    *
@@ -102,6 +120,5 @@ html.mos-montage{background-color:#fff;
   #outer-wrap-footer{border:none;background-color:#fff;}
   #inner-wrap-footer{padding:0;}
   #footer{border:none;letter-spacing:0.5px;}
-
 
 }

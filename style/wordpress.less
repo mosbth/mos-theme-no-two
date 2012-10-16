@@ -39,8 +39,9 @@
 
 .cat-links, 
 .tag-links,
-.edit-link{font-size:smaller;
-  a{color:#999;text-decoration:none;
+.edit-link,
+.published{font-size:smaller;color:#999;font-style:italic;
+  a{color:inherit;text-decoration:none;
     &:hover{color:#666;text-decoration:underline;}
   }
 }
@@ -50,7 +51,24 @@
  * Category.
  *
  */
-.category-archive-meta{margin-bottom:@magic-number*4;}
+.category-archive-meta{margin-bottom:@magic-number*2;}
+
+
+
+/** --------------------------------------------------------------
+ * Search.
+ *
+ */
+section.search-results{.column(16);}
+.search-results #searchform{margin-bottom:@magic-number*2;}
+
+
+/** --------------------------------------------------------------
+ * Search.
+ *
+ */
+section.error404{.column(16);}
+.error404 #searchform{margin-bottom:@magic-number*4;}
 
 
 /** --------------------------------------------------------------

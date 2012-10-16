@@ -4,8 +4,10 @@
   <h2><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>"><?=the_title()?></a></h2>
   <?php endif; ?>
 
-  <?php if ( is_search() ) : // Only display Excerpts for Search ?>
-  <?php the_excerpt(); ?>
+  <?php if ( is_search() ) : ?>
+    <?php if( 'post' == get_post_type() ) : // Only display Excerpts for posts in Search ?>
+      <?php the_excerpt(); ?>
+    <?php endif; ?>
   <?php else : ?>
   <?php the_content( __( '&raquo; läs mer', 'mos' ) ); ?>
   <?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Sidor:', 'mos' ) . '</span>', 'after' => '</div>' ) ); ?>
@@ -24,6 +26,8 @@
         $show_sep = true; ?>
       </span>
     <?php endif; // End if categories ?>
+
+
     <?php
       /* translators: used between list items, there is a space after the comma */
       $tags_list = get_the_tag_list( '', __( ', ', 'mos' ) );
@@ -37,6 +41,7 @@
         </span>
       <?php endif; // End if $tags_list ?>
     <?php endif; // End if 'post' == get_post_type() ?>
+
 
     <?php if ( mos_has_content('comments-enabled') && comments_open() ) : ?>
       <?php if ( $show_sep ) : ?>

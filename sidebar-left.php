@@ -4,7 +4,7 @@ $single = is_single() ? 'single' : null;
 $archive = is_archive() ? 'archive' : null;
 ?>
 
-<div class='sb-left page-<?=$post->ID?> <?=$home?> <?=$single?>'>
+<div class='sb-left page-<?=$post->ID?> <?=$home?> <?=$single?>  <?=$archive?>'>
   <div class='sb-content'>
 
 <?=mos_get_content('sidebar-left-content-before', false)?>
@@ -34,14 +34,18 @@ elseif($archive && mos_has_content('sidebar-left-content-page-archive')) {
 ?>
 
 
-<?php if(mos_has_content('sidebar-left-home-display-categories')): ?>
+<?php if($home && mos_has_content('sidebar-left-home-display-categories') ||
+				 $single && mos_has_content('sidebar-left-single-display-categories') ||
+				 $archive && mos_has_content('sidebar-left-archive-display-categories')): ?>
 <div id='categories' class='widget'>
   <h4><?=__( 'Kategorier', 'mos' )?></h4>
   <ul><?=wp_list_categories(array('title_li'=>false))?></ul>
 </div>
 <?php endif; ?>
 
-<?php if(mos_has_content('sidebar-left-home-display-tags')): ?>
+<?php if($home && mos_has_content('sidebar-left-home-display-tags') ||
+				 $single && mos_has_content('sidebar-left-single-display-tags') ||
+				 $archive && mos_has_content('sidebar-left-archive-display-tags')): ?>
 <div id="tags" class="widget">
   <h4><?=__( 'Taggar', 'mos' )?></h4>
   <?=wp_tag_cloud(mos_get_content('sidebar-left-home-tags-options'))?>

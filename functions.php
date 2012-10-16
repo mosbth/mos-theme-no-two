@@ -356,3 +356,162 @@ function mos_get_current_url() {
   $url .= $_SERVER["SERVER_NAME"] . $serverPort . htmlspecialchars($_SERVER["REQUEST_URI"]);
   return $url;
 }
+
+
+/**
+ * Shortcode for images, [image]
+ */
+function mos_image_shortcode($atts, $content = null) {
+  global $mos_content_array;
+  extract( shortcode_atts( array(
+  'src' => '',
+  'alt' => '',
+  'width' => '',
+  'height' => '',
+  'class' => '',
+  'caption' => '',
+  'resize' => false,
+  'crop' => null,
+  'croptofit' => false,
+  'quality' => null,
+  ), $atts ) );
+  $file='/home/mos/htdocs/montage.se'.$src;
+  if (file_exists($file)) {
+
+    // check if there is a pre-defined size
+    if(is_array($mos_content_array['img-sizes'])) {
+      if($width) {
+        $width = array_key_exists($width, $mos_content_array['img-sizes']) ? $mos_content_array['img-sizes'][$width] : $width;
+      }
+      if($height) {
+        $height = array_key_exists($height, $mos_content_array['img-sizes']) ? $mos_content_array['img-sizes'][$height] : $height;
+      }
+    }
+
+    if($resize || $crop || $croptofit || $quality) {
+      $w = empty($width) ? null : "w={$width}&amp;";
+      $h = empty($height) ? null : "h={$height}&amp;";
+      $crop = empty($crop) ? null : "crop={$crop}&amp;";
+      $croptofit = empty($croptofit) ? null : "crop-to-fit&amp;";
+      $q = empty($quality) ? null : "q={$quality}&amp;";
+      $src = "/image/" . substr($src, 5);
+      $src = "{$src}?{$crop}{$w}{$h}{$croptofit}{$q}";
+      $src = substr($src, 0, -5);
+    }
+
+    $src = "src='{$src}'";
+    $alt = " alt='{$alt}'";
+    $class = empty($class) ? null : " class='{$class}'";
+    $width = empty($width) ? null : " width='{$width}'";
+    $height = empty($height) ? null : " height='{$height}'";
+    $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
+
+    $output = "<figure{$class}><img {$src}{$alt}{$width}{$height}{$class} />{$caption}</figure>";
+    return $output;
+  }
+  else {
+    trigger_error("'$src' image not found", E_USER_WARNING);
+    return '';
+  }
+}
+add_shortcode('image','mos_image_shortcode');
+
+
+/**
+ * Shortcode for images, [image]
+ */
+function mos_gallery_shortcode($atts, $content = null) {
+  global $mos_content_array;
+  extract( shortcode_atts( array(
+  'src' => '',
+  'rows' => 3,
+  'cols' => 4,
+  'class' => '',
+  'caption' => '',
+  ), $atts ) );
+
+  $src = rtrim($src, '/');
+  $dir = '/home/mos/htdocs/montage.se'.$src;
+  $config = $dir . '/config.json';
+  if (!is_dir($dir)) {
+    trigger_error("The path '$dir' to the gallery was not found", E_USER_WARNING);
+    return '';
+  } else if(!is_readable($config)) {
+    trigger_error("The file config.json was not found in the directory '$dir'", E_USER_WARNING);
+    return '';
+  }
+
+  // Get the items from the config-file
+  $items = json_decode(file_get_contents($config), true);
+  if(!$items) {
+    trigger_error("The config.json was empty or contained errors", E_USER_WARNING);
+    return '';
+  }
+
+  // Deal with pages
+  $max = $rows * $cols;
+  $nrPages = round(count($items) / $max);
+  $getPage = get_query_var('page');
+  $currentPage = empty($getPage) ? 1 : $getPage ;
+  $pages = '';
+  $i = 1;
+  while($i <= $nrPages) {
+    if($i == $currentPage) {
+      $pages .= " <strong>{$i}</strong>";
+    } else {
+      $pages .= " <a href='?page={$i}'>{$i}</a>";
+    }
+    $i++;
+  }
+
+  // Keep track on the navigation options
+  $navLeftMost= '&nbsp;&nbsp; ';
+  $navRightMost = ' &nbsp;&nbsp;';
+  $navLeft = '&nbsp; ';
+  $navRight = ' &nbsp;';
+  if($currentPage != 1) {
+    $navLeft = "<a href='?page=" . ($currentPage-1) . "'>&lt;</a> ";
+  }
+  if($currentPage > 2) {
+    $navLeftMost = "<a href='?page=1'>&lt;&lt;</a> ";
+  }
+  if($currentPage != $nrPages) {
+    $navRight = " <a href='?page=" . ($currentPage+1) . "'>&gt;</a>";
+  }
+  if($currentPage < ($nrPages - 1)) {
+    $navRightMost = " <a href='?page={$nrPages}'>&gt;&gt;</a>";
+  }
+  $pages = "{$navLeftMost}{$navLeft}{$pages}{$navRight}{$navRightMost}";
+  //$navLeft = isset($navLeft) ? $navLeft : '&nbsp;&nbsp; &nbsp; ';
+  //$navRight = isset($navRight) ? $navRight : ' &nbsp; &nbsp;&nbsp;';
+
+  // Out with the images
+  $offset = ($currentPage - 1) * $max;
+  $i = 0;
+  $images = null;
+  foreach($items as $key => $val) {
+    if(++$i <= $offset) continue; 
+    if($i > ($max + $offset)) break;
+    $file = $dir . '/' . $key;
+    if(!is_readable($file)) {
+      trigger_error("The image '{$key}' was not found in the directory '$dir'", E_USER_WARNING);
+    } else {
+      $imgSrc = "/image/" . substr($src, 5) . '/' . $key;
+      $caption = $val;
+      $images .= "<div class='container'><img src='{$imgSrc}?w=125&h=140&crop-to-fit' alt='' /></div>";
+    }
+  }
+
+  $output = <<<EOD
+<div class='ly-gallery{$class}'>
+  <div class='ly-gallery-nav-left'>{$navLeft}</div>
+  <div class='ly-gallery-content'>{$images}</div>
+  <div class='ly-gallery-nav-right'>{$navRight}</div>
+  <div class='ly-gallery-nav-pages'>$pages</div>
+</div>
+EOD;
+
+  return $output;
+}
+add_shortcode('agallery','mos_gallery_shortcode');
+
