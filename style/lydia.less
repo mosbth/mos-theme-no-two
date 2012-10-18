@@ -384,14 +384,16 @@ a{color:@anchorColor;
  * Figure
  */
 figure{margin-bottom:@magic-number;
+  a{.clearfix();}
   img{max-width:100%;max-height:100%;display:block;}
-  figcaption{font-style:italic;}
+  figcaption{font-style:italic;padding-top:1em;}
 }
 
-figure.left{float:left;}
-figure.right{float:right;}
+figure.left{float:left;margin-right:1em;}
+figure.right{float:right;margin-left:1em;}
 figure.center{clear:both;
   img{margin:0 auto;}
+  figcaption{text-align:center;}
 }
 
 
@@ -400,7 +402,11 @@ figure.center{clear:both;
  */
 @gallery-width:670px;
 @gallery-width-nav-gutter:20px;
-@gallery-width-container-4:(@gallery-width - @gallery-width-nav-gutter*2 - 2 - 4*8*2 - 4*8*2) / 4;
+@gallery-width-container:@gallery-width - @gallery-width-nav-gutter*2 - 2;
+@gallery-width-container-1:(@gallery-width-container - 1*8*2) / 1;
+@gallery-width-container-2:(@gallery-width-container - 2*24*2) / 2;
+@gallery-width-container-3:(@gallery-width-container - 3*16*2) / 3;
+@gallery-width-container-4:(@gallery-width-container - 4*12*2) / 4;
 
 .ly-gallery{width:@gallery-width;margin-bottom:@magic-number; color: #999;
   a{text-decoration:none;color:inherit;
@@ -411,13 +417,30 @@ figure.center{clear:both;
 .ly-gallery-nav-right{width:@gallery-width-nav-gutter; float:left; font-size:24px; text-align:right;}
 .ly-gallery-nav-pages{width:@gallery-width; clear:both; text-align:center;}
 
-.ly-gallery{
-  .container{float:left;width:@gallery-width-container-4;height:140px;margin:8px;padding:8px;background-color:#eee;
+.ly-gallery-content{width:@gallery-width - @gallery-width-nav-gutter*2 - 2; float:left; border: 1px solid #eee;
+  //figure{}
+}
+
+.ly-gallery {
+  .container{float:left;
     img{display:block;margin:0 auto;}
   }
 }
-.ly-gallery-content{width:@gallery-width - @gallery-width-nav-gutter*2 - 2; float:left; border: 1px solid #eee;
-  //figure{}
+
+.ly-gallery.cols4 {
+  .container{width:@gallery-width-container-4;height:152px;margin:12px;}
+}
+
+.ly-gallery.cols3 {
+  .container{width:@gallery-width-container-3;height:220px;margin:16px;}
+}
+
+.ly-gallery.cols2 {
+  .container{width:@gallery-width-container-2;height:260px;margin:24px;}
+}
+
+.ly-gallery.cols1 {
+  .container{width:@gallery-width-container-1;min-height:500px;margin:8px;}
 }
 
 

@@ -6,7 +6,8 @@
 @font-size-p: 13px;
 @line-height-p: 1.3em;
 @font-family-apercu: "ApercuRegular", Arial, Helvetica, sans-serif;
- 
+@anchorColor: #333;
+
 //@color-headers: #0c1900;
 /*
 @font-family-helvetica: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -35,7 +36,7 @@ html.mos-montage{background-color:#fff;
   #banner{position:relative;
     #site-title{vertical-align:top;}
     #site-slogan{vertical-align:bottom;padding-left:80px;color:#666;font-style:italic;font-size:1.3em;}
-    #site-extra{display:table-cell;position:absolute;left:815px;top:4px;}
+    #site-extra{display:table-cell;position:absolute;left:885px;top:4px;} //815
   }
 
   #breadcrumb{margin-bottom:@magic-number;}
@@ -65,9 +66,6 @@ html.mos-montage{background-color:#fff;
   }
 
 
-
-
-
   /** --------------------------------------------------------------
    * Navbar.
    *
@@ -77,6 +75,7 @@ html.mos-montage{background-color:#fff;
     a:hover, a.selected, li.current-menu-item a, li.current_page_parent a{color:#5c5c5c;border-bottom-color:#5c5c5c;border-top-color:#5c5c5c;}
   }
 
+
   /** --------------------------------------------------------------
    * Content & Sidebars.
    *
@@ -85,9 +84,9 @@ html.mos-montage{background-color:#fff;
   #sidebar-left{.column(7);min-height:@magic-number*24;position:relative;}
   //#sidebar-right{}
   
-  section{margin-bottom:0;}
+  //section{margin-bottom:0;}
 
-  .sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#f5f5f5;color:#333;
+  .sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#fff;color:#333; // #f5f5f5
     .sb-content{padding:14px;
       //p:first-child{letter-spacing:0.5px;}
       //p{letter-spacing:0px;}
@@ -112,6 +111,18 @@ html.mos-montage{background-color:#fff;
     }
   }
   
+
+/** --------------------------------------------------------------
+ * Links
+ */
+a{color:@anchorColor;
+  &:link{}
+  &:visited{}
+  &:hover{color:darken(@anchorColor, 10%);}
+  &:focus{}
+  &:active{}
+}
+
 
   /** --------------------------------------------------------------
    * Footer.

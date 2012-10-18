@@ -9,6 +9,7 @@
   <link rel='shortcut icon' href='<?=mos_get_content('favicon')?>' />
   <link rel='pingback' href='<?=get_bloginfo('pingback_url')?>' />
   <script src='<?=mos_get_content('modernizer')?>'></script>
+	<?php if(mos_has_content('jquery')): ?><script src='<?=mos_get_content('jquery')?>'></script><?php endif; ?>
 	<?=wp_head()?>
 </head>
 <body <?=body_class()?>>  

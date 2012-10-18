@@ -375,6 +375,7 @@ function mos_image_shortcode($atts, $content = null) {
   'croptofit' => false,
   'quality' => null,
   ), $atts ) );
+  $srcOrig = $src;
   $file='/home/mos/htdocs/montage.se'.$src;
   if (file_exists($file)) {
 
@@ -406,7 +407,7 @@ function mos_image_shortcode($atts, $content = null) {
     $height = empty($height) ? null : " height='{$height}'";
     $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
 
-    $output = "<figure{$class}><img {$src}{$alt}{$width}{$height}{$class} />{$caption}</figure>";
+    $output = "<figure{$class}><a href='{$srcOrig}'><img {$src}{$alt}{$width}{$height}{$class} /></a>{$caption}</figure>";
     return $output;
   }
   else {
@@ -444,14 +445,22 @@ function mos_gallery_shortcode($atts, $content = null) {
   // Get the items from the config-file
   $items = json_decode(file_get_contents($config), true);
   if(!$items) {
-    trigger_error("The config.json was empty or contained errors", E_USER_WARNING);
+    trigger_error("The config.json was empty or contained errors in {$src}", E_USER_WARNING);
     return '';
   }
 
   // Deal with pages
-  $max = $rows * $cols;
-  $nrPages = round(count($items) / $max);
   $getPage = get_query_var('page');
+  $getCols = !empty($_GET['cols']) && is_numeric($_GET['cols']) ? $_GET['cols'] : null ;
+  $cols = isset($getCols) ? $getCols : $cols;
+  $getRows = !empty($_GET['rows']) && is_numeric($_GET['rows']) ? $_GET['rows'] : null ;
+  $rows = isset($getRows) ? $getRows : $rows; 
+  $getCols = isset($getCols) ? "&amp;cols={$getCols}" : null;
+  $getRows = isset($getRows) ? "&amp;rows={$getRows}" : null;
+  $colrow = $getCols . $getRows;
+  $max = $rows * $cols;
+  $nrImages = count($items);
+  $nrPages = floor((($nrImages - 1) / $max) + 1);
   $currentPage = empty($getPage) ? 1 : $getPage ;
   $pages = '';
   $i = 1;
@@ -459,7 +468,7 @@ function mos_gallery_shortcode($atts, $content = null) {
     if($i == $currentPage) {
       $pages .= " <strong>{$i}</strong>";
     } else {
-      $pages .= " <a href='?page={$i}'>{$i}</a>";
+      $pages .= " <a href='?page={$i}{$colrow}'>{$i}</a>";
     }
     $i++;
   }
@@ -470,22 +479,32 @@ function mos_gallery_shortcode($atts, $content = null) {
   $navLeft = '&nbsp; ';
   $navRight = ' &nbsp;';
   if($currentPage != 1) {
-    $navLeft = "<a href='?page=" . ($currentPage-1) . "'>&lt;</a> ";
+    $navLeft = "<a href='?page=" . ($currentPage-1) . "{$colrow}'>&lt;</a> ";
   }
   if($currentPage > 2) {
-    $navLeftMost = "<a href='?page=1'>&lt;&lt;</a> ";
+    $navLeftMost = "<a href='?page=1{$colrow}'>&lt;&lt;</a> ";
   }
   if($currentPage != $nrPages) {
-    $navRight = " <a href='?page=" . ($currentPage+1) . "'>&gt;</a>";
+    $navRight = " <a href='?page=" . ($currentPage+1) . "{$colrow}'>&gt;</a>";
   }
   if($currentPage < ($nrPages - 1)) {
-    $navRightMost = " <a href='?page={$nrPages}'>&gt;&gt;</a>";
+    $navRightMost = " <a href='?page={$nrPages}{$colrow}'>&gt;&gt;</a>";
   }
   $pages = "{$navLeftMost}{$navLeft}{$pages}{$navRight}{$navRightMost}";
   //$navLeft = isset($navLeft) ? $navLeft : '&nbsp;&nbsp; &nbsp; ';
   //$navRight = isset($navRight) ? $navRight : ' &nbsp; &nbsp;&nbsp;';
 
   // Out with the images
+  $cols = "cols{$cols}";
+  $size = array(
+    'cols1' => 'w=612&h=500',
+    'cols2' => 'w=266&h=260&crop-to-fit',
+    'cols3' => 'w=177&h=220&crop-to-fit',
+    'cols4' => 'w=133&h=152&crop-to-fit',
+  );
+  if(!isset($size[$cols])) {
+    trigger_error("Can only display cols1 to cols4, not {$cols}", E_USER_WARNING);
+  }
   $offset = ($currentPage - 1) * $max;
   $i = 0;
   $images = null;
@@ -493,22 +512,34 @@ function mos_gallery_shortcode($atts, $content = null) {
     if(++$i <= $offset) continue; 
     if($i > ($max + $offset)) break;
     $file = $dir . '/' . $key;
+    $title = " title='{$i} / {$nrImages} &mdash; {$val}'";
     if(!is_readable($file)) {
       trigger_error("The image '{$key}' was not found in the directory '$dir'", E_USER_WARNING);
     } else {
       $imgSrc = "/image/" . substr($src, 5) . '/' . $key;
       $caption = $val;
-      $images .= "<div class='container'><img src='{$imgSrc}?w=125&h=140&crop-to-fit' alt='' /></div>";
+      $href = ($cols == 'cols1') ? "href='{$src}/{$key}'" : "href='?page={$i}&amp;cols=1&amp;rows=1'";
+      $images .= "<a {$href}{$title}><div class='container'><img src='{$imgSrc}?{$size[$cols]}' alt='' /></div></a>";
     }
   }
 
   $output = <<<EOD
-<div class='ly-gallery{$class}'>
+<div class='ly-gallery{$class} {$cols}'>
   <div class='ly-gallery-nav-left'>{$navLeft}</div>
   <div class='ly-gallery-content'>{$images}</div>
   <div class='ly-gallery-nav-right'>{$navRight}</div>
   <div class='ly-gallery-nav-pages'>$pages</div>
 </div>
+<script>
+  $(function() {
+    $('.ly-gallery-content .container').hover(function(){
+      var title = $(this).parent().attr('title');
+      $('#ly-gallery-output').html(title);
+    }, function() {
+      $('#ly-gallery-output').html('');
+    });
+ });
+</script>
 EOD;
 
   return $output;
