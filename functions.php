@@ -512,7 +512,8 @@ function mos_gallery_shortcode($atts, $content = null) {
     if(++$i <= $offset) continue; 
     if($i > ($max + $offset)) break;
     $file = $dir . '/' . $key;
-    $title = " title='{$i} / {$nrImages} &mdash; {$val}'";
+    $titleCaption = empty($val) ? null : " &mdash; {$val}";
+    $title = " title='{$i} / {$nrImages}{$titleCaption}'";
     if(!is_readable($file)) {
       trigger_error("The image '{$key}' was not found in the directory '$dir'", E_USER_WARNING);
     } else {
