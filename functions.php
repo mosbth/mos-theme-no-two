@@ -58,9 +58,9 @@ function mos_get_content($region, $text=true) {
  */
 function mos_has_content($region) {
   global $mos_content_array;
-  $regions = func_get_args($region);
+  $regions = func_get_args();
   foreach($regions as $val) {
-  	if(!empty($mos_content_array[$region])) {
+  	if(!empty($mos_content_array[$val])) {
   		return true;
   	}
   }
