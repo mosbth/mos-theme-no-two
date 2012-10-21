@@ -1,15 +1,17 @@
 <!doctype html>
 <html class='no-js <?=mos_get_content('config-class')?>' <?=language_attributes()?>>
 <head>
-  <meta charset='<?=get_bloginfo('charset')?>' />
-  <meta name='viewport' content='width=device-width' />
-  <meta name='description' content=''>
-  <title><?=mos_get_title()?></title>
-  <link rel='stylesheet' type='text/css' media='all' href='<?=mos_get_content('stylesheet-all')?>' />  
-  <link rel='shortcut icon' href='<?=mos_get_content('favicon')?>' />
-  <link rel='pingback' href='<?=get_bloginfo('pingback_url')?>' />
-  <script src='<?=mos_get_content('modernizer')?>'></script>
-	<?php if(mos_has_content('jquery')): ?><script src='<?=mos_get_content('jquery')?>'></script><?php endif; ?>
+	<meta charset='<?=get_bloginfo('charset')?>' />
+	<meta name='viewport' content='width=device-width' />
+	<meta name='description' content=''>
+	<title><?=mos_get_title()?></title>
+	<?php if(mos_has_content('meta-description')):?><meta name='description' content='<?=mos_get_content('meta-description')?>' /><?php endif;?>
+	<?php if(mos_has_content('meta-keywords')):?><meta name='keywords' content='<?=mos_get_content('meta-keywords')?>' /><?php endif;?>
+	<link rel='stylesheet' type='text/css' media='all' href='<?=mos_get_content('stylesheet-all')?>' />
+	<link rel='shortcut icon' href='<?=mos_get_content('favicon')?>' />
+	<link rel='pingback' href='<?=get_bloginfo('pingback_url')?>' />
+	<script src='<?=mos_get_content('modernizer')?>'></script>
+	<?php if(mos_has_content('jquery')):?><script src='<?=mos_get_content('jquery')?>'></script><?php endif; ?>
 	<?=wp_head()?>
 </head>
 <body <?=body_class()?>>  

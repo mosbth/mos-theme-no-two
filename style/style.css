@@ -1631,16 +1631,19 @@ html.mos-montage .sb-left .sb-content {
   padding: 14px;
 }
 html.mos-montage .sb-left.page-2,
-html.mos-montage .sb-left.page-21 {
+html.mos-montage .sb-left.page-21,
+html.mos-montage .sb-left.page-15 {
   background-color: #5c5c5c;
   color: #fff;
 }
 html.mos-montage .sb-left.page-2 a,
-html.mos-montage .sb-left.page-21 a {
+html.mos-montage .sb-left.page-21 a,
+html.mos-montage .sb-left.page-15 a {
   color: #fff;
 }
 html.mos-montage .sb-left.page-2 a:hover,
-html.mos-montage .sb-left.page-21 a:hover {
+html.mos-montage .sb-left.page-21 a:hover,
+html.mos-montage .sb-left.page-15 a:hover {
   color: #f7da38;
 }
 html.mos-montage .sb-left h1,

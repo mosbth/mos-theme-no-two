@@ -53,7 +53,7 @@ function mos_get_content($region, $text=true) {
  * Check if content is defined for area.
  *
  * @param string ... $region one or severla regions to check.
- * @returns boolean true if content exists for any region, else false.
+ * @returns boolean true if content exists for any region, else null.
  *
  */
 function mos_has_content($region) {
@@ -64,7 +64,7 @@ function mos_has_content($region) {
   		return true;
   	}
   }
-  return false;
+  return null;
 }
 
 
