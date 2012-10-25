@@ -2,7 +2,6 @@
 <html class='no-js <?=mos_get_content('config-class')?>' <?=language_attributes()?>>
 <head>
 	<meta charset='<?=get_bloginfo('charset')?>' />
-	<meta name='description' content=''>
 	<title><?=mos_get_title()?></title>
 	<?php if(mos_has_content('meta-description')):?><meta name='description' content='<?=mos_get_content('meta-description')?>' /><?php endif;?>
 	<?php if(mos_has_content('meta-keywords')):?><meta name='keywords' content='<?=mos_get_content('meta-keywords')?>' /><?php endif;?>
