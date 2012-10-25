@@ -362,7 +362,7 @@ function mos_get_current_url() {
  * Shortcode for images, [image]
  */
 function mos_image_shortcode($atts, $content = null) {
-  global $mos_content_array;
+  global $mos_content;
   extract( shortcode_atts( array(
   'src' => '',
   'alt' => '',
@@ -376,7 +376,7 @@ function mos_image_shortcode($atts, $content = null) {
   'quality' => null,
   ), $atts ) );
   $srcOrig = $src;
-  $file='/home/mos/htdocs/montage.se'.$src;
+  $file=$mos_content['webroot'].$src;
   if (file_exists($file)) {
 
     // check if there is a pre-defined size
@@ -422,7 +422,7 @@ add_shortcode('image','mos_image_shortcode');
  * Shortcode for images, [image]
  */
 function mos_gallery_shortcode($atts, $content = null) {
-  global $mos_content_array;
+  global $mos_content;
   extract( shortcode_atts( array(
   'src' => '',
   'rows' => 3,
@@ -432,7 +432,7 @@ function mos_gallery_shortcode($atts, $content = null) {
   ), $atts ) );
 
   $src = rtrim($src, '/');
-  $dir = '/home/mos/htdocs/montage.se'.$src;
+  $dir = $mos_content['webroot'].$src;
   $config = $dir . '/config.json';
   if (!is_dir($dir)) {
     trigger_error("The path '$dir' to the gallery was not found", E_USER_WARNING);
