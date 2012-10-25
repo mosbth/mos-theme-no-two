@@ -22,7 +22,7 @@
       if ( $categories_list ):
       ?>
       <span class="cat-links">
-        <?php printf( __( '<span class="%1$s">Postad i</span> %2$s', 'mos' ), 'entry-utility-prep entry-utility-prep-cat-links', $categories_list );
+        <?php printf( __( '<span class="%1$s">Postad i</span> %2$s', 'mos' ), '', $categories_list );
         $show_sep = true; ?>
       </span>
     <?php endif; // End if categories ?>
@@ -36,7 +36,7 @@
         <span class="sep"> | </span>
         <?php endif; // End if $show_sep ?>
         <span class="tag-links">
-          <?php printf( __( '<span class="%1$s">Taggad som</span> %2$s', 'mos' ), 'entry-utility-prep entry-utility-prep-tag-links', $tags_list );
+          <?php printf( __( '<span class="%1$s">Taggad som</span> %2$s', 'mos' ), '', $tags_list );
           $show_sep = true; ?>
         </span>
       <?php endif; // End if $tags_list ?>
