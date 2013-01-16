@@ -133,6 +133,11 @@ Language
 History
 --------------------------------------
 
+v0.3.0 (2013-01-16)
+
+* A bunch of changes while doing customer sites...
+* Tagging to prepare working for new customer sites.
+
 v0.2.0 (2012-10-03)
 
 * Added `config_plain.php`, `config_default.php` and `config_all.php`. All customisations
