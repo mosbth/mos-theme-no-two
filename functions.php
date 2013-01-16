@@ -15,8 +15,8 @@ add_filter( 'the_content', 'make_clickable', 12); // After shortcodes are execut
  */
 register_nav_menus( array(
 	'navbar1' => 'Navigation bar within header',
-	'navbar2' => 'Navigation bar standard',
-	'secondary' => 'Secondary Navigation',
+  'navbar2' => 'Navigation bar standard',
+  'navbar3' => 'Navigation in left sidebar',
 ) );
 
 
@@ -31,6 +31,21 @@ if(is_file($mos_customize_file)) {
 } elseif(is_file($mos_customize_file_default)) {
   include($mos_customize_file_default); 
 }
+
+
+/**
+ * Remove admin menues.
+ *
+ */
+function mos_remove_admin_menus() {
+  global $mos_content;
+  if(isset($mos_content['admin-menu-remove'])) {
+    foreach($mos_content['admin-menu-remove'] as $val) {
+      remove_menu_page($val);
+    }
+  }  
+}
+add_action( 'admin_menu', 'mos_remove_admin_menus' );
 
 
 /**
@@ -359,6 +374,202 @@ function mos_get_current_url() {
 
 
 /**
+ * Shortcode for audio, [aaudio]
+ */
+function mos_audio_shortcode($atts, $content = null) {
+  global $mos_content;
+  extract( shortcode_atts( array(
+  'id' => '',
+  'class' => '',
+  ), $atts ) );
+
+  // check if there is a pre-defined  size
+  if(is_array($mos_content['img-sizes'])) {
+    if($width) {
+      $width = array_key_exists($width, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$width] : $width;
+    }
+    if($height) {
+      $height = array_key_exists($height, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$height] : $height;
+    }
+  }
+
+  $is = empty($id) ? null : " id='{$id}'";
+  //$class = empty($class) ? null : " class='{$class}'";
+  $output = "<div{$id}{$class}></div>";
+
+  $output = <<<EOD
+<div id="jquery_jplayer_2" class="jp-jplayer"></div>
+<div id="jp_container_2" class="jp-audio {$class}">
+  <div class="jp-type-playlist">
+    <div class="jp-gui jp-interface">
+      <ul class="jp-controls">
+        <li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a></li>
+        <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+        <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+        <li><a href="javascript:;" class="jp-next" tabindex="1">next</a></li>
+        <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+      </ul>
+      <div class="jp-progress">
+        <div class="jp-seek-bar">
+          <div class="jp-play-bar"></div>
+        </div>
+      </div>
+      <div class="jp-time-holder">
+        <div class="jp-current-time"></div>
+        <div class="jp-duration"></div>
+      </div>
+    </div>
+      <div class="jp-playlist">
+        <ul>
+          <li></li> <!-- Empty <li> so your HTML conforms with the W3C spec -->
+        </ul>
+      </div>
+    <div class="jp-no-solution">
+      <span>Update Required</span>
+      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+    </div>
+  </div>
+</div>
+
+EOD;
+
+  return  $output;
+}
+add_shortcode('aaudio','mos_audio_shortcode');
+
+
+/**
+ * Shortcode for video, [avideo]
+ */
+function mos_video_shortcode($atts, $content = null) {
+  global $mos_content;
+  extract( shortcode_atts( array(
+  'id' => '',
+  'class' => '',
+  'caption' => '',
+  ), $atts ) );
+
+  // check if there is a pre-defined size
+  if(is_array($mos_content['img-sizes'])) {
+    if($width) {
+      $width = array_key_exists($width, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$width] : $width;
+    }
+    if($height) {
+      $height = array_key_exists($height, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$height] : $height;
+    }
+  }
+
+  $is = empty($id) ? null : " id='{$id}'";
+  //$class = empty($class) ? null : " class='{$class}'";
+  $output = "<div{$id}{$class}></div>";
+  $caption = !empty($caption) ? "<p class='figcaption'>{$caption}</p>" : null;
+
+  $output = <<<EOD
+<div id="jp_container_1" class="jp-video {$class}">
+  <div class="jp-type-single">
+    <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+    <div class="jp-gui">
+      <div class="jp-interface">
+        <div class="jp-progress">
+          <div class="jp-seek-bar">
+            <div class="jp-play-bar"></div>
+          </div>
+        </div>
+        <div class="jp-current-time"></div>
+        <div class="jp-duration"></div>
+        <div class="jp-controls-holder">
+          <ul class="jp-controls">
+            <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+            <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+            <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+            <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+            <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+            <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+          </ul>
+          <div class="jp-volume-bar">
+            <div class="jp-volume-bar-value"></div>
+          </div>
+          <ul class="jp-toggles">
+            <li><a href="javascript:;" class="jp-full-screen" tabindex="1" title="full screen">full screen</a></li>
+            <li><a href="javascript:;" class="jp-restore-screen" tabindex="1" title="restore screen">restore screen</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="jp-no-solution">
+      <span>Update Required</span>
+      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+    </div>
+  </div>
+{$caption}
+</div>
+
+EOD;
+
+  return  $output;
+}
+add_shortcode('avideo','mos_video_shortcode');
+
+
+
+/**
+ * Shortcode for slideshow, [aslideshow]
+ */
+function mos_slideshow_shortcode($atts, $content = null) {
+  global $mos_content;
+  extract( shortcode_atts( array(
+  'id' => '',
+  'class' => '',
+  'width' => '',
+  'height' => '',
+  ), $atts ) );
+
+  $is = empty($id) ? null : " id='{$id}'";
+  $class = empty($class) ? null : " class='{$class}'";
+  $output = "<div{$id}{$class}><div class='mos_slideshow_items'>" . do_shortcode($content) . "</div></div>";
+
+  return $output;
+}
+add_shortcode('aslideshow','mos_slideshow_shortcode');
+
+
+/**
+ * Shortcode for youtube, [ayoutube]
+ */
+function mos_youtube_shortcode($atts, $content = null) {
+  global $mos_content;
+  extract( shortcode_atts( array(
+  'id' => '',
+  'width' => '',
+  'height' => '',
+  'class' => '',
+  'caption' => '',
+  ), $atts ) );
+
+  // check if there is a pre-defined size
+  if(is_array($mos_content['img-sizes'])) {
+    if($width) {
+      $width = array_key_exists($width, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$width] : $width;
+    }
+    if($height) {
+      $height = array_key_exists($height, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$height] : $height;
+    }
+  }
+
+  $class = empty($class) ? null : " class='{$class}'";
+  $width = empty($width) ? null : " width='{$width}'";
+  $height = empty($height) ? null : " height='{$height}'";
+  $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
+
+  $output = "<figure{$class}><iframe src='http://www.youtube.com/embed/{$id}' frameborder='0'{$width}{$height}></iframe>{$caption}</figure>";
+
+  //$output = "<figure{$class}><a href='{$srcOrig}'><img {$src}{$alt}{$width}{$height}{$class} /></a>{$caption}</figure>";
+  return $output;
+}
+add_shortcode('ayoutube','mos_youtube_shortcode');
+
+
+/**
  * Shortcode for images, [image]
  */
 function mos_image_shortcode($atts, $content = null) {
@@ -374,18 +585,19 @@ function mos_image_shortcode($atts, $content = null) {
   'crop' => null,
   'croptofit' => false,
   'quality' => null,
+  'no_link' => false,
   ), $atts ) );
   $srcOrig = $src;
   $file=$mos_content['webroot'].$src;
   if (file_exists($file)) {
 
     // check if there is a pre-defined size
-    if(is_array($mos_content_array['img-sizes'])) {
+    if(is_array($mos_content['img-sizes'])) {
       if($width) {
-        $width = array_key_exists($width, $mos_content_array['img-sizes']) ? $mos_content_array['img-sizes'][$width] : $width;
+        $width = array_key_exists($width, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$width] : $width;
       }
       if($height) {
-        $height = array_key_exists($height, $mos_content_array['img-sizes']) ? $mos_content_array['img-sizes'][$height] : $height;
+        $height = array_key_exists($height, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$height] : $height;
       }
     }
 
@@ -407,7 +619,14 @@ function mos_image_shortcode($atts, $content = null) {
     $height = empty($height) ? null : " height='{$height}'";
     $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
 
-    $output = "<figure{$class}><a href='{$srcOrig}'><img {$src}{$alt}{$width}{$height}{$class} /></a>{$caption}</figure>";
+    // Do not link to original image
+    $ahref = "<a href='{$srcOrig}'>";
+    $aclose = "</a>";
+    if($no_link) {
+      $ahref = $aclose = null;
+    }
+
+    $output = "<figure{$class}>{$ahref}<img {$src}{$alt}{$width}{$height}{$class} />{$aclose}{$caption}</figure>";
     return $output;
   }
   else {
@@ -419,7 +638,7 @@ add_shortcode('image','mos_image_shortcode');
 
 
 /**
- * Shortcode for images, [image]
+ * Shortcode for gallery, [agallery]
  */
 function mos_gallery_shortcode($atts, $content = null) {
   global $mos_content;

@@ -290,7 +290,7 @@ body {
 }
 h1 {
   font-weight: normal;
-  color: #222;
+  color: #ccc;
   margin-bottom: 22px;
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
   font-size: 2.375em;
@@ -300,7 +300,7 @@ h1 {
 }
 h2 {
   font-weight: normal;
-  color: #222;
+  color: #ccc;
   margin-bottom: 22px;
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.875em;
@@ -310,7 +310,7 @@ h2 {
 }
 h3 {
   font-weight: normal;
-  color: #222;
+  color: #ccc;
   margin-bottom: 22px;
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.375em;
@@ -318,7 +318,7 @@ h3 {
 }
 h4 {
   font-weight: normal;
-  color: #222;
+  color: #ccc;
   margin-bottom: 22px;
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.25em;
@@ -326,7 +326,7 @@ h4 {
 }
 h5 {
   font-weight: normal;
-  color: #222;
+  color: #ccc;
   margin-bottom: 22px;
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
   font-size: 1em;
@@ -334,7 +334,7 @@ h5 {
 }
 h6 {
   font-weight: normal;
-  color: #222;
+  color: #ccc;
   margin-bottom: 22px;
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
   font-size: 1em;
@@ -479,7 +479,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  color: #222;
+  color: #ccc;
   background-color: #fff;
 }
 #inner-wrap-header {
@@ -525,34 +525,16 @@ body {
   margin-bottom: 22px;
 }
 #banner {
-  display: table;
   margin-bottom: 11px;
 }
-#banner #site-logo {
-  display: table-cell;
-}
-#banner #site-title {
-  display: table-cell;
-  vertical-align: bottom;
-  padding-left: 0.2em;
+#site-title {
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
   font-size: 2.5em;
   line-height: 1;
-  text-shadow: #ccc 2px -2px 2px;
 }
-#banner #site-title a {
+#site-title a {
   text-decoration: none;
-  color: #222;
-}
-#banner #site-slogan {
-  display: table-cell;
-  font-size: 1.5em;
-  padding-left: 10px;
-}
-#banner #site-menu {
-  display: table-cell;
-  vertical-align: top;
-  padding-left: 4em;
+  color: #ccc;
 }
 #login-menu {
   float: right;
@@ -587,7 +569,7 @@ body {
 }
 #site-menu li {
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
-  color: #222;
+  color: #ccc;
   letter-spacing: 0.1em;
 }
 #site-menu li:hover {
@@ -740,6 +722,25 @@ body {
 .nb-anna li:first-child {
   padding-left: 0;
 }
+.nb-vertical ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+.nb-vertical li {
+  padding: 0 0.3em;
+  margin: 0;
+}
+.nb-vertical a {
+  text-decoration: none;
+  padding: 0.2em 0;
+}
+.nb-vertical a:hover,
+.nb-vertical a.selected,
+.nb-vertical li.current-menu-item a {
+  text-decoration: underline;
+}
 #breadcrumb {
   font-size: 0.875em;
   line-height: 1.5714;
@@ -889,28 +890,23 @@ ul.tabmenu li.selected.hover {
 #primary .toc {
   max-width: 30%;
 }
-#sidebar,
-#sidebar-left,
-#sidebar-right {
+.sidebar,
+.sidebar-left,
+.sidebar-right {
   display: inline;
   float: left;
   width: 310px;
   margin: 0 5px;
 }
-#sidebar .box,
-#sidebar-left .box,
-#sidebar-right .box {
+.sidebar .box,
+.sidebar-left .box,
+.sidebar-right .box {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   padding-top: 21px;
   margin-bottom: 43px;
   padding-left: 1em;
   padding-right: 1em;
-}
-#sidebar ul,
-#sidebar-left ul,
-#sidebar-right ul {
-  list-style: circle;
 }
 article {
   margin-bottom: 22px;
@@ -1028,19 +1024,6 @@ section {
 #footer-column-wrapper-two:after {
   clear: both;
 }
-#footer-column-wrapper-one a,
-#footer-column-one a,
-#footer-column-two a {
-  display: block;
-}
-#footer-column-nine {
-  display: inline;
-  float: left;
-  width: 950px;
-  margin: 0 5px;
-  margin-top: 22px;
-  padding-bottom: 22px;
-}
 #outer-wrap-footer {
   background-color: #f3f3ff;
   border-top: 1px solid #bbb;
@@ -1083,6 +1066,7 @@ section {
 }
 a {
   color: #19194D;
+  outline: 0;
 }
 a.no-style {
   text-decoration: none;
@@ -1101,10 +1085,10 @@ a.no-style-black {
   color: inherit;
 }
 a.no-style-black:hover {
-  color: #000000;
+  color: #999999;
 }
 a.no-style-black:focus {
-  color: #000000;
+  color: #999999;
 }
 figure {
   margin-bottom: 22px;
@@ -1462,262 +1446,159 @@ html.mos-plain #footer {
   border: none;
   letter-spacing: 0.5px;
 }
-#outer-wrap-flash2 {
-  background-color: #f8f7ed;
-  background-image: -moz-linear-gradient(top,#fff,#eeecd1);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#eeecd1));
-  background-image: -webkit-linear-gradient(top,#fff,#eeecd1);
-  background-image: -o-linear-gradient(top,#fff,#eeecd1);
-  background-image: linear-gradient(to bottom,#fff,#eeecd1);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeecd1', GradientType=0);
-  border-bottom: 10px solid #0c1902;
+html.mos-lo {
+  background-color: #000;
 }
-#inner-wrap-flash2 {
-  width: 960px;
-  margin: 0 auto;
-  *zoom: 1;
-  margin-bottom: 22px;
-  background-color: #f8f7ed;
-  background-image: -moz-linear-gradient(top,#fff,#eeecd1);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#eeecd1));
-  background-image: -webkit-linear-gradient(top,#fff,#eeecd1);
-  background-image: -o-linear-gradient(top,#fff,#eeecd1);
-  background-image: linear-gradient(to bottom,#fff,#eeecd1);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeecd1', GradientType=0);
+html.mos-lo body {
+  background-color: #000;
+  color: #ccc;
+  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
 }
-#inner-wrap-flash2:before,
-#inner-wrap-flash2:after {
-  content: "";
-  display: table;
+html.mos-lo h1 {
+  border: none;
+  margin: 0;
 }
-#inner-wrap-flash2:after {
-  clear: both;
+html.mos-lo h1:after {
+  content: '.';
 }
-#flash2 {
-  display: inline;
-  float: left;
-  width: 950px;
-  margin: 0 5px;
-  height: 220px;
-  position: relative;
+html.mos-lo h2 {
+  border: none;
+  font-size: 1.25em;
+  line-height: 1.1;
+  font-weight: bold;
 }
-#flash2 .flashtext {
-  position: absolute;
-  font-size: 48px;
+html.mos-lo h3 {
+  border: none;
+  font-size: 1em;
+  line-height: 1;
+  font-weight: bold;
 }
-#flash2 #text1 {
-  top: 15px;
-  left: 70px;
-  color: #847c1f;
+html.mos-lo #header {
+  display: block;
+  border: none;
+  height: 88px;
+  padding-top: 44px;
+  background: #000 url(/img/ensam-logo-svartbkgr.jpg) no-repeat 100px 20px;
 }
-#flash2 #text2 {
-  top: 70px;
-  left: 150px;
-  font-size: 54px;
-  color: #499a7f;
-}
-#flash2 #text3 {
-  top: 100px;
-  left: -40px;
-  display: none;
-}
-#flash2 #text4 {
-  top: 150px;
-  display: none;
-}
-#flash2 #text5 {
-  top: 200px;
-  display: none;
-}
-#flash2 #text6 {
-  top: 130px;
-  left: 0px;
-  color: #314753;
-}
-#inner-wrap-row1 {
-  width: 960px;
-  margin: 0 auto;
-  *zoom: 1;
-  height: 286px;
-  margin-bottom: 22px;
-  background: transparent url(/img/stil/2huvud-pratbubbla.jpg) no-repeat left bottom;
-}
-#inner-wrap-row1:before,
-#inner-wrap-row1:after {
-  content: "";
-  display: table;
-}
-#inner-wrap-row1:after {
-  clear: both;
-}
-#row1-first {
+html.mos-lo #site-title {
+  display: block;
   display: inline;
   float: left;
   width: 310px;
   margin: 0 5px;
-  margin-left: 645px;
+  margin-left: 125px;
+  font-size: 48px;
 }
-html.mos-sifero {
-  background-color: #fff;
+html.mos-lo #site-title:after {
+  content: '.';
 }
-html.mos-sifero body {
-  background: #fff url(/img/stil/huvud.jpeg) no-repeat center top;
+html.mos-lo body.home h1 {
+  display: none;
 }
-html.mos-sifero body.page #inner-wrap-main,
-html.mos-sifero body.single-post #inner-wrap-main {
-  background-image: none;
+html.mos-lo body.home #primary {
+  display: inline;
+  float: left;
+  width: 350px;
+  margin: 0 5px;
 }
-html.mos-sifero body.page #inner-wrap-main #primary,
-html.mos-sifero body.single-post #inner-wrap-main #primary {
+html.mos-lo body.home #primary section {
+  padding-top: 390px;
+  margin-bottom: 0;
+}
+html.mos-lo body.home #primary section p:first-letter {
+  font-size: 50px;
+  line-height: 16px;
+}
+html.mos-lo body.home .sidebar-right {
   display: inline;
   float: left;
   width: 470px;
   margin: 0 5px;
 }
-html.mos-sifero #header {
-  border-bottom: none;
-  padding-top: 66px;
+html.mos-lo body.home #sidebar-right {
+  position: relative;
 }
-html.mos-sifero #flash {
+html.mos-lo body.home #sidebar-right .sb-content {
+  position: absolute;
+  top: -132px;
+}
+html.mos-lo .mos_slideshow {
+  width: 470px;
+  height: 750px;
+  overflow: hidden;
+}
+html.mos-lo .mos_slideshow .mos_slideshow_items {
+  position: relative;
+  width: 8000px;
+  display: none;
+}
+html.mos-lo .mos_slideshow figure {
+  float: left;
+}
+html.mos-lo .mos_slideshow img {
+  max-width: none;
+  max-height: none;
+}
+html.mos-lo p.figcaption {
+  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+}
+html.mos-lo .nb-vertical {
+  color: #bbb;
+  font-family: MyriadPro-Regular, 'Myriad Pro Regular', MyriadPro, 'Myriad Pro', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+html.mos-lo .nb-vertical a:hover {
+  color: #eeeeee;
+}
+html.mos-lo .sidebar-left {
   display: inline;
   float: left;
-  width: 310px;
+  width: 110px;
   margin: 0 5px;
-  height: 198px;
-  color: #314753;
 }
-html.mos-sifero #flash h1 {
-  font-size: 1em;
-  line-height: 1;
-  border: none;
-  margin-bottom: 7.3333333333333px;
+html.mos-lo #primary {
+  display: inline;
+  float: left;
+  width: 390px;
+  margin: 0 5px;
+  margin-left: 85px;
+  min-height: 380px;
+}
+html.mos-lo .sidebar-right {
+  display: inline;
+  float: left;
+  width: 350px;
+  margin: 0 5px;
+}
+html.mos-lo figure.m2 {
+  margin-bottom: 44px;
+}
+html.mos-lo figure.m2top {
+  margin-top: 44px;
+}
+html.mos-lo figure.m4 {
+  margin-bottom: 88px;
+}
+html.mos-lo a {
   color: inherit;
 }
-html.mos-sifero #flash p {
-  font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
-  margin-bottom: 7.3333333333333px;
+html.mos-lo #outer-wrap-footer {
+  background-color: #000;
+  border-top: none;
 }
-html.mos-sifero #outer-wrap-featured {
-  background-color: #397762;
-  color: #eeecd1;
-  padding-top: 44px;
-  padding-bottom: 88px;
+html.mos-lo #inner-wrap-footer {
+  padding: 0;
 }
-html.mos-sifero #inner-wrap-featured {
-  width: 960px;
-  margin: 0 auto;
-  *zoom: 1;
-  border: none;
-}
-html.mos-sifero #inner-wrap-featured:before,
-html.mos-sifero #inner-wrap-featured:after {
-  content: "";
-  display: table;
-}
-html.mos-sifero #inner-wrap-featured:after {
-  clear: both;
-}
-html.mos-sifero #featured-first,
-html.mos-sifero #featured-middle,
-html.mos-sifero #featured-last {
+html.mos-lo #footer {
   display: inline;
   float: left;
   width: 310px;
   margin: 0 5px;
-  height: 100%;
-  padding-bottom: 22px;
-}
-html.mos-sifero #featured-first h2,
-html.mos-sifero #featured-middle h2,
-html.mos-sifero #featured-last h2 {
-  font-weight: bold;
-  font-size: 1.5em;
-  line-height: 1;
-  border: none;
-  font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-html.mos-sifero #featured-first h2 a,
-html.mos-sifero #featured-middle h2 a,
-html.mos-sifero #featured-last h2 a {
-  text-decoration: none;
-  color: #eeecd1;
-}
-html.mos-sifero #featured-first h2 a:hover,
-html.mos-sifero #featured-middle h2 a:hover,
-html.mos-sifero #featured-last h2 a:hover {
-  text-decoration: underline;
-}
-html.mos-sifero #featured-first p,
-html.mos-sifero #featured-middle p,
-html.mos-sifero #featured-last p {
-  padding-right: 1em;
-  margin-bottom: 7.3333333333333px;
-}
-html.mos-sifero #inner-wrap-main {
-  background: transparent url(/img/stil/gra-pil.jpg) no-repeat center top;
-  padding-top: 44px;
-}
-html.mos-sifero #main h2 {
-  border: none;
-  color: #0c1900;
-}
-html.mos-sifero #main h2 a {
-  text-decoration: none;
-}
-html.mos-sifero #main h2 a:hover {
-  text-decoration: underline;
-  color: #000;
-}
-html.mos-sifero #main .blog {
-  border: none;
-}
-html.mos-sifero #main #tags a {
-  text-decoration: none;
-}
-html.mos-sifero #main #tags a:hover {
-  text-decoration: underline;
-}
-html.mos-sifero #main #sidebar .box,
-html.mos-sifero #main #sidebar-left .box,
-html.mos-sifero #main #sidebar-right .box {
-  border: none;
-  padding-top: 0;
-  margin-bottom: 44px;
-  padding-left: 0;
-  padding-right: 0;
-}
-html.mos-sifero #main #sidebar .box h4,
-html.mos-sifero #main #sidebar-left .box h4,
-html.mos-sifero #main #sidebar-right .box h4 {
-  color: #0c1900;
-}
-html.mos-sifero .home #inner-wrap-main {
-  margin-bottom: 0;
-}
-html.mos-sifero .home article.blog {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-html.mos-sifero .home section {
-  margin-bottom: 0;
-}
-html.mos-sifero #outer-wrap-footer {
-  border: none;
-  background: transparent url(/img/stil/boftten_linje.jpg) no-repeat center top;
-  padding-top: 66px;
-}
-html.mos-sifero #inner-wrap-footer {
-  padding: 0;
-}
-html.mos-sifero #footer {
-  border: none;
-  letter-spacing: 1px;
-}
-html.mos-sifero a {
-  color: #615616;
-}
-html.mos-sifero a:hover {
-  color: #76681b;
+  margin-left: 125px;
+  border-top: 1px dotted #aaa;
+  color: #aaa;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
 }

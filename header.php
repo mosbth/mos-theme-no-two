@@ -6,10 +6,10 @@
 	<?php if(mos_has_content('meta-description')):?><meta name='description' content='<?=mos_get_content('meta-description')?>' /><?php endif;?>
 	<?php if(mos_has_content('meta-keywords')):?><meta name='keywords' content='<?=mos_get_content('meta-keywords')?>' /><?php endif;?>
 	<link rel='stylesheet' type='text/css' media='all' href='<?=mos_get_content('stylesheet-all')?>' />
+	<?php if(mos_has_content('stylesheets')): foreach(mos_get_content('stylesheets') as $val): ?><link rel='stylesheet' href='<?=$val?>' /><?php endforeach; endif; ?>
 	<link rel='shortcut icon' href='<?=mos_get_content('favicon')?>' />
 	<link rel='pingback' href='<?=get_bloginfo('pingback_url')?>' />
 	<script src='<?=mos_get_content('modernizer')?>'></script>
-	<?php if(mos_has_content('jquery')):?><script src='<?=mos_get_content('jquery')?>'></script><?php endif; ?>
 	<?=wp_head()?>
 </head>
 <body <?=body_class()?>>  

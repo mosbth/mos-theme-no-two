@@ -12,28 +12,28 @@
 
 <div id='outer-wrap-footer'>
 	<div id='inner-wrap-footer-column'>
-		<?php if(mos_has_content('footer-first-col', 'footer-first-second', 'footer-first-third', 'footer-first-fourth')): ?>
+		<?php if(mos_has_content('footer-column-one', 'footer-column-two', 'footer-column-three', 'footer-column-four')): ?>
 		<div id='footer-column-wrapper-one' class='footer-column-wrapper'>
-      <div id='footer-column-one' class='footer-column'><?=mos_get_content('footer-first-col')?></div>
-      <div id='footer-column-two' class='footer-column'><?=mos_get_content('footer-second-col')?></div>
-      <div id='footer-column-three' class='footer-column'><?=mos_get_content('footer-third-col')?></div>
-      <div id='footer-column-four' class='footer-column'><?=mos_get_content('footer-fourth-col')?></div>
+      <div id='footer-column-one' class='footer-column footer-column-one'><?=mos_get_content('footer-column-one')?></div>
+      <div id='footer-column-two' class='footer-column footer-column-two'><?=mos_get_content('footer-column-two')?></div>
+      <div id='footer-column-three' class='footer-column footer-column-three'><?=mos_get_content('footer-column-three')?></div>
+      <div id='footer-column-four' class='footer-column footer-column-four'><?=mos_get_content('footer-column-four')?></div>
     </div>
     <?php endif; ?>
-    <?php if(mos_has_content('footer-fifth-col', 'footer-sixth-second', 'footer-seventh-third', 'footer-eight-fourth')): ?>
+    <?php if(mos_has_content('footer-column-five', 'footer-column-six', 'footer-column-seven', 'footer-column-eight')): ?>
 		<div id='footer-column-wrapper-two' class='footer-column-wrapper'>
-      <div id='footer-column-five' class='footer-column'><?=mos_get_content('footer-fifth-col')?></div>
-      <div id='footer-column-six' class='footer-column'><?=mos_get_content('footer-sixth-col')?></div>
-      <div id='footer-column-seven' class='footer-column'><?=mos_get_content('footer-seventh-col')?></div>
-      <div id='footer-column-eight' class='footer-column'><?=mos_get_content('footer-eight-col')?></div>
+      <div id='footer-column-five' class='footer-column footer-column-five'><?=mos_get_content('footer-column-five')?></div>
+      <div id='footer-column-six' class='footer-column footer-column-six'><?=mos_get_content('footer-column-six')?></div>
+      <div id='footer-column-seven' class='footer-column footer-column-seven'><?=mos_get_content('footer-column-seven')?></div>
+      <div id='footer-column-eight' class='footer-column footer-column-eight'><?=mos_get_content('footer-column-eight')?></div>
     </div>
     <?php endif; ?>
-    <?php if(mos_has_content('footer-nine-col', 'footer-ten-second', 'footer-eleven-third', 'footer-twelve-fourth')): ?>
+    <?php if(mos_has_content('footer-column-nine', 'footer-column-ten', 'footer-column-eleven', 'footer-column-twelve')): ?>
 		<div id='footer-column-wrapper-three' class='footer-column-wrapper'>
-      <div id='footer-column-nine' class='footer-column'><?=mos_get_content('footer-nine-col')?></div>
-      <div id='footer-column-ten' class='footer-column'><?=mos_get_content('footer-ten-col')?></div>
-      <div id='footer-column-eleven' class='footer-column'><?=mos_get_content('footer-eleven-col')?></div>
-      <div id='footer-column-twelve' class='footer-column'><?=mos_get_content('footer-twelve-col')?></div>
+      <div id='footer-column-nine' class='footer-column footer-column-nine'><?=mos_get_content('footer-column-nine')?></div>
+      <div id='footer-column-ten' class='footer-column footer-column-ten'><?=mos_get_content('footer-column-ten')?></div>
+      <div id='footer-column-eleven' class='footer-column footer-column-eleven'><?=mos_get_content('footer-column-eleven')?></div>
+      <div id='footer-column-twelve' class='footer-column footer-column-twelve'><?=mos_get_content('footer-column-twelve')?></div>
     </div>
     <?php endif; ?>
   </div>
@@ -48,6 +48,9 @@
 
 <?php if(mos_has_content('development')): ?><?=mos_get_content('development')?><?php endif; ?>
 
+<?php if(mos_has_content('jquery')):?><script src='<?=mos_get_content('jquery')?>'></script><?php endif; ?>
+<?php if(mos_has_content('javascript-include')): foreach(mos_get_content('javascript-include') as $val): ?><script src='<?=$val?>'></script><?php endforeach; endif; ?>
+<?php if(mos_has_content('javascript-inline')):?><script src='<?=mos_get_content('javascript-inline')?>'></script><?php endif; ?>
 <?php if(mos_has_content('google-analytics')): ?>
 <script>
   var _gaq=[['_setAccount','<?=mos_get_content('google-analytics')?>'],['_trackPageview']];

@@ -73,8 +73,10 @@ border-bottom:1px dotted #999;}
   #site-menu{display:table-cell;}
 }
 */
+
+/*
 #banner {display:table;margin-bottom:@magic-number/2;
-  #site-logo{display:table-cell;/*vertical-align:bottom;*//*position:relative;top:22px;*/}
+  #site-logo{display:table-cell;}
   #site-title{display:table-cell;vertical-align:bottom;padding-left:0.2em;
     font-family:@font-family-site-title;font-size:2.5em;line-height:1;text-shadow:#ccc 2px -2px 2px;
     a{text-decoration:none;color:@color-site-title;}
@@ -82,6 +84,14 @@ border-bottom:1px dotted #999;}
   #site-slogan{display:table-cell;font-size:1.5em;padding-left:10px;}
   #site-menu{display:table-cell;vertical-align:top;padding-left:4em;}
 }
+*/
+#banner {margin-bottom:@magic-number/2;}
+#site-logo{}
+#site-title{font-family:@font-family-site-title;font-size:2.5em;line-height:1;
+  a{text-decoration:none;color:@color-site-title;}
+}
+#site-slogan{}
+#site-menu{}
 
 
 /** --------------------------------------------------------------
@@ -203,6 +213,13 @@ border-bottom:1px dotted #999;}
   li:first-child{padding-left:0;}
 }
 
+.nb-vertical{
+  ul{list-style-type:none;padding:0;margin:0;text-align:right;}
+  li{padding:0 0.3em;margin:0;}
+  a{text-decoration:none;padding:0.2em 0;}
+  a:hover, a.selected, li.current-menu-item a{text-decoration:underline;}
+}
+
 
 /** --------------------------------------------------------------
  * Breadcrumb
@@ -273,12 +290,11 @@ ul.tabmenu{list-style-type:none;padding:0;margin:0;border-bottom:1px solid #666;
 #primary{.column(16);word-wrap:break-word;
   .toc{max-width:30%;} /* OBSOLETE? */
 }
-#sidebar,#sidebar-left,#sidebar-right{.column(8);
+.sidebar, .sidebar-left, .sidebar-right{.column(8);
   .box{border-top:1px solid #ccc;border-bottom:1px solid #ccc;padding-top:@magic-number - 1px;margin-bottom:@magic-number * 2 - 1px;/*background-color:#FBFCFF;*/
     padding-left:1em;padding-right:1em;
     h4{}
   }
-  ul{/*padding-left:0;*/list-style:circle;}
 }
 
 article{margin-bottom:@magic-number;}
@@ -337,6 +353,9 @@ section{margin-bottom:@magic-number*2;}
 #footer-column-wrapper-one,
 #footer-column-wrapper-two{.wrap();margin-top:@magic-number;}
 
+//.footer-column-one to .footer-column-twelve
+
+/*
 #footer-column-wrapper-one,
 #footer-column-one,
 #footer-column-two{
@@ -344,7 +363,7 @@ section{margin-bottom:@magic-number*2;}
 }
 
 #footer-column-nine{.column(24);margin-top:@magic-number;padding-bottom:@magic-number;}
-
+*/
 
 /** --------------------------------------------------------------
  * The footer area.
@@ -363,7 +382,7 @@ section{margin-bottom:@magic-number*2;}
 /** --------------------------------------------------------------
  * Links
  */
-a{color:@anchorColor;
+a{color:@anchorColor;outline:0;
   &:link{}
   &:visited{}
   &:hover{}

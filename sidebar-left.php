@@ -4,12 +4,13 @@ $single = is_single() ? 'single' : null;
 $archive = is_archive() ? 'archive' : null;
 ?>
 
-<div class='sb-left page-<?=$post->ID?> <?=$home?> <?=$single?>  <?=$archive?>'>
+<div class='sidebar sidebar-left sb-left page-<?=$post->ID?> <?=$home?> <?=$single?>  <?=$archive?>'>
   <div class='sb-content'>
 
 <?=mos_get_content('sidebar-left-content-before', false)?>
 <?=mos_get_content('sidebar-left-content-' . $post->ID, false)?>
 
+<?php if(mos_has_content('navbar3-class')): ?><div id='navbar3' class='<?=mos_get_content('navbar3-class')?>'><?=wp_nav_menu(array('theme_location'=>'navbar3'))?></div><?php endif; ?>
 
 <?php 
 if(mos_has_content('sidebar-left-content-page-' . $post->ID)) {

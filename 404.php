@@ -7,12 +7,14 @@
  
 		      <section id="post-0" class="post error404 not-found">
 		        <header class='entry-header'>
-		          <h1 class='entry-title'><?=__('Sidan kan inte hittas.', 'mos')?></h1>
+		          <h1 class='entry-title'><?=__('404. Sidan kan inte hittas.', 'mos')?></h1>
 		        </header>
+            <?php if(mos_has_content('404-search')): ?>
 		        <div class='entry-content'>
 		          <p><?=__( 'Vill du pröva att söka istället?', 'mos' ); ?></p>
 		          <?=get_search_form(); ?>
 		        </div>
+            <?php endif; ?>
 		      </section>
 
         </div>
@@ -21,6 +23,7 @@
   </div>
 </div>
 
+<?php if(mos_has_content('404-triptych')): ?>
 <div id='outer-wrap-triptych'>
   <div id='inner-wrap-triptych'>
     <footer id='triptych'>
@@ -39,6 +42,8 @@
     </footer>
   </div>
 </div>
+<?php endif; ?>
+
 <?=get_footer()?>
 
 
