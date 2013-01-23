@@ -24,8 +24,32 @@ by Tyler Tate/TwigKit to get grid layout through LESS.
 * License: Apache License
 * Path: included in `style.less`
 
+
 ### Modernizr
-http://modernizr.com/
+* Website: http://modernizr.com/
+
+
+###Normalize.css
+* Website: http://necolas.github.com/normalize.css/
+* Version: 2.0.1
+* License: MIT License
+* Path: `style/normalize.css/*`
+
+
+How to get going
+--------------------------------------
+
+These are the steps to get going.
+
+Clone it:
+`git clone git://github.com/mosbth/mos-theme-no-two.git`
+
+`style/style.php` need to be able to write the file `style.css` and `style.less.cache`, so the directory `style` must be writable.
+`chmod 777 mos-theme-no-two/style`
+
+Review and edit the file `style/custom.less` to create your own style.
+
+Review and edit the config-file in the directory `config`.
 
 
 Files and directories

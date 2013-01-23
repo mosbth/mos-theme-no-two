@@ -17,12 +17,15 @@
 <div id='outer-wrap-header'>
 	<div id='inner-wrap-header'>
 		<div id='header'>
+      <?php if(mos_has_content('site-header')): ?><div class='site-header'><?=mos_get_content('site-header')?></div><?php endif; ?>
+			<?php if(mos_has_content('site-logo', 'site-title', 'site-slogan', 'site-extra')): ?>
 			<div id='banner'>
         <?php if(mos_has_content('site-logo')): ?><span id='site-logo'><a href='<?=esc_url(get_home_url())?>'><?=mos_get_content('site-logo')?></a></span><?php endif; ?>
         <?php if(mos_has_content('site-title')): ?><span id='site-title'><a href='<?=esc_url(get_home_url())?>' title='<?=esc_attr(get_bloginfo('name', 'display'))?>'><?=get_bloginfo('name')?></a></span><?php endif; ?>
         <?php if(mos_has_content('site-slogan')): ?><span id='site-slogan'><?=get_bloginfo('description')?></span><?php endif; ?>
         <?php if(mos_has_content('site-extra')): ?><span id='site-extra'><?=mos_get_content('site-extra')?></span><?php endif; ?>
 			</div>
+			<?php endif; ?>
    	  <?php if(mos_has_content('navbar1-class')): ?><div id='navbar1' class='<?=mos_get_content('navbar1-class')?>'><?=wp_nav_menu(array('theme_location'=>'navbar1'))?></div><?php endif; ?>
 		</div>
 	</div>

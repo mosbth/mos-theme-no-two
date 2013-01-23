@@ -38,9 +38,8 @@
     <?php endif; ?>
   </div>
   <div id='inner-wrap-footer'>
-  	<?php if(mos_has_content('footer')): ?>
-    <div id='footer'><p><?=mos_get_content('footer')?></p></div>
-    <?php endif; ?>
+    <?php if(mos_has_content('custom-footer')): ?><div class='custom-footer'><?=mos_get_content('custom-footer')?></div><?php endif; ?>
+  	<?php if(mos_has_content('footer')): ?><div id='footer'><p><?=mos_get_content('footer')?></p></div><?php endif; ?>
   </div>
 </div>
 
