@@ -15,7 +15,7 @@ $mos_content_array = array(
 
   'config-class' => 'mos-default',
   'webroot' => realpath(__DIR__ . '/../../../../../'),
-  'stylesheet-all' => get_stylesheet_directory_uri().'/style.php', // development
+  'stylesheet-all' => get_stylesheet_directory_uri().'/style/style.php', // development
   //'stylesheet_all' => get_stylesheet_direcstytory_uri().'/style.css', // production
   //'stylesheet_print' => get_stylesheet_directory_uri().'/print.css',
   'stylesheets' => array(
@@ -25,14 +25,14 @@ $mos_content_array = array(
   //'site-logo' => "src='" . get_stylesheet_directory_uri() . "/img/logo.jpg' height='34' width='137'",
   'favicon' => get_stylesheet_directory_uri().'/img/favicon.png',
   //'favicon' => '/favicon.jpg',
-  'site-logo' => "<img src='" . get_stylesheet_directory_uri() . "/img/logo_40x40.png' height='40' width='40' alt='logo' />",
+  //'site-logo' => "<img src='" . get_stylesheet_directory_uri() . "/img/logo_40x40.png' height='40' width='40' alt='logo' />",
   'site-title' => true,
   'site-slogan' => true,
   //'site-extra' => "<img src='/img/sign.jpg' height='53' width='111' alt='' />",
 
 
   // Admin menu
-  'admin-menu-remove' => array('link-manager.php', 'tools.php', 'posts.php', 'edit-comments.php', 'edit.php'),
+  //'admin-menu-remove' => array('link-manager.php', 'tools.php', 'posts.php', 'edit-comments.php', 'edit.php'),
 
 
   // Image sizes predefined
@@ -52,7 +52,7 @@ $mos_content_array = array(
   'show-posted-on' => false,
 
   // JavaScript
-  'modernizer' => '/js/modernizer.js',
+  'modernizer' => get_stylesheet_directory_uri() . '/js/modernizer.js',
   //'jquery' => get_stylesheet_directory_uri().'/js/jquery.min.js',
   //'jquery' => '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
   /*'javascript-include' => array(
@@ -64,8 +64,8 @@ $mos_content_array = array(
 
 
   // Navbars
-  'navbar1-class' => 'nb-standard', //'nb-standard, nb-vertical', 
-  'navbar2-class' => false, 
+  'navbar1-class' => false, 
+  'navbar2-class' => 'nb-plain', 
   'navbar3-class' => false, 
 
 	

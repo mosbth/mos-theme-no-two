@@ -57,7 +57,11 @@ add_action( 'admin_menu', 'mos_remove_admin_menus' );
 function mos_get_content($region, $text=true) {
   global $mos_content_array;
   if(isset($mos_content_array[$region])) {
-    return $mos_content_array[$region];
+    if(is_callable($mos_content_array[$region])) {
+      return call_user_func($mos_content_array[$region]);
+    } else {
+      return $mos_content_array[$region];
+    }
   } else {
     return $text ? __('No content for this region.') : null;
   }  
@@ -359,6 +363,7 @@ function mos_comment($comment, $args, $depth) {
 }
 
 
+
 /**
  * Get URL to current page.
  */
@@ -371,6 +376,33 @@ function mos_get_current_url() {
   $url .= $_SERVER["SERVER_NAME"] . $serverPort . htmlspecialchars($_SERVER["REQUEST_URI"]);
   return $url;
 }
+
+
+
+/**
+ * Get a (list of) blogpost with content.
+ *
+ * @param int $posts the number of posts to get.
+ * @return string with html for the blogpost/list.
+ */
+function mos_get_blog_post($posts=1) {
+  global $post, $more, $mos_content;
+
+  $postOrig = $post;
+  $blogpost = null;
+  $my_query = new WP_Query(array('posts_per_page' => 1));
+
+  while ($my_query->have_posts()) {
+    $my_query->the_post();
+    $more = 0;
+    $blogpost  = "<h2>" . get_the_title() . "</h2>";
+    $blogpost .= apply_filters('the_content', get_the_content(mos_get_content('read-more-text'))); 
+  }
+
+  $post = $postOrig;
+  return $blogpost;
+}
+
 
 
 /**

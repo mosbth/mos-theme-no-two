@@ -14,7 +14,7 @@
 </head>
 <body <?=body_class()?>>  
 
-<div id='outer-wrap-header'>
+<div id='outer-wrap-header' role='banner'>
 	<div id='inner-wrap-header'>
 		<div id='header'>
       <?php if(mos_has_content('site-header')): ?><div class='site-header'><?=mos_get_content('site-header')?></div><?php endif; ?>
@@ -26,23 +26,23 @@
         <?php if(mos_has_content('site-extra')): ?><span id='site-extra'><?=mos_get_content('site-extra')?></span><?php endif; ?>
 			</div>
 			<?php endif; ?>
-   	  <?php if(mos_has_content('navbar1-class')): ?><div id='navbar1' class='<?=mos_get_content('navbar1-class')?>'><?=wp_nav_menu(array('theme_location'=>'navbar1'))?></div><?php endif; ?>
+   	  <?php if(mos_has_content('navbar1-class')): ?><div id='navbar1' role='navigation'><?=wp_nav_menu(array('theme_location'=>'navbar1', 'menu_class' => mos_get_content('navbar1-class'), 'container' => false))?></div><?php endif; ?>
 		</div>
 	</div>
 </div>
 
 <?php if(mos_has_content('navbar2-class')): ?>
-<div id='outer-wrap-navbar'>
+<div id='outer-wrap-navbar' role='navigation'>
 	<div id='inner-wrap-navbar'>
 		<div id='navbar'>
-      <div id='navbar2' class='<?=mos_get_content('navbar2-class')?>'><?=wp_nav_menu(array('theme_location'=>'navbar2'))?></div>
+      <div id='navbar2'><?=wp_nav_menu(array('theme_location'=>'navbar2',  'menu_class' => mos_get_content('navbar2-class'), 'container' => false))?></div>
 		</div>
 	</div>
 </div>
 <?php endif; ?>
 
 <?php if(mos_has_content('breadcrumb-enable')): ?>
-<div id='outer-wrap-header-below'>
+<div id='outer-wrap-header-below' role='navigation'>
 	<div id='inner-wrap-header-below'>
 		<div id='header-below'>
 			<div id='breadcrumb'><?=mos_breadcrumb()?></div>

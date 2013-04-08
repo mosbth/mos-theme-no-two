@@ -3,7 +3,7 @@
   <?php if('page' == get_post_type() && mos_has_content('show-title-on-pages')): ?>
   <h1><?=the_title()?></h1>
   <?php elseif('post' == get_post_type()): ?>
-  <h2><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>"><?=the_title()?></a></h2>
+  <h2 class='wp-post-title'><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>"><?=the_title()?></a></h2>
   <?php endif; ?>
 
   <?php if ( is_search() ) : ?>

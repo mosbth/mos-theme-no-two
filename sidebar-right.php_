@@ -14,7 +14,28 @@ if(mos_has_content('sidebar-right-content-page-' . $post->ID)) {
   $page = get_page(mos_get_content('sidebar-right-content-page-' . $post->ID));
   echo apply_filters('the_content', $page->post_content); 
 } 
+
+elseif($home && mos_has_content('sidebar-right-content-page-home')) {
+  $page = get_page(mos_get_content('sidebar-right-content-page-home'));
+  echo apply_filters('the_content', $page->post_content); 
+}
+
+elseif($single && mos_has_content('sidebar-right-content-page-single')) {
+  $page = get_page(mos_get_content('sidebar-right-content-page-single'));
+  echo apply_filters('the_content', $page->post_content); 
+}
+
+elseif($archive && mos_has_content('sidebar-right-content-page-archive')) {
+  $page = get_page(mos_get_content('sidebar-right-content-page-archive'));
+  echo apply_filters('the_content', $page->post_content); 
+}
+
+elseif($archive && mos_has_content('sidebar-right-content-page-post')) {
+  $page = get_page(mos_get_content('sidebar-right-content-page-post'));
+  echo apply_filters('the_content', $page->post_content); 
+}
 ?>
+<?=$post->ID?>
 
 <?php if(mos_has_content('sidebar-right-tags')): ?>
 <div id="tags" class="widget box">

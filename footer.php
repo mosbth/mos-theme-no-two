@@ -1,5 +1,5 @@
 <?php if(mos_has_content('triptych-first', 'triptych-middle', 'triptych-last')): ?>
-<div id='outer-wrap-triptych'>
+<div id='outer-wrap-triptych' role='complementary'>
   <div id='inner-wrap-triptych'>
     <footer id='triptych'>
       <div id='triptych-first' class='triptych'><?=mos_get_content('triptych-first')?></div>
@@ -10,8 +10,9 @@
 </div>
 <?php endif; ?>
 
-<div id='outer-wrap-footer'>
+<div id='outer-wrap-footer' class='footer' role='contentinfo'>
 	<div id='inner-wrap-footer-column'>
+    <?php if(mos_has_content('footer-extra')): ?><span id='footer-extra'><?=mos_get_content('footer-extra')?></span><?php endif; ?>
 		<?php if(mos_has_content('footer-column-one', 'footer-column-two', 'footer-column-three', 'footer-column-four')): ?>
 		<div id='footer-column-wrapper-one' class='footer-column-wrapper'>
       <div id='footer-column-one' class='footer-column footer-column-one'><?=mos_get_content('footer-column-one')?></div>
