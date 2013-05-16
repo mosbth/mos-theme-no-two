@@ -11,6 +11,7 @@
 <?php endif; ?>
 
 <div id='outer-wrap-footer' class='footer' role='contentinfo'>
+  <div id='outer-wrap-footer-left'></div>
 	<div id='inner-wrap-footer-column'>
     <?php if(mos_has_content('footer-extra')): ?><span id='footer-extra'><?=mos_get_content('footer-extra')?></span><?php endif; ?>
 		<?php if(mos_has_content('footer-column-one', 'footer-column-two', 'footer-column-three', 'footer-column-four')): ?>
@@ -42,6 +43,7 @@
     <?php if(mos_has_content('custom-footer')): ?><div class='custom-footer'><?=mos_get_content('custom-footer')?></div><?php endif; ?>
   	<?php if(mos_has_content('footer')): ?><div id='footer'><p><?=mos_get_content('footer')?></p></div><?php endif; ?>
   </div>
+  <div id='outer-wrap-footer-right'></div>
 </div>
 
 <?=wp_footer()?>

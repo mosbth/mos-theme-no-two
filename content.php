@@ -2,10 +2,11 @@
   <?php if(('post' == get_post_type()) && mos_has_content('show-posted-on')) : ?><span class="published"><?=mos_posted_on()?></span><?php endif; ?>
   <?php if('page' == get_post_type() && mos_has_content('show-title-on-pages')): ?>
   <h1><?=the_title()?></h1>
+  <?php elseif('post' == get_post_type() && mos_has_content('link-blog-title') == false): ?>
+  <h2 class='wp-post-title'><?=the_title()?></h2>
   <?php elseif('post' == get_post_type()): ?>
   <h2 class='wp-post-title'><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Länk till %s', 'mos' ), the_title_attribute( 'echo=0' ) ); ?>"><?=the_title()?></a></h2>
   <?php endif; ?>
-
   <?php if ( is_search() ) : ?>
     <?php if( 'post' == get_post_type() ) : // Only display Excerpts for posts in Search ?>
       <?php the_excerpt(); ?>
@@ -33,7 +34,7 @@
     <?php
       /* translators: used between list items, there is a space after the comma */
       $tags_list = get_the_tag_list( '', __( ', ', 'mos' ) );
-      if ( $tags_list ):
+      if ( mos_has_content('display-tagged-as') && $tags_list ):
         if ( $show_sep ) : ?>
         <span class="sep"> | </span>
         <?php endif; // End if $show_sep ?>

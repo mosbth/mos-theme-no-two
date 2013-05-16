@@ -14,7 +14,20 @@
 </head>
 <body <?=body_class()?>>  
 
+<!--  <div class='background-center1'></div> -->
+
+<!--
+<div id='background' role='banner'>
+  <div class='background-left-top'></div>
+  <div class='background-right-top'></div>
+  <div class='background-left-bottom'></div>
+  <div class='background-right-bottom'></div>
+  <div class='background-center'></div>
+</div>
+-->
+
 <div id='outer-wrap-header' role='banner'>
+  <div id='outer-wrap-header-left'></div>
 	<div id='inner-wrap-header'>
 		<div id='header'>
       <?php if(mos_has_content('site-header')): ?><div class='site-header'><?=mos_get_content('site-header')?></div><?php endif; ?>
@@ -29,6 +42,7 @@
    	  <?php if(mos_has_content('navbar1-class')): ?><div id='navbar1' role='navigation'><?=wp_nav_menu(array('theme_location'=>'navbar1', 'menu_class' => mos_get_content('navbar1-class'), 'container' => false))?></div><?php endif; ?>
 		</div>
 	</div>
+  <div id='outer-wrap-header-right'></div>
 </div>
 
 <?php if(mos_has_content('navbar2-class')): ?>

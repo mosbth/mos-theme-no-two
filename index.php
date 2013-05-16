@@ -1,4 +1,23 @@
-<?=get_header()?>
+<?php
+/*
+Template Name: Single
+*/
+get_header();
+
+global $post; 
+
+$pageClass = null;
+if(mos_has_content('page-class-' . $post->ID)) {
+  $pageClass = mos_get_content('page-class-' . $post->ID);
+}
+$pageClass = $pageClass ? " class='{$pageClass}'" : null;
+
+$pageClass2 = null;
+if(mos_has_content('page-class2-' . $post->ID)) {
+  $pageClass = mos_get_content('page-class2-' . $post->ID);
+}
+$pageClass2 = $pageClass2 ? " class='{$pageClass}'" : null;
+?>
 
 <?php if(mos_has_content('flash')): ?>
 <div id='outer-wrap-flash' role='complementary'>
@@ -28,9 +47,8 @@
       </div>
       <?php endif; ?>
       
-      <div id='primary' role='main'>
+      <div id='primary'<?=$pageClass?> role='main'>
         <div id='content'>
-
 
           <?php if ( is_category() ) : ?>
           <header class="page-header">
@@ -73,7 +91,7 @@
             </article>
           <?php endif?>
         
-          <?php if(is_front_page()) : ?>
+          <?php if(is_front_page() && mos_has_content('display-blog-on-frontpage')) : ?>
           <hr><?=mos_get_blog_post()?>
           <?php endif; ?>
 
@@ -89,5 +107,6 @@
     </div>
   </div>
 </div>
+
 
 <?=get_footer()?>

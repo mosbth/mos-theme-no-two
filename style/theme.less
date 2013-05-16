@@ -176,16 +176,19 @@ body{
  * The main content area.
  *
  */
-#outer-wrap-main {
+#outer-wrap-main,
+#outer-wrap-main2 {
   margin-top: @magicNumber;
 }
 
-#inner-wrap-main {
+#inner-wrap-main,
+#inner-wrap-main2 {
   .wrap();
   margin-bottom: @magicNumber * 3;
 }
 
-#primary {
+#primary,
+#primary2 {
   //word-wrap: break-word;
   .column(@columns * 2 / 3);
 
@@ -199,7 +202,8 @@ body{
 }
 
 //#primary-fullwidth{.column(24);}
-#sidebar {
+#sidebar,
+#sidebar2 {
   .column(@columns / 3 - 1);
   .push(1);
 }
