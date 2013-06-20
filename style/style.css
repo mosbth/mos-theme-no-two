@@ -326,6 +326,9 @@ dl.dl-horizontal dd {
 .table  td {
   padding: 5px 10px 5px 5px;
 }
+td.right {
+  text-align: right;
+}
 .table-striped tbody tr:nth-child(even) td,
 .table-striped tbody tr.even td {
   background-color: #f6f6f6;
@@ -1213,11 +1216,9 @@ html.abfab #outer-wrap-header-right {
   width: 51%;
   height: 100%;
   z-index: -10;
-  background-color: #343335;
 }
 html.abfab #outer-wrap-header-right {
   left: 50%;
-  background-color: #373739;
 }
 html.abfab #inner-wrap-header {
   height: auto;
@@ -1318,7 +1319,6 @@ html.abfab #outer-wrap-main-left-bottom {
   background-color: #eee9ee;
 }
 html.abfab #inner-wrap-main {
-  background-color: #373739;
   position: relative;
   margin-bottom: 0;
   min-height: 550px;
@@ -1344,13 +1344,28 @@ html.abfab #primary .wp section {
   padding-top: 1em;
   padding-left: 1em;
 }
+html.abfab tr.nej {
+  color: #999;
+}
+html.abfab .full-width section {
+  padding-right: 1em;
+}
+html.abfab fieldset {
+  margin-bottom: 22px;
+}
 html.abfab body.page-template-page_single-php #inner-wrap-header,
+html.abfab body.page-template-page_activity-php #inner-wrap-header,
+html.abfab body.page-template-page_activity_admin-php #inner-wrap-header,
 html.abfab body.archive #inner-wrap-header,
 html.abfab body.single #inner-wrap-header {
   background-color: #fff;
 }
 html.abfab body.page-template-page_single-php #outer-wrap-header-right,
 html.abfab body.page-template-page_single-php #outer-wrap-main-right,
+html.abfab body.page-template-page_activity-php #outer-wrap-header-right,
+html.abfab body.page-template-page_activity-php #outer-wrap-main-right,
+html.abfab body.page-template-page_activity_admin-php #outer-wrap-header-right,
+html.abfab body.page-template-page_activity_admin-php #outer-wrap-main-right,
 html.abfab body.archive #outer-wrap-header-right,
 html.abfab body.archive #outer-wrap-main-right,
 html.abfab body.single #outer-wrap-header-right,
@@ -1359,6 +1374,10 @@ html.abfab body.single #outer-wrap-main-right {
 }
 html.abfab body.page-template-page_single-php #outer-wrap-header-left,
 html.abfab body.page-template-page_single-php #outer-wrap-main-left,
+html.abfab body.page-template-page_activity-php #outer-wrap-header-left,
+html.abfab body.page-template-page_activity-php #outer-wrap-main-left,
+html.abfab body.page-template-page_activity_admin-php #outer-wrap-header-left,
+html.abfab body.page-template-page_activity_admin-php #outer-wrap-main-left,
 html.abfab body.archive #outer-wrap-header-left,
 html.abfab body.archive #outer-wrap-main-left,
 html.abfab body.single #outer-wrap-header-left,
@@ -1366,17 +1385,23 @@ html.abfab body.single #outer-wrap-main-left {
   background-color: #343335;
 }
 html.abfab body.page-template-page_single-php #outer-wrap-main-left,
+html.abfab body.page-template-page_activity-php #outer-wrap-main-left,
+html.abfab body.page-template-page_activity_admin-php #outer-wrap-main-left,
 html.abfab body.archive #outer-wrap-main-left,
 html.abfab body.single #outer-wrap-main-left {
   height: 250px;
 }
 html.abfab body.page-template-page_single-php #outer-wrap-main-right,
+html.abfab body.page-template-page_activity-php #outer-wrap-main-right,
+html.abfab body.page-template-page_activity_admin-php #outer-wrap-main-right,
 html.abfab body.archive #outer-wrap-main-right,
 html.abfab body.single #outer-wrap-main-right {
   height: 392px;
   z-index: -9;
 }
 html.abfab body.page-template-page_single-php #inner-wrap-main-left-image,
+html.abfab body.page-template-page_activity-php #inner-wrap-main-left-image,
+html.abfab body.page-template-page_activity_admin-php #inner-wrap-main-left-image,
 html.abfab body.archive #inner-wrap-main-left-image,
 html.abfab body.single #inner-wrap-main-left-image {
   position: absolute;
@@ -1385,6 +1410,8 @@ html.abfab body.single #inner-wrap-main-left-image {
   z-index: -9;
 }
 html.abfab body.page-template-page_single-php #outer-wrap-main-right-bottom,
+html.abfab body.page-template-page_activity-php #outer-wrap-main-right-bottom,
+html.abfab body.page-template-page_activity_admin-php #outer-wrap-main-right-bottom,
 html.abfab body.archive #outer-wrap-main-right-bottom,
 html.abfab body.single #outer-wrap-main-right-bottom {
   position: absolute;
@@ -1396,6 +1423,8 @@ html.abfab body.single #outer-wrap-main-right-bottom {
   z-index: -10;
 }
 html.abfab body.page-template-page_single-php #inner-wrap-main,
+html.abfab body.page-template-page_activity-php #inner-wrap-main,
+html.abfab body.page-template-page_activity_admin-php #inner-wrap-main,
 html.abfab body.archive #inner-wrap-main,
 html.abfab body.single #inner-wrap-main {
   background-color: #fff;
@@ -1404,6 +1433,8 @@ html.abfab body.single #inner-wrap-main {
   background-repeat: no-repeat;
 }
 html.abfab body.page-template-page_single-php #inner-wrap-main span.subtitle,
+html.abfab body.page-template-page_activity-php #inner-wrap-main span.subtitle,
+html.abfab body.page-template-page_activity_admin-php #inner-wrap-main span.subtitle,
 html.abfab body.archive #inner-wrap-main span.subtitle,
 html.abfab body.single #inner-wrap-main span.subtitle {
   position: relative;
@@ -1411,6 +1442,8 @@ html.abfab body.single #inner-wrap-main span.subtitle {
   font-size: 24px;
 }
 html.abfab body.page-template-page_single-php #inner-wrap-main h1,
+html.abfab body.page-template-page_activity-php #inner-wrap-main h1,
+html.abfab body.page-template-page_activity_admin-php #inner-wrap-main h1,
 html.abfab body.archive #inner-wrap-main h1,
 html.abfab body.single #inner-wrap-main h1 {
   border-bottom: none;
@@ -1452,6 +1485,12 @@ html.abfab body.single .sidebar h4 {
   color: #c23577;
   font-size: 32px;
 }
+html.abfab body.page-template-page_first-php #outer-wrap-header-left {
+  background-color: #343335;
+}
+html.abfab body.page-template-page_first-php #outer-wrap-header-right {
+  background-color: #373739;
+}
 html.abfab body.page-template-page_first-php #outer-wrap-main-left {
   height: 376px;
 }
@@ -1460,6 +1499,9 @@ html.abfab body.page-template-page_first-php #inner-wrap-main-left-image {
   top: 376px;
   left: -890px;
   z-index: -9;
+}
+html.abfab body.page-template-page_first-php #inner-wrap-main {
+  background-color: #373739;
 }
 html.abfab body.page-template-page_first-php #primary {
   color: #fff;
@@ -1886,7 +1928,6 @@ html.abfab #outer-wrap-footer-right {
 }
 html.abfab #outer-wrap-footer-right {
   left: 50%;
-  background-color: #fff;
 }
 html.abfab #footer {
   padding-top: 1em;

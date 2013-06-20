@@ -11,6 +11,21 @@ add_filter( 'the_content', 'make_clickable', 12); // After shortcodes are execut
 
 
 /**
+ * init_sessions()
+ *
+ * @uses session_id()
+ * @uses session_start()
+ */
+function init_sessions() {
+    if (!session_id()) {
+        session_start();
+    }
+}
+add_action('init', 'init_sessions');
+
+
+
+/**
  * Enable menues.
  */
 register_nav_menus( array(
@@ -797,4 +812,30 @@ EOD;
   return $output;
 }
 add_shortcode('agallery','mos_gallery_shortcode');
+
+
+
+/**
+ * Shortcode for forms, [cform]
+ */
+/*
+function mos_form_shortcode($atts, $content = null) {
+  global $mos_content;
+  extract( shortcode_atts( array(
+  'id' => '',
+  ), $atts ) );
+
+  require_once(__DIR__ . '/cform/CForm.php');
+
+  if(isset($mos_content['form'][$id])) {
+    $form = new CForm(array(), $mos_content['form'][$id]);
+  } else {
+    return "Formulär saknas.";
+  }
+
+  return $form->GetHTML();
+}
+add_shortcode('cform','mos_form_shortcode');
+*/
+
 
