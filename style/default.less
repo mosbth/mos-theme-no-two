@@ -2,13 +2,27 @@
  * Make your own custom style.
  *
  */
-@bgcolor: #fff;
-@color: #222;
-@color-footer: #aaa;
-@color-navbar: #bbb;
-
 html.mos-default{background-color:@bgcolor;
-  body{background-color:@bgcolor;color:@color;}
+
+/*
+  @bgcolor: #fff;
+  @color: #222;
+  @color-footer: #aaa;
+  @color-navbar: #bbb;
+*/
+
+   /** --------------------------------------------------------------
+   * Base
+   */
+  body {
+    margin: 0;
+    padding: 0;
+    position:relative;
+    overflow-x:hidden;
+    overflow-y:hidden;
+  }
+
+  //body{background-color:@bgcolor;color:@color;}
   //body:hover{background:@bgcolor url(img/grid_24_30_10.png) repeat-y center top;}
 
 
@@ -22,7 +36,41 @@ html.mos-default{background-color:@bgcolor;
    * Header.
    *
    */
+  #banner{
+    position: relative;
+  }
 
+  #site-title {
+    color: @colorSiteTitle;
+    font-family: @fontFamilySiteTitle;
+    font-size: @fontSizeSiteTitle;
+    line-height: 1;
+    .anchor-none();
+
+    position: absolute;
+    top: 22px;
+    left: 0;
+  }
+
+  #site-slogan{
+    font-family: @fontFamilyHeadings;
+    color: @colorSiteSlogan;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+
+  /** --------------------------------------------------------------
+   * Navbar.
+   *
+   */
+  #navbar1 {
+    display: inline-block;
+    position: absolute;
+    left: 400px;
+    top: 30px;
+  }
 
   /** --------------------------------------------------------------
    * Firstpage.
@@ -32,12 +80,6 @@ html.mos-default{background-color:@bgcolor;
 
   /** --------------------------------------------------------------
    * Gallery.
-   *
-   */
-
-
-  /** --------------------------------------------------------------
-   * Navbar.
    *
    */
 

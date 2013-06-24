@@ -39,24 +39,17 @@ body{
  * Banner 
  */
 #banner{
-
 }
 
-#site-logo{
-
+#site-logo {
 }
 
 #site-title {
-  color: @colorSiteTitle;
-  font-family: @fontFamilySiteTitle;
-  font-size: @fontSizeSiteTitle;
-  line-height: 1;
-  .anchor-none();
 }
 
 #site-slogan{
-  color: @colorSiteSlogan;
 }
+
 
 
 /** --------------------------------------------------------------
@@ -90,11 +83,12 @@ body{
 }
 
 #navbar1 {
-  display: inline-block;
 }
 
 #navbar2 {
+}
 
+#navbar3 {
 }
 
 
@@ -176,19 +170,16 @@ body{
  * The main content area.
  *
  */
-#outer-wrap-main,
-#outer-wrap-main2 {
+#outer-wrap-main {
   margin-top: @magicNumber;
 }
 
-#inner-wrap-main,
-#inner-wrap-main2 {
+#inner-wrap-main {
   .wrap();
   margin-bottom: @magicNumber * 3;
 }
 
-#primary,
-#primary2 {
+#primary {
   //word-wrap: break-word;
   .column(@columns * 2 / 3);
 
@@ -202,16 +193,15 @@ body{
 }
 
 //#primary-fullwidth{.column(24);}
-#sidebar,
-#sidebar2 {
+.sidebar {
   .column(@columns / 3 - 1);
   .push(1);
 }
 
-/*
-.sidebar {
-  margin-top: @magicNumber * 2;
-}*/
+
+.sidebar .box {
+  margin-bottom: @magicNumber * 2;
+}
 
  
 

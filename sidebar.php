@@ -1,70 +1,53 @@
 <?php 
-global $post, $pageId, $mos_content; 
-$home     = is_home() ? 'home' : null;
-$single   = is_single() ? 'single' : null;
-$archive  = is_archive() ? 'archive' : null;
-$page     = is_page() ? 'page' : null;
-$tag      = is_tag() ? 'tag' : null;
-$category = is_category() ? 'category' : null;
-
-$id = $home . $single .  $page . $archive;
-$sidebar = 'sidebar-' . $id;
-
-/*
-echo '<p>' . "$sidebar " . $home . $single . $archive . $page . $tag . $category . " $post->ID" . '</p>';
-echo "<p>{$pageId}</p>";
-echo "<p>page - {$page}</p>";
-*/
+global $post; 
 
 // Should we display categories widget for this page?
-$display_categories = true;
-if(in_array($pageId, $mos_content['disable-categories'])) {
-  $display_categories = false;  
+$display_categories = false;
+if(in_array(mos_page_type(), mos_get('sidebar-display-categories'))) {
+  $display_categories = true;
 }
 
 // Should we display tags widget for this page?
-$display_tags = true;
-if(in_array($pageId, $mos_content['disable-tags'])) {
-  $display_tags = false;  
+$display_tags = false;
+if(in_array(mos_page_type(), mos_get('sidebar-display-tags'))) {
+  $display_tags = true;  
 }
 
 ?>
 
 <div class='sidebar'>
 
-
+ 
 <?php 
-if(mos_has_content('sidebar-page-' . $pageId, false)) {
-  $current = get_page(mos_get_content('sidebar-page-' . $pageId));
+$pageType = mos_page_type();
+
+if(mos_has('sidebar-page-' . $post->ID, false)) {
+  $current = get_page(mos_get('sidebar-page-' . $post->ID));
   echo apply_filters('the_content', $current->post_content); 
 }
-else if(mos_has_content('sidebar-page-' . $post->ID, false)) {
-  $current = get_page(mos_get_content('sidebar-page-' . $post->ID));
-  echo apply_filters('the_content', $current->post_content); 
-}
-else if(mos_has_content("$sidebar-content", false)) {  //? $ ?
-  $current = get_page(mos_get_content("$sidebar-content"));
+else if(mos_has('sidebar-page-' . $pageType, false)) {
+  $current = get_page(mos_get('sidebar-page-' . $pageType));
   echo apply_filters('the_content', $current->post_content); 
 }
 ?>
 
 
-<?php if(!$page && $display_categories): ?>
+<?php if($display_categories): ?>
 <div id='categories' class='widget box'>
-  <?php $title = empty($mos_content['category-widget-title']) ? __( 'Kategorier', 'mos' ) : $mos_content['category-widget-title']; ?>
+  <?php $title = mos_has('category-widget-title') ? mos_get('category-widget-title') : __( 'Categories', 'mos' ); ?>
   <h4><?=$title?></h4>
   <ul><?=wp_list_categories(array('title_li'=>false, 'show_count'=>1))?></ul>
 </div>
 <?php endif; ?>
 
 
-<?php if(!$page && $display_tags): ?>
+<?php if($display_tags): ?>
 <div id="tags" class="widget box">
-  <h4><?=__( 'Taggar', 'mos' )?></h4>
-  <?=wp_tag_cloud(array('smallest'=>12))?>
+  <?php $title = mos_has('tag-widget-title') ? mos_get('tag-widget-title') : __( 'Tags', 'mos' ); ?>
+  <h4><?=$title?></h4>
+  <?=wp_tag_cloud(mos_get('widget-tag-options'))?>
 </div>
 <?php endif; ?>
-
 
 
 </div>

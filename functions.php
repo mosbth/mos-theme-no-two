@@ -36,19 +36,6 @@ register_nav_menus( array(
 
 
 /**
- * Include customizations for this theme
- *
- */
-$mos_customize_file = __DIR__ . '/config/config.php';
-$mos_customize_file_default = __DIR__ . '/config/config_default.php';
-if(is_file($mos_customize_file)) {
-  include($mos_customize_file); 
-} elseif(is_file($mos_customize_file_default)) {
-  include($mos_customize_file_default); 
-}
-
-
-/**
  * Remove admin menues.
  *
  */
@@ -64,236 +51,20 @@ add_action( 'admin_menu', 'mos_remove_admin_menus' );
 
 
 /**
- * Return content to template page.
- *
- * @param string $region
- * @param boolen $text return "No content" or null.
- */
-function mos_get_content($region, $text=true) {
-  global $mos_content_array;
-  if(isset($mos_content_array[$region])) {
-    if(is_callable($mos_content_array[$region])) {
-      return call_user_func($mos_content_array[$region]);
-    } else {
-      return $mos_content_array[$region];
-    }
-  } else {
-    return $text ? __('No content for this region.') : null;
-  }  
-}
-
-
-/**
- * Check if content is defined for area.
- *
- * @param string ... $region one or severla regions to check.
- * @returns boolean true if content exists for any region, else null.
+ * Include customizations for this theme and create the mos object and its interface
  *
  */
-function mos_has_content($region) {
-  global $mos_content_array;
-  $regions = func_get_args();
-  foreach($regions as $val) {
-  	if(!empty($mos_content_array[$val])) {
-  		return true;
-  	}
-  }
-  return null;
+$mos_customize_file = __DIR__ . '/config/config.php';
+$mos_customize_file_default = __DIR__ . '/config/config_default.php';
+if(is_file($mos_customize_file)) {
+  include($mos_customize_file); 
+} elseif(is_file($mos_customize_file_default)) {
+  include($mos_customize_file_default); 
 }
 
+include(__DIR__ . "/src/CMos/CMos.php");
+$mos = new CMos($mos_config);
 
-/**
- * Return the title.
- *
- */
-function mos_get_title() {
-	global $page, $paged;
-
-	$title = wp_title( ' - ', false, 'right' ) . get_bloginfo( 'name' );
-
-	// Add the blog description for the home/front page.
-	$site_description = get_bloginfo( 'description', 'display' );
-	if ( $site_description && ( is_home() || is_front_page() ) ) {
-		$title .= " | $site_description";
-	}
-
-	// Add a page number if necessary:
-	if ( $paged >= 2 || $page >= 2 ) {
-		$title .= ' | ' . sprintf( __( 'Sida %s', 'mos' ), max( $paged, $page ) );
-	}
-	
-	return $title;
-}
-
-/*
-function mos_get_title( $title, $sep, $seplocation ) {
-    // account for $seplocation
-    $left_sep = ( $seplocation != 'right' ? ' ' . $sep . ' ' : '' );
-    $right_sep = ( $seplocation != 'right' ? '' : ' ' . $sep . ' ' );
- 
-    // get special page type (if any)
-    if( is_category() ) $page_type = $left_sep . 'Category' . $right_sep;
-    elseif( is_tag() ) $page_type = $left_sep . 'Tag' . $right_sep;
-    elseif( is_author() ) $page_type = $left_sep . 'Author' . $right_sep;
-    elseif( is_archive() || is_date() ) $page_type = $left_sep . 'Archives'. $right_sep;
-    else $page_type = '';
- 
-    // get the page number
-    if( get_query_var( 'paged' ) ) $page_num = $left_sep. get_query_var( 'paged' ) . $right_sep; // on index
-    elseif( get_query_var( 'page' ) ) $page_num = $left_sep . get_query_var( 'page' ) . $right_sep; // on single
-    else $page_num = '';
- 
-    // concoct and return title
-    return get_bloginfo( 'name' ) . $page_type . $title . $page_num;
-}
-add_filter( 'wp_title', 'mos_get_title', 10, 3 );*/
-
-
-/**
- * Return meta information on post.
- *
- */
-function mos_posted_on() {
-/*	printf( __( '<span class="sep">Posted on </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>', 'twentyeleven' ),
-		esc_url( get_permalink() ),
-		esc_attr( get_the_time() ),
-		esc_attr( get_the_date( 'c' ) ),
-		esc_html( get_the_date() ),
-		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-		esc_attr( sprintf( __( 'View all posts by %s', 'twentyeleven' ), get_the_author() ) ),
-		get_the_author()
-  ); */
-  $user = "<a href='" . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . "' title='" . esc_attr(sprintf( __( 'Visa alla poster av %s', 'mos' ), get_the_author())) . "'>" . get_the_author() . "</a>";
-  $permalink = esc_url(get_permalink());
-  $year = esc_html(get_the_date('Y'));
-  $month = esc_html(get_the_date('n'));
-  $day = esc_html(get_the_date('j'));
-  $months = array('januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september',
-    'oktober', 'november', 'december');
-  $days = array(1,2,21,22,31);
-  $e = in_array($day, $days) ? 'a' : 'e';
-  return "Den {$day}:{$e} {$months[$month-1]} anno $year av $user";
-}
-
-
-/**
- * Create a breadcrumb, based on dimox_breadcrumbs()
- *
- * @param $pageTemplate to say what template is calling the method.
- */
-function mos_breadcrumb($pageTemplate=null) {
- 	global $mos_content_array;
- 	
- 	if($pageTemplate === null   && $mos_content_array['breadcrumb-enable'] ||
-     $pageTemplate === 'home' && $mos_content_array['breadcrumb-enable-home'] ||
-     $pageTemplate === 'archive' && $mos_content_array['breadcrumb-enable-archive'] ||
-     $pageTemplate === 'single' && $mos_content_array['breadcrumb-enable-single']) {
-    ; // pass
-  } else {
-    return;
-  }
- 	
-  $showOnHome 	= $mos_content_array['breadcrumb-on-home'];
-  $home 				= $mos_content_array['breadcrumb-start'];
-  $delimiter 		= $mos_content_array['breadcrumb-delimiter'];
-  $showCurrent 	= $mos_content_array['breadcrumb-show-current'];
-  $before = '<span class="current">'; // tag before the current crumb
-  $after = '</span>'; // tag after the current crumb
- 
-  global $post;
-  $homeLink = get_bloginfo('url') . '/' . $mos_content_array['breadcrumb-start-url'];
- 
-  if (is_home() || is_front_page()) {
- 
-    if ($showOnHome) echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a><li></ul>';
- 
-  } else {
- 
-    echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a></li> ' . $delimiter . ' ';
- 
-    if ( is_category() ) {
-      global $wp_query;
-      $cat_obj = $wp_query->get_queried_object();
-      $thisCat = $cat_obj->term_id;
-      $thisCat = get_category($thisCat);
-      $parentCat = get_category($thisCat->parent);
-      if ($thisCat->parent != 0) echo(get_category_parents($parentCat, true, ' ' . $delimiter . ' '));
-      echo $before . single_cat_title('', false) . $after;
- 
-    } elseif ( is_day() ) {
-      echo '<li><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li> ' . $delimiter . ' ';
-      echo '<li><a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a></li> ' . $delimiter . ' ';
-      echo $before . get_the_time('d') . $after;
- 
-    } elseif ( is_month() ) {
-      echo '<li><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li> ' . $delimiter . ' ';
-      echo $before . get_the_time('F') . $after;
- 
-    } elseif ( is_year() ) {
-      echo $before . get_the_time('Y') . $after;
- 
-    } elseif ( is_single() && !is_attachment() ) {
-      if ( get_post_type() != 'post' ) {
-        $post_type = get_post_type_object(get_post_type());
-        $slug = $post_type->rewrite;
-        echo '<li><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a></li> ' . $delimiter . ' ';
-        if ($showCurrent == 1) echo $before . get_the_title() . $after;
-      } else {
-        $cat = get_the_category(); $cat = $cat[0];
-        echo get_category_parents($cat, true, ' ' . $delimiter . ' ');
-        if ($showCurrent == 1) echo $before . get_the_title() . $after;
-      }
- 
-    } elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {
-      $post_type = get_post_type_object(get_post_type());
-      echo $before . $post_type->labels->singular_name . $after;
- 
-    } elseif ( is_attachment() ) {
-      $parent = get_post($post->post_parent);
-      $cat = get_the_category($parent->ID); $cat = $cat[0];
-      echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
-      echo '<li><a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a><li> ' . $delimiter . ' ';
-      if ($showCurrent == 1) echo $before . get_the_title() . $after;
- 
-    } elseif ( is_page() && !$post->post_parent ) {
-      if ($showCurrent == 1) echo $before . get_the_title() . $after;
- 
-    } elseif ( is_page() && $post->post_parent ) {
-      $parent_id  = $post->post_parent;
-      $breadcrumbs = array();
-      while ($parent_id) {
-        $page = get_page($parent_id);
-        $breadcrumbs[] = '<li><a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a></li>';
-        $parent_id  = $page->post_parent;
-      }
-      $breadcrumbs = array_reverse($breadcrumbs);
-      foreach ($breadcrumbs as $crumb) echo $crumb . ' ' . $delimiter . ' ';
-      if ($showCurrent == 1) echo $before . get_the_title() . $after;
- 
-    } elseif ( is_search() ) {
-      echo $before . 'sökresultat för "' . get_search_query() . '"' . $after;
- 
-    } elseif ( is_tag() ) {
-      echo $before . 'taggad som "' . single_tag_title('', false) . '"' . $after;
- 
-    } elseif ( is_author() ) {
-       global $author;
-      $userdata = get_userdata($author);
-      echo $before . 'artiklar postade av ' . $userdata->display_name . $after;
- 
-    } elseif ( is_404() ) {
-      echo $before . 'Error 404' . $after;
-    }
- 
-    if ( get_query_var('paged') ) {
-      if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';
-      echo __('Page') . ' ' . get_query_var('paged');
-      if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
-    }
- 
-    echo '</ul>';
-  }
-} 
 
 
 /**
@@ -411,7 +182,7 @@ function mos_get_blog_post($posts=1) {
     $my_query->the_post();
     $more = 0;
     $blogpost  = "<h2>" . get_the_title() . "</h2>";
-    $blogpost .= apply_filters('the_content', get_the_content(mos_get_content('read-more-text'))); 
+    $blogpost .= apply_filters('the_content', get_the_content(mos_get('read-more-text'))); 
   }
 
   $post = $postOrig;
@@ -837,5 +608,19 @@ function mos_form_shortcode($atts, $content = null) {
 }
 add_shortcode('cform','mos_form_shortcode');
 */
+
+
+
+/**
+ * Dump a variable.
+ *
+ * @param mixed $a the variable to output.
+ */
+function dump($a) {
+  echo "<pre>" . print_r($a, 1) . "</pre>";
+}
+
+
+
 
 

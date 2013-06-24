@@ -157,9 +157,10 @@ Language
 History
 --------------------------------------
 
-v0.3.x (latest)
+v0.4.0 (2013-06-24)
 
-* 
+* Cleaning up code. 
+* Introducing class `CMos` to separate mos theme from standard WordPress and to ease usage of config-file.
 
 v0.3.2 (2013-04-08)
 v0.3.1 (2013-04-08)

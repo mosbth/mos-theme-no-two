@@ -1,38 +1,28 @@
 <?php
 /*
-Template Name: Single
+Template Name: Default (index.php)
 */
+global $post, $userID;
+
+$pageClass = $mos['page-class-' . $post->ID] ? " class='" . $mos['page-class-' . $post->ID] . "'" : null;
+
 get_header();
-
-global $post; 
-
-$pageClass = null;
-if(mos_has_content('page-class-' . $post->ID)) {
-  $pageClass = mos_get_content('page-class-' . $post->ID);
-}
-$pageClass = $pageClass ? " class='{$pageClass}'" : null;
-
-$pageClass2 = null;
-if(mos_has_content('page-class2-' . $post->ID)) {
-  $pageClass = mos_get_content('page-class2-' . $post->ID);
-}
-$pageClass2 = $pageClass2 ? " class='{$pageClass}'" : null;
 ?>
 
-<?php if(mos_has_content('flash')): ?>
+<?php if(mos_has('flash')): ?>
 <div id='outer-wrap-flash' role='complementary'>
 	<div id='inner-wrap-flash'>
-		<div id='flash'><?=mos_get_content('flash')?></div>
+		<div id='flash'><?=mos_get('flash')?></div>
 	</div>
 </div>
 <?php endif; ?>
 
-<?php if(mos_has_content('featured-first', 'featured-middle', 'featured-last')): ?>
+<?php if(mos_has('featured-first', 'featured-middle', 'featured-last')): ?>
 <div id='outer-wrap-featured' role='complementary'>
 	<div id='inner-wrap-featured'>
-		<div id='featured-first'><?=mos_get_content('featured-first')?></div>
-		<div id='featured-middle'><?=mos_get_content('featured-middle')?></div>
-		<div id='featured-last'><?=mos_get_content('featured-last')?></div>
+		<div id='featured-first'><?=mos_get('featured-first')?></div>
+		<div id='featured-middle'><?=mos_get('featured-middle')?></div>
+		<div id='featured-last'><?=mos_get('featured-last')?></div>
 	</div>
 </div>
 <?php endif; ?>
@@ -41,18 +31,15 @@ $pageClass2 = $pageClass2 ? " class='{$pageClass}'" : null;
   <div id='inner-wrap-main'>
     <div id='main'>
 
-      <?php if(mos_has_content('sidebar-left-enabled')): ?>
-      <div id='sidebar-left' role='complementary'>
-        <?=get_sidebar(mos_get_content('sidebar-left-template'))?>
-      </div>
-      <?php endif; ?>
+      <?php if(mos_has('sidebar-left-enabled')): ?><div id='sidebar-left' role='complementary'><?=get_sidebar(mos_get('sidebar-left-template'))?></div><?php endif; ?>
       
       <div id='primary'<?=$pageClass?> role='main'>
         <div id='content'>
 
+
           <?php if ( is_category() ) : ?>
           <header class="page-header">
-            <h1 class="page-title"><?=__('Kategori: ', 'mos' )?><span><?=single_cat_title('', false)?></span></h1>
+            <h1 class="page-title"><?=__('Category: ', 'mos' )?><span><?=single_cat_title('', false)?></span></h1>
             <?php
             $category_description = category_description();
             if ( ! empty( $category_description ) )
@@ -60,18 +47,28 @@ $pageClass2 = $pageClass2 ? " class='{$pageClass}'" : null;
             ?>
           </header>
 
+
           <?php elseif( is_tag() ) : ?>
-           <header class="page-header">
-            <h1 class="page-title"><?=__('Tagg: ', 'mos' )?><span><?=single_tag_title('', false)?></span></h1>
+          <header class="page-header">
+            <h1 class="page-title"><?=__('Tag: ', 'mos' )?><span><?=single_tag_title('', false)?></span></h1>
             <?php
             $tag_description = tag_description();
             if ( ! empty( $tag_description ) )
               echo apply_filters( 'tag_archive_meta', '<div class="tag-archive-meta">' . $tag_description . '</div>' );
              ?>
           </header>
-          <?php endif; ?>
 
+
+          <?php elseif( is_author() ) : 
+            $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+          ?>
+          <header class="page-header">
+            <h1 class="page-title"><?=__('Author: ', 'mos' )?><span><?=$curauth->nickname?></span></h1>
+            <p><?=$curauth->description?></p>
+          </header>
+          <?php endif; ?>
           
+
           <?php if(have_posts()): ?>
           <article class='wp'>
           	<?php while(have_posts()): the_post()?>
@@ -91,18 +88,13 @@ $pageClass2 = $pageClass2 ? " class='{$pageClass}'" : null;
             </article>
           <?php endif?>
         
-          <?php if(is_front_page() && mos_has_content('display-blog-on-frontpage')) : ?>
-          <hr><?=mos_get_blog_post()?>
-          <?php endif; ?>
+        
+          <?php if(is_front_page() && mos_has('display-blog-on-frontpage')) : ?><hr><?=mos_get_blog_post()?><?php endif; ?>
 
         </div>
       </div>
       
-      <?php if(mos_has_content('sidebar-right-enabled')): ?>
-      <div id='sidebar-right' role='complementary'>
-        <?=get_sidebar(mos_get_content('sidebar-right-template'))?>
-      </div>
-      <?php endif; ?>
+      <?php if(mos_has('sidebar-right-enabled')): ?><div id='sidebar-right' role='complementary'><?=get_sidebar(mos_get('sidebar-right-template'))?></div><?php endif; ?>
     
     </div>
   </div>
