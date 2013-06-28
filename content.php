@@ -1,4 +1,4 @@
-<section id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<section id="post-<?php the_ID(); ?>" <?=post_class()?>>
   <?php if(('post' == get_post_type()) && mos_has('show-posted-on')) : ?><span class="published"><?=mos_posted_on()?></span><?php endif; ?>
   <?php if('page' == get_post_type() && mos_has('show-title-on-pages')): ?>
   <h1><?=the_title()?></h1>
@@ -56,6 +56,7 @@
 
 
     <?php if ( mos_has('edit-link-enabled') ) : ?>
+      <?php if('post' == get_post_type()): ?><span class="sep"> | </span><?php endif; ?>
       <?=edit_post_link( __( 'Edit', 'mos' ), '<span class="edit-link">', '</span>' ); ?>
     <?php endif; ?>
   </footer><!-- #entry-meta -->

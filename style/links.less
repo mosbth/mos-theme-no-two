@@ -48,7 +48,7 @@ ul.breadcrumb {
  * Navbar: Plain style, nothing special
  *
  */
-ul.nb-plain{
+ul.nb-plain {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -63,7 +63,8 @@ ul.nb-plain{
     }
 
     &.selected a, 
-    &.current-menu-item a {
+    &.current-menu-item a,
+    &.current_page_parent a {
       color: @anchorColor;
       text-decoration: underline;
     }    
@@ -80,6 +81,30 @@ ul.nb-plain{
     }
   }
 }
+
+
+/** --------------------------------------------------------------
+ * Navbar for icons
+ *
+ */
+ul.nb-icons {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    padding: 0 1em 0 0;
+    margin: 0;
+    display: inline;
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
+
+
+
 
 
 

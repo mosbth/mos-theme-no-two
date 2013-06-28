@@ -9,11 +9,39 @@
  *
  */
 .wp section {
-  margin-bottom: @magicNumber * 3;
+  margin-top: @magicNumber * 2;
+
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .wp-post-title {
   .anchor-anonymous();
+}
+
+.wp-meta-more-posts {
+  margin-top: @magicNumber * 2;
+}
+
+.wp-caption-text {
+  font-style: italic;
+}
+
+.alignright {
+  float: right;
+  margin-left: 0.5em;
+}
+
+.alignleft {
+  float: left;
+  margin-right: 0.5em;
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
@@ -54,6 +82,7 @@
 .post h2{margin-top:0;}
 .box h4{margin-top:0;}
 
+.sep,
 .cat-links, 
 .tag-links,
 .edit-link,
@@ -73,7 +102,7 @@
  * Category.
  *
  */
-.category-archive-meta{margin-bottom:@magic-number*2;}
+.category-archive-meta{margin-bottom:@magicNumber*2;}
 
 
 
@@ -81,16 +110,18 @@
  * Search.
  *
  */
-section.search-results{.column(16);}
-.search-results #searchform{margin-bottom:@magic-number*2;}
+#searchform {
+  margin-bottom: @magicNumber * 2;
+}
+//section.search-results{.column(16);}
+//.search-results #searchform{margin-bottom:@magicNumber*2;}
 
 
 /** --------------------------------------------------------------
  * Error 404.
  *
  */
-section.error404{.column(16);}
-.error404 #searchform{margin-bottom:@magic-number*4;}
+//.error404 #searchform{margin-bottom:@magicNumber*4;}
 
 
 /** --------------------------------------------------------------

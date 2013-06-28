@@ -21,9 +21,12 @@ class CMos implements ArrayAccess {
     $defaults = array(
       // Class attribute for <html> to apply specific style
       'html-class' => 'mos-default',
+      
+      // Localise
+      'lang' => 'en',
 
       // Path to webbroot
-      'webroot' => realpath(__DIR__ . '/../../../../../'),
+      'webroot' => realpath(__DIR__ . '/../../../../../../'),
 
       // Meta
       'meta-description' => 'Some descriptive text about the site.',
@@ -31,12 +34,13 @@ class CMos implements ArrayAccess {
 
       // Stylesheets
       'stylesheet' => get_stylesheet_directory_uri().'/style/style.php',
+      'stylesheets' => array(),
       'favicon' => get_stylesheet_directory_uri().'/img/favicon.png',
 
       // JavaScript
       'modernizer' => get_stylesheet_directory_uri() . '/js/modernizer.js',
       'jquery' => null,
-      'javascript-include' => null, // array(),
+      'javascript-include' => array(),
       'javascript-inline' => null,
       'google-analytics' => null, 
 
@@ -78,7 +82,6 @@ class CMos implements ArrayAccess {
 
       // General
       'show-title-on-pages' => true,
-      'show-posted-on' => true,
       'display-blog-on-frontpage' => false,
       'link-blog-title' => true,
       'display-tagged-as' => true,
@@ -86,6 +89,11 @@ class CMos implements ArrayAccess {
       'comments-enabled' => false,
       'edit-link-enabled' => true,
  
+      // Format the text when post is posted
+      'show-posted-on' => true,
+      'format-posted-on' => 1,
+      'posted-on-display-author' => true,
+
       // Sidebar left
       'sidebar-left-enabled' => false,
       'sidebar-left-template' => null, //'left', or custom sidebar
@@ -95,8 +103,13 @@ class CMos implements ArrayAccess {
       'sidebar-right-template' => null, //'right', or custom sidebar
 
       // Sidebar tags & categories ('front', 'home', 'page', 'single', 'tag', 'categories')
-      'sidebar-display-categories'  => array('home', 'single', 'tag', 'category', 'archive'),
-      'sidebar-display-tags'        => array('home', 'single', 'tag', 'category', 'archive'),
+      'sidebar-display-categories'  => array('home', 'single', 'tag', 'category', 'archive', 'search'),
+      'sidebar-display-tags'        => array('home', 'single', 'tag', 'category', 'archive', 'search'),
+      'sidebar-display-searchform'  => array('home', 'single', 'tag', 'category', 'archive'),
+
+      // Sidebar recent posts
+      'sidebar-display-recent-posts' => array('home', 'single', 'tag', 'category', 'archive'),
+      'recent-posts-args' => array( 'numberposts' => '7' ),
 
       // Title on category widget
       'category-widget-title' => null,
@@ -112,15 +125,57 @@ class CMos implements ArrayAccess {
       //'footer-column-three'   => '<h4>Footer column 3</h4>',
       //'footer-column-four'    => '<h4>Footer column 4</h4>',
 
-      // 404
-      '404-search'   => false,
-      '404-triptych' => false,
-
       // Admin menu
       //'admin-menu-remove' => array('link-manager.php', 'tools.php', 'posts.php', 'edit-comments.php', 'edit.php'),
 
+      // Image sizes predefined for img.php and /image
+      'column-width' => 30,
+      'gutter-width' => 10,
+      'columns' => 24,
+      'img-sizes' => array(),
+
+      // Sizes of wordpress scaled images, width, height, crop (should be part of theme settings)
+      /*'thumbnail' => array(150, 150, 1),
+      'medium' => array(251, 250, 0),
+      'large' => array(510, 511, 0),
+      'wp-image-sizes' => array('thumbnail', 'medium', 'large'),*/
+
+      // Shortcode jplayer defaults
+      'shortcode-jplayer' => false,
+      'jplayer-path' => get_stylesheet_directory_uri() . '/src/jplayer/jplayer',
+      'jplayer-src' => 'jquery.jplayer.min.js',
+      'jplayer-jquery' => '//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js',
+      'jplayer-skin-path' => get_stylesheet_directory_uri() . '/src/jplayer/skin',
+      'jplayer-skin' => 'blue.monday',
+      'jplayer-view-path' => get_stylesheet_directory() . '/src/jplayer/view',
+      'jplayer-view' => 'jplayer-default.tpl.php',
+      'jplayer-js-path' => get_stylesheet_directory_uri() . '/src/jplayer/js',
+      'jplayer-js' => 'jplayer-default.js',
+      'jplayer-playlist' => false,
+      'jplayer-playlist-path' => get_stylesheet_directory_uri() . '/src/jplayer/jplayer/add-on',
+      'jplayer-playlist-js' => 'jplayer.playlist.min.js',
+
+
     );
     $this->data = array_merge($defaults, $config);
+
+    // Create image sizes according to grid, c1 to c . 'columns'
+    for($i = 1; $i <= $this->data['columns']; $i++) {
+      $this->data['img-sizes']['c' . $i] = $i * ($this->data['column-width'] + $this->data['gutter-width']) - $this->data['gutter-width'];
+    }
+
+    // Include stylesheet for jPlayer if its in use
+    if($this->data['shortcode-jplayer']) {
+      $this->data['stylesheets'][] = $this->data['jplayer-skin-path'] . '/' . $this->data['jplayer-skin'] . '/jplayer.' . $this->data['jplayer-skin'] . '.css';
+    }
+
+    // Update wp image sizes
+    /*foreach($this->data['wp-image-sizes'] as $val) {
+      update_option($val . '_size_w', $this->data[$val][0]);
+      update_option($val . '_size_h', $this->data[$val][s]);
+      update_option($val . '_crop', $this->data[$val][2]);
+    }*/
+
   }
 
 
@@ -345,16 +400,27 @@ class CMos implements ArrayAccess {
       esc_attr( sprintf( __( 'View all posts by %s', 'twentyeleven' ), get_the_author() ) ),
       get_the_author()
     ); */
-    $user = "<a href='" . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . "' title='" . esc_attr(sprintf( __( 'Visa alla poster av %s', 'mos' ), get_the_author())) . "'>" . get_the_author() . "</a>";
+    $author = " <a href='" . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . "' title='" . esc_attr(sprintf( __( 'Show all posts made by %s', 'mos' ), get_the_author())) . "'>" . get_the_author() . "</a>";
     $permalink = esc_url(get_permalink());
     $year = esc_html(get_the_date('Y'));
     $month = esc_html(get_the_date('n'));
     $day = esc_html(get_the_date('j'));
-    $months = array('januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september',
-      'oktober', 'november', 'december');
-    $days = array(1,2,21,22,31);
-    $e = in_array($day, $days) ? 'a' : 'e';
-    return "Den {$day}:{$e} {$months[$month-1]} anno $year av $user";
+
+    if($this->data['lang'] == 'sv') {
+      $months = array('januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december');
+      $days = array(1,2,21,22,31);
+      $e = in_array($day, $days) ? 'a' : 'e';
+    }
+    else {
+      $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Oktober', 'November', 'December');
+    }
+
+    switch($this->data['format-posted-on'] . $this->data['lang']) {
+      case '1sv': return "Den {$day}:{$e} {$months[$month-1]} anno $year" . ($this->data['posted-on-display-author'] ? " av $author" : null); break;
+
+      case '1en': 
+      default :   return __('Published', 'mos') . " {$months[$month-1]} {$day}, $year" . ($this->data['posted-on-display-author'] ? " by $author" : null); break;
+    }
   }
 
 
@@ -386,14 +452,203 @@ class CMos implements ArrayAccess {
     else if (is_archive()) {
       return 'archive';
     }
+    else if (is_search()) {
+      return 'search';
+    }
+    else if (is_404()) {
+      return '404';
+    }
   }
+
+
+
+  /**
+   * Calculate width and height based on predefifined widths and heights.
+   *
+   * @param int $width the width if any.
+   * @param int $height the height if any.
+   * @param int $aspectRatio the aspect ratio if any.
+   * @return array with $width and $height.
+   */
+  protected function CalculateWidthAndHeight($width, $height, $aspectRatio) {
+    if(is_array($this->data['img-sizes'])) {
+      if($width) {
+        $width = array_key_exists($width, $this->data['img-sizes']) ? $this->data['img-sizes'][$width] : $width;
+      }
+      if($height) {
+        $height = array_key_exists($height, $this->data['img-sizes']) ? $this->data['img-sizes'][$height] : $height;
+      }
+      else if($aspectRatio) {
+        switch($aspectRatio) {
+          case '4:3':   $height = round($width / (4/3)); break; 
+          case '16:9':  $height = round($width / (16/9)); break; 
+
+          case '16:10': 
+          default:      $height = round($width / (16/10));
+        }
+      }
+    }
+    return array($width, $height);
+  }
+
+
+
+  /**
+   * Shortcode for images, [image]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  public function ShortcodeImage($atts, $content = null) {
+    extract( shortcode_atts( array(
+      'src' => '',
+      'alt' => '',
+      'width' => '',
+      'height' => '',
+      'class' => '',
+      'caption' => '',
+      'resize' => false,
+      'crop' => null,
+      'croptofit' => false,
+      'quality' => null,
+      'no_link' => false,
+      'aspect_ratio' => false,
+    ), $atts ) );
+
+    $srcOrig = $src;
+    $file = $this->data['webroot'] . $src;
+
+    if (file_exists($file)) {
+
+      list($width, $height) = $this->CalculateWidthAndHeight($width, $height, $aspect_ratio);
+
+      if(is_array($this->data['img-sizes'])) {
+        if($width) {
+          $width = array_key_exists($width, $this->data['img-sizes']) ? $this->data['img-sizes'][$width] : $width;
+        }
+        if($height) {
+          $height = array_key_exists($height, $this->data['img-sizes']) ? $this->data['img-sizes'][$height] : $height;
+        }
+      }
+
+      if($resize || $crop || $croptofit || $quality) {
+        $w = empty($width) ? null : "w={$width}&amp;";
+        $h = empty($height) ? null : "h={$height}&amp;";
+        $crop = empty($crop) ? null : "crop={$crop}&amp;";
+        $croptofit = empty($croptofit) ? null : "crop-to-fit&amp;";
+        $q = empty($quality) ? null : "q={$quality}&amp;";
+        $src = "/image/" . substr($src, 5);
+        $src = "{$src}?{$crop}{$w}{$h}{$croptofit}{$q}";
+        $src = substr($src, 0, -5);
+      }
+
+      $src = "src='{$src}'";
+      $alt = " alt='{$alt}'";
+      $class = empty($class) ? null : " class='{$class}'";
+      $width = empty($width) ? null : " width='{$width}'";
+      $height = empty($height) ? null : " height='{$height}'";
+      $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
+
+      // Do not link to original image
+      $ahref = "<a href='{$srcOrig}'>";
+      $aclose = "</a>";
+      if($no_link) {
+        $ahref = $aclose = null;
+      }
+
+      $output = "<figure{$class}>{$ahref}<img {$src}{$alt}{$width}{$height}{$class} />{$aclose}{$caption}</figure>";
+      return $output;
+    }
+    else {
+      trigger_error("'$src' image not found", E_USER_WARNING);
+      return '';
+    }
+  }
+
+
+  /**
+   * Shortcode for youtube, [ayoutube]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  function ShortcodeYouTube($atts, $content = null) {
+    extract( shortcode_atts( array(
+    'id' => '',
+    'width' => '',
+    'height' => '',
+    'class' => '',
+    'caption' => '',
+    'resolution' => null, // Obsolete
+    'aspect_ratio' => '16:9',
+    ), $atts ) );
+
+    $aspect_ratio = $resolution ? $resolution : $aspect_ratio; // Remove when resolution is removed.
+    list($width, $height) = $this->CalculateWidthAndHeight($width, $height, $aspect_ratio);
+
+    $class = empty($class) ? null : " class='{$class}'";
+    $width = empty($width) ? null : " width='{$width}'";
+    $height = empty($height) ? null : " height='{$height}'";
+    $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
+
+    $output = "<figure{$class}><iframe src='http://www.youtube.com/embed/{$id}' frameborder='0'{$width}{$height}></iframe>{$caption}</figure>";
+    return $output;
+  }
+
+
+
+  /**
+   * Shortcode for jplayer
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  public function ShortcodeJPlayer($atts, $content = null) {
+    extract( shortcode_atts( array(
+    'id' => '',
+    'class' => '',
+    'path' => $this->data['jplayer-path'],
+    'src' => $this->data['jplayer-src'],
+    'jquery' => $this->data['jplayer-jquery'],
+    'view_path' => $this->data['jplayer-view-path'],
+    'view' => $this->data['jplayer-view'],
+    'js_path' => $this->data['jplayer-js-path'],
+    'js' => $this->data['jplayer-js'],
+    'playlist' => $this->data['jplayer-playlist'],
+    'playlist_path' => $this->data['jplayer-playlist-path'],
+    'playlist_js' => $this->data['jplayer-playlist-js'],
+    ), $atts ) );
+
+    $this->data['jquery'] = $this->data['jquery'] ? $this->data['jquery'] : $jquery;
+    $this->data['javascript-include'][] = $path . '/' . $src;
+    if($playlist) {
+      $this->data['javascript-include'][] = $playlist_path . '/' . $playlist_js;
+    }
+    $this->data['javascript-include'][] = $js_path . '/' . $js;
+
+    $view = $view_path . '/' . $view;
+    if(is_file($view)) {
+      $output = file_get_contents($view);
+    } 
+    else {
+      trigger_error("jPlayer '$view' view not found", E_USER_WARNING);
+      return '';
+    }
+
+    return $output;
+  }
+
 
 
 }
 
 
+
 /**
- * Functions for use in theme templates.
+ * Functions for use in theme templates from functions.php.
  */
 function mos_get($key) { global $mos; return $mos->Get($key); }
 function mos_has($keys /* ... */) { global $mos; return $mos->Has(func_get_args()); }
@@ -401,5 +656,8 @@ function mos_get_title() { global $mos; return $mos->GetTitle(); }
 function mos_get_breadcrumb() { global $mos; return $mos->GetBreadcrumb(); }
 function mos_posted_on() { global $mos; return $mos->PostedOn(); }
 function mos_page_type() { global $mos; return $mos->PageType(); }
+function mos_shortcode_image($atts, $content = null) { global $mos; return $mos->ShortcodeImage($atts, $content); }
+function mos_shortcode_youtube($atts, $content = null) { global $mos; return $mos->ShortcodeYouTube($atts, $content); }
+function mos_shortcode_jplayer($atts, $content = null) { global $mos; return $mos->ShortcodeJPlayer($atts, $content); }
 
 

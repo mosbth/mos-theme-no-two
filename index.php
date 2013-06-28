@@ -66,8 +66,15 @@ get_header();
             <h1 class="page-title"><?=__('Author: ', 'mos' )?><span><?=$curauth->nickname?></span></h1>
             <p><?=$curauth->description?></p>
           </header>
-          <?php endif; ?>
           
+
+          <?php elseif( is_search() ) : ?> 
+          <header class="page-header">
+            <h1 class="page-title"><?php printf( __( 'Searchresults for: %s', 'mos' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+            <?php get_search_form(); ?>
+          </header>
+          <?php endif; ?>
+
 
           <?php if(have_posts()): ?>
           <article class='wp'>
@@ -75,20 +82,42 @@ get_header();
               <?=get_template_part('content', get_post_format())?>
             <?php endwhile?>
           </article>
+          <nav>
+            <div class='wp-meta-more-posts'><?=previous_posts_link(__('« Newer posts', 'mos'))?> <?=next_posts_link(__('Older posts »', 'mos'))?></div>
+          </nav>
 
-          <?php else:?>
-            <article id='post-0' class='post no-results not-found'>
-              <header class='entry-header'>
-                <h1 class='entry-title'><?=__('Nothing Found', 'mos')?></h1>
-              </header>
-              <div class='entry-content'>
-                <p><?=__( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'mos' ); ?></p>
-                <?=get_search_form(); ?>
-              </div>
-            </article>
+
+          <?php elseif (is_404()) :?>
+          <article class='wp'>
+            <header class='page-header'>
+              <h1 class='page-title'><?=__('404, page not found', 'mos')?></h1>
+            </header>
+            <section <?=post_class()?>>
+              <p><?=__( 'This is an error. The page you are trying to reach does not exists.', 'mos' ); ?></p>
+            </section>
+          </article>
+
+
+          <?php elseif (is_search()) :?>
+          <article class='wp'>
+            <section <?=post_class()?>>
+              <p><?=__( 'No results were found.', 'mos' ); ?></p>
+            </section>
+          </article>
+
+
+          <?php else :?>
+          <article class='wp'>
+            <header class='page-header'>
+              <h1 class='page-title'><?=__('Nothing Found', 'mos')?></h1>
+            </header>
+            <section <?=post_class()?>>
+              <p><?=__( 'No results were found.', 'mos' ); ?></p>
+            </section>
+          </article>
           <?php endif?>
         
-        
+
           <?php if(is_front_page() && mos_has('display-blog-on-frontpage')) : ?><hr><?=mos_get_blog_post()?><?php endif; ?>
 
         </div>

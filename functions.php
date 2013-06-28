@@ -62,8 +62,14 @@ if(is_file($mos_customize_file)) {
   include($mos_customize_file_default); 
 }
 
+// Create the almighty $mos-object.
 include(__DIR__ . "/src/CMos/CMos.php");
 $mos = new CMos($mos_config);
+
+// Register shortcodes
+add_shortcode('image','mos_shortcode_image');
+add_shortcode('youtube','mos_shortcode_youtube');
+add_shortcode('jplayer','mos_shortcode_jplayer');
 
 
 
@@ -151,21 +157,6 @@ function mos_comment($comment, $args, $depth) {
 
 
 /**
- * Get URL to current page.
- */
-function mos_get_current_url() {
-  $url = "http";
-  $url .= (@$_SERVER["HTTPS"] == "on") ? 's' : '';
-  $url .= "://";
-  $serverPort = ($_SERVER["SERVER_PORT"] == "80") ? '' :
-    (($_SERVER["SERVER_PORT"] == 443 && @$_SERVER["HTTPS"] == "on") ? '' : ":{$_SERVER['SERVER_PORT']}");
-  $url .= $_SERVER["SERVER_NAME"] . $serverPort . htmlspecialchars($_SERVER["REQUEST_URI"]);
-  return $url;
-}
-
-
-
-/**
  * Get a (list of) blogpost with content.
  *
  * @param int $posts the number of posts to get.
@@ -189,71 +180,6 @@ function mos_get_blog_post($posts=1) {
   return $blogpost;
 }
 
-
-
-/**
- * Shortcode for audio, [aaudio]
- */
-function mos_audio_shortcode($atts, $content = null) {
-  global $mos_content;
-  extract( shortcode_atts( array(
-  'id' => '',
-  'class' => '',
-  ), $atts ) );
-
-  // check if there is a pre-defined  size
-  if(is_array($mos_content['img-sizes'])) {
-    if($width) {
-      $width = array_key_exists($width, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$width] : $width;
-    }
-    if($height) {
-      $height = array_key_exists($height, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$height] : $height;
-    }
-  }
-
-  $is = empty($id) ? null : " id='{$id}'";
-  //$class = empty($class) ? null : " class='{$class}'";
-  $output = "<div{$id}{$class}></div>";
-
-  $output = <<<EOD
-<div id="jquery_jplayer_2" class="jp-jplayer"></div>
-<div id="jp_container_2" class="jp-audio {$class}">
-  <div class="jp-type-playlist">
-    <div class="jp-gui jp-interface">
-      <ul class="jp-controls">
-        <li><a href="javascript:;" class="jp-previous" tabindex="1">previous</a></li>
-        <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
-        <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
-        <li><a href="javascript:;" class="jp-next" tabindex="1">next</a></li>
-        <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
-      </ul>
-      <div class="jp-progress">
-        <div class="jp-seek-bar">
-          <div class="jp-play-bar"></div>
-        </div>
-      </div>
-      <div class="jp-time-holder">
-        <div class="jp-current-time"></div>
-        <div class="jp-duration"></div>
-      </div>
-    </div>
-      <div class="jp-playlist">
-        <ul>
-          <li></li> <!-- Empty <li> so your HTML conforms with the W3C spec -->
-        </ul>
-      </div>
-    <div class="jp-no-solution">
-      <span>Update Required</span>
-      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-    </div>
-  </div>
-</div>
-
-EOD;
-
-  return  $output;
-}
-add_shortcode('aaudio','mos_audio_shortcode');
 
 
 /**
@@ -350,109 +276,6 @@ function mos_slideshow_shortcode($atts, $content = null) {
 }
 add_shortcode('aslideshow','mos_slideshow_shortcode');
 
-
-/**
- * Shortcode for youtube, [ayoutube]
- */
-function mos_youtube_shortcode($atts, $content = null) {
-  global $mos_content;
-  extract( shortcode_atts( array(
-  'id' => '',
-  'width' => '',
-  'height' => '',
-  'class' => '',
-  'caption' => '',
-  ), $atts ) );
-
-  // check if there is a pre-defined size
-  if(is_array($mos_content['img-sizes'])) {
-    if($width) {
-      $width = array_key_exists($width, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$width] : $width;
-    }
-    if($height) {
-      $height = array_key_exists($height, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$height] : $height;
-    }
-  }
-
-  $class = empty($class) ? null : " class='{$class}'";
-  $width = empty($width) ? null : " width='{$width}'";
-  $height = empty($height) ? null : " height='{$height}'";
-  $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
-
-  $output = "<figure{$class}><iframe src='http://www.youtube.com/embed/{$id}' frameborder='0'{$width}{$height}></iframe>{$caption}</figure>";
-
-  //$output = "<figure{$class}><a href='{$srcOrig}'><img {$src}{$alt}{$width}{$height}{$class} /></a>{$caption}</figure>";
-  return $output;
-}
-add_shortcode('ayoutube','mos_youtube_shortcode');
-
-
-/**
- * Shortcode for images, [image]
- */
-function mos_image_shortcode($atts, $content = null) {
-  global $mos_content;
-  extract( shortcode_atts( array(
-  'src' => '',
-  'alt' => '',
-  'width' => '',
-  'height' => '',
-  'class' => '',
-  'caption' => '',
-  'resize' => false,
-  'crop' => null,
-  'croptofit' => false,
-  'quality' => null,
-  'no_link' => false,
-  ), $atts ) );
-  $srcOrig = $src;
-  $file=$mos_content['webroot'].$src;
-  if (file_exists($file)) {
-
-    // check if there is a pre-defined size
-    if(is_array($mos_content['img-sizes'])) {
-      if($width) {
-        $width = array_key_exists($width, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$width] : $width;
-      }
-      if($height) {
-        $height = array_key_exists($height, $mos_content['img-sizes']) ? $mos_content['img-sizes'][$height] : $height;
-      }
-    }
-
-    if($resize || $crop || $croptofit || $quality) {
-      $w = empty($width) ? null : "w={$width}&amp;";
-      $h = empty($height) ? null : "h={$height}&amp;";
-      $crop = empty($crop) ? null : "crop={$crop}&amp;";
-      $croptofit = empty($croptofit) ? null : "crop-to-fit&amp;";
-      $q = empty($quality) ? null : "q={$quality}&amp;";
-      $src = "/image/" . substr($src, 5);
-      $src = "{$src}?{$crop}{$w}{$h}{$croptofit}{$q}";
-      $src = substr($src, 0, -5);
-    }
-
-    $src = "src='{$src}'";
-    $alt = " alt='{$alt}'";
-    $class = empty($class) ? null : " class='{$class}'";
-    $width = empty($width) ? null : " width='{$width}'";
-    $height = empty($height) ? null : " height='{$height}'";
-    $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
-
-    // Do not link to original image
-    $ahref = "<a href='{$srcOrig}'>";
-    $aclose = "</a>";
-    if($no_link) {
-      $ahref = $aclose = null;
-    }
-
-    $output = "<figure{$class}>{$ahref}<img {$src}{$alt}{$width}{$height}{$class} />{$aclose}{$caption}</figure>";
-    return $output;
-  }
-  else {
-    trigger_error("'$src' image not found", E_USER_WARNING);
-    return '';
-  }
-}
-add_shortcode('image','mos_image_shortcode');
 
 
 /**
@@ -584,30 +407,6 @@ EOD;
 }
 add_shortcode('agallery','mos_gallery_shortcode');
 
-
-
-/**
- * Shortcode for forms, [cform]
- */
-/*
-function mos_form_shortcode($atts, $content = null) {
-  global $mos_content;
-  extract( shortcode_atts( array(
-  'id' => '',
-  ), $atts ) );
-
-  require_once(__DIR__ . '/cform/CForm.php');
-
-  if(isset($mos_content['form'][$id])) {
-    $form = new CForm(array(), $mos_content['form'][$id]);
-  } else {
-    return "Formulär saknas.";
-  }
-
-  return $form->GetHTML();
-}
-add_shortcode('cform','mos_form_shortcode');
-*/
 
 
 

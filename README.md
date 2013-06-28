@@ -4,6 +4,14 @@ Wordpress base theme: Mos Theme No Two
 Second try to make a robust WP-theme easy to customize. 
 
 
+
+License
+-----------------------------------
+
+Dual license, MIT LICENSE and GPL VERSION 3.
+
+
+
 Use of external libraries
 -----------------------------------
 
@@ -36,6 +44,28 @@ by Tyler Tate/TwigKit to get grid layout through LESS.
 * Path: `style/normalize.css/*`
 
 
+###jPlayer
+* Website: http://jplayer.org/
+* Version: 2.4.0
+* License: MIT License
+* Path: `src/jplayer`
+
+
+###jPlayer original skins blue.monday and pink.flag
+* Website: http://jplayer.org/
+* Version: 2.4.0
+* License: MIT License
+* Path: `src/jplayer-skins/blue.monday`, `src/jplayer-skins/pink.flag`
+
+
+###jPlayer skins midnight.black and morning.light
+* Website: http://theinfection.github.com/Morning-Light/, http://theinfection.github.com/Midnight-Black/
+* Version: v2.6.1
+* License: Dual license MIT License and GPL
+* Path: `src/jplayer-skins/midnight.black`, `src/jplayer-skins/morning.light`
+
+
+
 How to get going
 --------------------------------------
 
@@ -50,6 +80,7 @@ Clone it:
 Review and edit the file `style/custom.less` to create your own style.
 
 Review and edit the config-file in the directory `config`.
+
 
 
 Files and directories
@@ -122,6 +153,7 @@ Other
 `LICENSE.txt` license text for the theme.
 
 
+
 To Do
 --------------------------------------
 Microformats.
@@ -153,24 +185,38 @@ Configurable footer through GUI
 Stylesheet for print.
 Language
 
+
   
 History
 --------------------------------------
+
+v0.4.1 (2013-06-28)
+
+* Removing unneeded files in config. 
+* Template files `404` and `search` moved into `index.php`.
+* Rremoved template `searchform`.
+* Included jPlayer as shortcode [jplayer].
+* Added skins for jPlayer, blue.monday, pink.flag, midnight.black and morning.light.
+* Moving functions from `functions.php` to `CMos`.
+
 
 v0.4.0 (2013-06-24)
 
 * Cleaning up code. 
 * Introducing class `CMos` to separate mos theme from standard WordPress and to ease usage of config-file.
 
+
 v0.3.2 (2013-04-08)
 v0.3.1 (2013-04-08)
 
 * Taking snapshot  for perc-site.
 
+
 v0.3.0 (2013-01-16)
 
 * A bunch of changes while doing customer sites...
 * Tagging to prepare working for new customer sites.
+
 
 v0.2.0 (2012-10-03)
 

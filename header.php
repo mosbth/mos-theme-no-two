@@ -9,10 +9,14 @@
 <?php if(mos_has('stylesheets')): foreach(mos_get('stylesheets') as $val): ?><link rel='stylesheet' href='<?=$val?>' /><?php endforeach; endif; ?>
 <link rel='shortcut icon' href='<?=mos_get('favicon')?>' />
 <link rel='pingback' href='<?=get_bloginfo('pingback_url')?>' />
-<script src='<?=mos_get('modernizer')?>'></script>
 <?=wp_head()?>
+<script src='<?=mos_get('modernizer')?>'></script>
 </head>
 <body <?=body_class()?>>  
+
+<div id='outer-wrap-all'>
+  <div id='inner-wrap-all'>
+    <div id='wrap-all'>
 
 <div id='outer-wrap-header' role='banner'>
   <div id='outer-wrap-header-left'></div>

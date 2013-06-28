@@ -16,6 +16,9 @@ body{
   padding: 0;
 }
 
+#wrap-all {
+}
+
 
 /** ==============================================================
  * Header 
@@ -30,6 +33,7 @@ body{
 }
 
 #header{
+  .wrap();
   .column(@columns);
   margin-top: @magicNumber / 2;
 }
@@ -193,7 +197,8 @@ body{
 }
 
 //#primary-fullwidth{.column(24);}
-.sidebar {
+#sidebar-right,
+#sidebar-left {
   .column(@columns / 3 - 1);
   .push(1);
 }

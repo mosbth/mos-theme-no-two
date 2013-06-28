@@ -24,17 +24,21 @@
     <?php endif; ?>
   </div>
   <div id='inner-wrap-footer'>
-    <?php if(mos_has('custom-footer')): ?><div class='custom-footer'><?=mos_get('custom-footer')?></div><?php endif; ?>
+    <?php if(mos_has('footer-custom')): ?><div id='footer-custom'><?=mos_get('footer-custom')?></div><?php endif; ?>
   	<?php if(mos_has('footer')): ?><div id='footer'><p><?=mos_get('footer')?></p></div><?php endif; ?>
   </div>
   <div id='outer-wrap-footer-right'></div>
 </div>
 
+    </div> <!-- wrap-all -->
+  </div> <!-- inner-wrap-all -->
+</div> <!-- outer-wrap-all -->
+
 <?=wp_footer()?>
 
 <?php if(mos_has('jquery')):?><script src='<?=mos_get('jquery')?>'></script><?php endif; ?>
 <?php if(mos_has('javascript-include')): foreach(mos_get('javascript-include') as $val): ?><script src='<?=$val?>'></script><?php endforeach; endif; ?>
-<?php if(mos_has('javascript-inline')):?><script src='<?=mos_get('javascript-inline')?>'></script><?php endif; ?>
+<?php if(mos_has('javascript-inline')):?><script><?=mos_get('javascript-inline')?></script><?php endif; ?>
 <?php if(mos_has('google-analytics')): ?>
 <script>
   var _gaq=[['_setAccount','<?=mos_get('google-analytics')?>'],['_trackPageview']];

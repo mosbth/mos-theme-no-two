@@ -129,7 +129,7 @@ body:after {
   clear: both;
 }
 body {
-  font: 100.01%/1.375 Times, 'Times New Roman', serif;
+  font: 100.01%/1.375 Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1,
 h2,
@@ -137,7 +137,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Times, 'Times New Roman', serif;
+  font-family: Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-top: 0;
   margin-bottom: 22px;
 }
@@ -246,9 +246,9 @@ pre code,
 .geshi {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
-  padding-top:  * 0.5;
-  padding-bottom:  * 0.5;
-  margin-bottom:  - 2px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  margin-bottom: 20px;
   background-color: #eee;
   padding-left: 0.5em;
 }
@@ -343,6 +343,46 @@ td.right {
 .table  tfoot {
   font-style: italic;
 }
+figure {
+  margin-bottom: 22px;
+}
+figure a {
+  *zoom: 1;
+}
+figure a:before,
+figure a:after {
+  content: "";
+  display: table;
+}
+figure a:after {
+  clear: both;
+}
+figure img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+figure figcaption {
+  font-style: italic;
+  padding-top: 1em;
+}
+figure.left {
+  float: left;
+  margin-right: 1em;
+}
+figure.right {
+  float: right;
+  margin-left: 1em;
+}
+figure.center {
+  clear: both;
+}
+figure.center img {
+  margin: 0 auto;
+}
+figure.center figcaption {
+  text-align: center;
+}
 hr {
   color: #ccc;
   border-color: #ccc;
@@ -416,7 +456,8 @@ ul.nb-plain li:last-child {
   padding-right: 0;
 }
 ul.nb-plain li.selected a,
-ul.nb-plain li.current-menu-item a {
+ul.nb-plain li.current-menu-item a,
+ul.nb-plain li.current_page_parent a {
   color: #33b;
   text-decoration: underline;
 }
@@ -428,6 +469,19 @@ ul.nb-plain a {
 ul.nb-plain a:hover {
   color: #33f;
   text-decoration: underline;
+}
+ul.nb-icons {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+ul.nb-icons li {
+  padding: 0 1em 0 0;
+  margin: 0;
+  display: inline;
+}
+ul.nb-icons li:last-child {
+  padding-right: 0;
 }
 ul.nb-anna {
   list-style-type: none;
@@ -575,11 +629,22 @@ body {
   clear: both;
 }
 #header {
+  width: 960px;
+  margin: 0 auto;
+  *zoom: 1;
   display: inline;
   float: left;
   width: 950px;
   margin: 0 5px;
   margin-top: 11px;
+}
+#header:before,
+#header:after {
+  content: "";
+  display: table;
+}
+#header:after {
+  clear: both;
 }
 #login-menu {
   float: right;
@@ -718,7 +783,8 @@ body {
   width: 950px;
   margin: 0 5px;
 }
-.sidebar {
+#sidebar-right,
+#sidebar-left {
   display: inline;
   float: left;
   width: 270px;
@@ -912,7 +978,10 @@ textarea.nowrap {
   display: block;
 }
 .wp section {
-  margin-bottom: 66px;
+  margin-top: 44px;
+}
+.wp section:first-child {
+  margin-top: 0;
 }
 .wp-post-title a {
   color: inherit;
@@ -922,12 +991,32 @@ textarea.nowrap {
   color: #33f;
   text-decoration: underline;
 }
+.wp-meta-more-posts {
+  margin-top: 44px;
+}
+.wp-caption-text {
+  font-style: italic;
+}
+.alignright {
+  float: right;
+  margin-left: 0.5em;
+}
+.alignleft {
+  float: left;
+  margin-right: 0.5em;
+}
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .post h2 {
   margin-top: 0;
 }
 .box h4 {
   margin-top: 0;
 }
+.sep,
 .cat-links,
 .tag-links,
 .edit-link,
@@ -936,6 +1025,7 @@ textarea.nowrap {
   color: #999;
   font-style: italic;
 }
+.sep a,
 .cat-links a,
 .tag-links a,
 .edit-link a,
@@ -943,6 +1033,7 @@ textarea.nowrap {
   color: inherit;
   text-decoration: none;
 }
+.sep a:hover,
 .cat-links a:hover,
 .tag-links a:hover,
 .edit-link a:hover,
@@ -954,25 +1045,10 @@ textarea.nowrap {
   margin-bottom: 44px;
 }
 .category-archive-meta {
-  margin-bottom: *2;
+  margin-bottom: 44px;
 }
-section.search-results {
-  display: inline;
-  float: left;
-  width: 630px;
-  margin: 0 5px;
-}
-.search-results #searchform {
-  margin-bottom: *2;
-}
-section.error404 {
-  display: inline;
-  float: left;
-  width: 630px;
-  margin: 0 5px;
-}
-.error404 #searchform {
-  margin-bottom: *4;
+#searchform {
+  margin-bottom: 44px;
 }
 .nocomments {
   display: none;
@@ -1043,7 +1119,7 @@ html.mos-default #site-title a {
   text-decoration: none;
 }
 html.mos-default #site-slogan {
-  font-family: Times, 'Times New Roman', serif;
+  font-family: Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
   position: absolute;
   top: 0;
@@ -1054,4 +1130,212 @@ html.mos-default #navbar1 {
   position: absolute;
   left: 400px;
   top: 30px;
+}
+html.hanouneh {
+  background-color: ;
+}
+html.hanouneh body {
+  margin: 0;
+  padding: 8px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+html.hanouneh #outer-wrap-all {
+  width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+html.hanouneh #inner-wrap-all {
+  background: transparent url(/img/hav2.jpg) repeat-y center top;
+}
+html.hanouneh body.blog #inner-wrap-all,
+html.hanouneh body.archive #inner-wrap-all,
+html.hanouneh body.single #inner-wrap-all,
+html.hanouneh body.search #inner-wrap-all {
+  background: transparent url(/img/news-top.jpg) no-repeat center top;
+}
+html.hanouneh #wrap-all {
+  background: transparent url(/img/undersida2.jpg) no-repeat center top;
+}
+html.hanouneh body.blog #wrap-all,
+html.hanouneh body.archive #wrap-all,
+html.hanouneh body.single #wrap-all,
+html.hanouneh body.search #wrap-all {
+  background: transparent url(/img/news-top.jpg) no-repeat center top;
+}
+html.hanouneh body.home.page #wrap-all {
+  background: transparent url(/img/startsida2.jpg) no-repeat center top;
+}
+html.hanouneh h1,
+html.hanouneh h2 {
+  border-bottom: none;
+}
+html.hanouneh #inner-wrap-header {
+  height: 200px;
+}
+html.hanouneh #banner {
+  position: relative;
+}
+html.hanouneh #site-logo {
+  position: absolute;
+  top: 90px;
+  left: 520px;
+}
+html.hanouneh #site-title {
+  color: #333;
+  font-family: Times, 'Times New Roman', serif;
+  font-size: 3em;
+  line-height: 1;
+  position: absolute;
+  top: 22px;
+  left: 0;
+}
+html.hanouneh #site-title a {
+  color: inherit;
+  text-decoration: none;
+}
+html.hanouneh #site-slogan {
+  font-family: Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+html.hanouneh body.blog #site-logo,
+html.hanouneh body.archive #site-logo,
+html.hanouneh body.single #site-logo,
+html.hanouneh body.search #site-logo {
+  display: none;
+}
+html.hanouneh #news-logo {
+  display: none;
+}
+html.hanouneh body.blog #news-logo,
+html.hanouneh body.archive #news-logo,
+html.hanouneh body.single #news-logo,
+html.hanouneh body.search #news-logo {
+  display: block;
+  position: absolute;
+  top: 270px;
+  left: 40px;
+}
+html.hanouneh #navbar1 {
+  position: relative;
+  right: 16px;
+  top: 20px;
+  text-align: right;
+}
+html.hanouneh ul.nb-plain li {
+  padding-right: 32px;
+}
+html.hanouneh ul.nb-plain li:last-child {
+  padding-right: 0;
+}
+html.hanouneh ul.nb-icons li {
+  padding-right: 32px;
+}
+html.hanouneh ul.nb-icons li:last-child {
+  padding-right: 0;
+}
+html.hanouneh ul.nb-short-dist {
+  margin-top: 44px;
+  margin-bottom: 22px;
+}
+html.hanouneh ul.nb-short-dist li {
+  padding-right: 12px;
+}
+html.hanouneh ul.nb-short-dist li:last-child {
+  padding-right: 0;
+}
+html.hanouneh #jplayer-music {
+  position: absolute;
+  top: 420px;
+  left: -500px;
+}
+html.hanouneh #outer-wrap-main {
+  min-height: 713px;
+}
+html.hanouneh #primary {
+  position: relative;
+  display: inline;
+  float: left;
+  width: 430px;
+  margin: 0 5px;
+  margin-left: 525px;
+}
+html.hanouneh body.blog #primary,
+html.hanouneh body.archive #primary,
+html.hanouneh body.single #primary,
+html.hanouneh body.search #primary {
+  display: inline;
+  float: left;
+  width: 510px;
+  margin: 0 5px;
+  margin-left: 45px;
+  padding-top: 176px;
+}
+html.hanouneh body.blog #sidebar-right,
+html.hanouneh body.archive #sidebar-right,
+html.hanouneh body.single #sidebar-right,
+html.hanouneh body.search #sidebar-right {
+  display: inline;
+  float: left;
+  width: 310px;
+  margin: 0 5px;
+  margin-left: 45px;
+}
+html.hanouneh body.blog .sidebar,
+html.hanouneh body.archive .sidebar,
+html.hanouneh body.single .sidebar,
+html.hanouneh body.search .sidebar {
+  position: relative;
+  padding-top: 286px;
+}
+html.hanouneh body.blog .sidebar-page,
+html.hanouneh body.archive .sidebar-page,
+html.hanouneh body.single .sidebar-page,
+html.hanouneh body.search .sidebar-page {
+  position: absolute;
+  top: -100px;
+}
+html.hanouneh #inner-wrap-footer {
+  position: relative;
+  background: transparent url(/img/hav2.jpg) repeat-y center top;
+}
+html.hanouneh body.blog #inner-wrap-footer,
+html.hanouneh body.archive #inner-wrap-footer,
+html.hanouneh body.single #inner-wrap-footer,
+html.hanouneh body.search #inner-wrap-footer {
+  background: transparent url(/img/news-bottom.jpg) repeat-y center top;
+  min-height: 245px;
+}
+html.hanouneh #footer {
+  padding: 1em;
+}
+html.hanouneh #footer-custom {
+  position: relative;
+  top: 0;
+  left: 20px;
+}
+html.hanouneh body.blog #footer-custom,
+html.hanouneh body.archive #footer-custom,
+html.hanouneh body.single #footer-custom,
+html.hanouneh body.search #footer-custom {
+  position: absolute;
+  top: 5px;
+  left: 600px;
+}
+html.hanouneh body.blog #footer-custom ul.nb-icons li,
+html.hanouneh body.archive #footer-custom ul.nb-icons li,
+html.hanouneh body.single #footer-custom ul.nb-icons li,
+html.hanouneh body.search #footer-custom ul.nb-icons li {
+  padding-right: 16px;
+}
+html.hanouneh body.blog #footer-custom ul.nb-icons li:last-child,
+html.hanouneh body.archive #footer-custom ul.nb-icons li:last-child,
+html.hanouneh body.single #footer-custom ul.nb-icons li:last-child,
+html.hanouneh body.search #footer-custom ul.nb-icons li:last-child {
+  padding-right: 0;
 }
