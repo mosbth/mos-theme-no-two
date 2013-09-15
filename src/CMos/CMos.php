@@ -26,7 +26,9 @@ class CMos implements ArrayAccess {
       'lang' => 'en',
 
       // Path to webbroot
-      'webroot' => realpath(__DIR__ . '/../../../../../../'),
+      //'webroot' => realpath(__DIR__ . '/../../../../../../'),
+      'webroot' => realpath(dirname(__FILE__) . '/../../../../../../'),
+      //'webroot' => __DIR__ . '/../../../../../../',
 
       // Meta
       'meta-description' => 'Some descriptive text about the site.',
@@ -561,6 +563,9 @@ class CMos implements ArrayAccess {
       return $output;
     }
     else {
+      echo $file;
+      var_dump(file_exists($file));
+      echo $this->data['webroot'];
       trigger_error("'$src' image not found", E_USER_WARNING);
       return '';
     }

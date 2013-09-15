@@ -4,10 +4,28 @@
  *
  */
 
+if(!defined('__DIR__')) {
+  define('__DIR__', dirname(__FILE__));
+}
+
+/*error_reporting(-1);              // Report all type of errors
+ini_set('display_errors', 1);     // Display all errors 
+ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
+*/
+
+
 /**
  * Add existing filters.
  */
 add_filter( 'the_content', 'make_clickable', 12); // After shortcodes are executed
+
+
+/**
+ * Add image size
+ */
+//add_image_size('thumbnail-small', 80, 80, true);
+//add_image_size('thumbnail-gallery', 120, 120, true);
+
 
 
 /**
@@ -48,6 +66,7 @@ function mos_remove_admin_menus() {
   }  
 }
 add_action( 'admin_menu', 'mos_remove_admin_menus' );
+
 
 
 /**

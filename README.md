@@ -190,6 +190,11 @@ Language
 History
 --------------------------------------
 
+v0.4.2 (2013-09-16)
+
+* Final for hanna.
+
+
 v0.4.1 (2013-06-28)
 
 * Removing unneeded files in config. 
