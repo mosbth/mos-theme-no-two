@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: mos-theme-no-two\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-09 19:00+0100\n"
-"PO-Revision-Date: 2013-12-09 19:00+0100\n"
+"PO-Revision-Date: 2013-12-09 19:15+0100\n"
 "Last-Translator: Mikael Roos <mikael.t.h.roos@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -154,7 +154,7 @@ msgstr ""
 
 #: ../src/CMos/CMos.php:379
 msgid "Page"
-msgstr ""
+msgstr "Sida"
 
 #: ../src/CMos/CMos.php:404
 #, php-format
@@ -163,5 +163,5 @@ msgstr ""
 
 #: ../src/CMos/CMos.php:423
 msgid "Published"
-msgstr ""
+msgstr "Publiserad"
 
