@@ -1,32 +1,52 @@
-<?php if(mos_has_content('comments-enabled')): ?>
-<div id="comments">
-	<?php if ( post_password_required() ) : ?>
-		<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', 'twentyeleven' ); ?></p>
-	</div><!-- #comments -->
-	<?php	return;
-		endif;
-	?>
+<?php
+if ( post_password_required() ) {
+	return;
+}
+?>
+
+<div id="comments" class="comments-area">
 
 	<?php if ( have_comments() ) : ?>
-		<h3 id="comments-title">
-			<?php
-				printf( _n( 'En kommentar på &ldquo;%2$s&rdquo;', '%1$s kommentarer på &ldquo;%2$s&rdquo;', get_comments_number(), 'mos' ),
-					number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
-			?>
-		</h3>
 
-		<div class="commentlist"><?=wp_list_comments( array( 'callback' => 'mos_comment'))?></div>
+	<h2 class="comments-title">
+		<?php
+			printf( _n( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'twentyfourteen' ),
+				number_format_i18n( get_comments_number() ), get_the_title() );
+		?>
+	</h2>
 
-	<?php
-		/* If there are no comments and comments are closed, let's leave a little note, shall we?
-		 * But we don't want the note on pages or post types that do not support comments.
-		 */
-		elseif ( ! comments_open() && ! is_page() && post_type_supports( get_post_type(), 'comments' ) ) :
-	?>
-		<p class="nocomments"><?php _e( 'Comments are closed.', 'twentyeleven' ); ?></p>
+	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>
+	<nav id="comment-nav-above" class="navigation comment-navigation" role="navigation">
+		<h1 class="screen-reader-text"><?php _e( 'Comment navigation', 'twentyfourteen' ); ?></h1>
+		<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'twentyfourteen' ) ); ?></div>
+		<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'twentyfourteen' ) ); ?></div>
+	</nav><!-- #comment-nav-above -->
+	<?php endif; // Check for comment navigation. ?>
+
+	<ol class="comment-list">
+		<?php
+			wp_list_comments( array(
+				'style'      => 'ol',
+				'short_ping' => true,
+				'avatar_size'=> 34,
+			) );
+		?>
+	</ol><!-- .comment-list -->
+
+	<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : ?>
+	<nav id="comment-nav-below" class="navigation comment-navigation" role="navigation">
+		<h1 class="screen-reader-text"><?php _e( 'Comment navigation', 'twentyfourteen' ); ?></h1>
+		<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'twentyfourteen' ) ); ?></div>
+		<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'twentyfourteen' ) ); ?></div>
+	</nav><!-- #comment-nav-below -->
+	<?php endif; // Check for comment navigation. ?>
+
+	<?php if ( ! comments_open() ) : ?>
+	<p class="no-comments"><?php _e( 'Comments are closed.', 'twentyfourteen' ); ?></p>
 	<?php endif; ?>
 
-  <?=comment_form(array('title_reply'=>'Lämna en kommentar'))?>
+	<?php endif; // have_comments() ?>
+
+	<?php comment_form(); ?>
 
 </div><!-- #comments -->
-<?php endif; ?>

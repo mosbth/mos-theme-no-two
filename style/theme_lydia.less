@@ -8,14 +8,31 @@
  * Header 
  */
 #outer-wrap-header{
-  //#gradient .horizontal(#eee, #fff);
+  //#gradient .horizontal(#eee, #fff}
 }
-
 
 /** --------------------------------------------------------------
  * Banner 
  *
  */
+#banner{
+  position: relative;
+}
+
+#site-title {
+  font-family: @fontFamilyHeadings;
+  position: absolute;
+  top: 20px;
+  text-shadow: -1px -1px 0px @colorSiteTitleShadow;
+}
+
+#site-slogan{
+  font-family: @fontFamilyHeadings;
+  //.font-size(@fontSizeSmall);
+  //font-style: italic;
+  position: absolute;
+  top: 0px;
+}
 
 
 
@@ -35,7 +52,7 @@
  * The main content area.
  *
  */
-.sidebar{
+.sidebar {
 //  border-top: 1px solid @colorBorderLight;
 }
 
@@ -87,13 +104,13 @@
     .updated, 
     .footer {
       .font-size(@fontSizeSmall);
-      color: @color-light;
+      color: @colorBodyLight;
       .anchor-anonymous();
     }
 
     .readmore {
       .font-size(@fontSizeSmall);
-      color: @color-lighter;
+      color: @colorBodyLighter;
       .anchor-anonymous();
     }
 
@@ -148,52 +165,6 @@
   }
 }
  
- 
-
-/** --------------------------------------------------------------
- * Figure
- */
-figure {
-  margin-bottom: @magicNumber;
-  
-  a {
-    .clearfix();
-  }
-  
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-  }
-  
-  figcaption {
-    font-style: italic;
-    padding-top: 1em;
-  }
-}
-
-figure.left {
-  float: left;
-  margin-right: 1em;
-}
-
-figure.right {
-  float: right;
-  margin-left: 1em;
-}
-
-figure.center {
-  clear: both;
-  
-  img {
-    margin: 0 auto;
-  }
-  
-  figcaption {
-    text-align: center;
-  }
-}
-
 
 
 /** --------------------------------------------------------------

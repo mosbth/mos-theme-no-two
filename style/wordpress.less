@@ -8,10 +8,10 @@
  * Blog list.
  *
  */
-.wp section {
-  margin-top: @magicNumber * 2;
+.wp article {
+  margin-bottom: @magicNumber * 2;
 
-  &:first-child {
+  &:last-child {
     margin-top: 0;
   }
 }
@@ -45,56 +45,50 @@
 }
 
 
-// BELOW IS OLDER, SHOULD BE REVIEWED
-
-
-/** --------------------------------------------------------------
- * Content & Sidebars.
- *
- */
-/*
-.sb-left{min-height:@magic-number*24;position:relative;right:16px;width:255px;.border-radius(10px);background-color:#fff;color:#333;
-  .sb-content{padding:14px;}
-  
-  &.page-2, &.page-21{background-color:#5c5c5c;color:#fff;
-    a{color:#fff;
-      &:hover{color:#f7da38;}
-    }
-  }
-  h1, h2{color:#fff;font-size:16px;font-weight:bold;text-decoration:none;}
-}
-*/
-
-/*.sb-left.page-2{background-color:#5c5c5c;color:#fff;
-  a{color:#fff;
-    &:hover{color:#f7da38;}
-  }
-} */
-
-//.sb-top-image{padding-top:8px;margin:0 auto;}
-
-
-
 /** --------------------------------------------------------------
  * Posts.
  *
  */
-.post h2{margin-top:0;}
-.box h4{margin-top:0;}
+/*
+.post h2 {
+  margin-top: 0;
+}
+
+.box h4 {
+  margin-top: 0;
+}
+*/
 
 .sep,
 .cat-links, 
 .tag-links,
 .edit-link,
-.published{font-size:smaller;color:#999;font-style:italic;
-  a{color:inherit;text-decoration:none;
-    &:hover{color:#666;text-decoration:underline;}
+.published,
+.leave-reply {
+  font-size: smaller;
+  color: #999;
+  font-style: italic;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: #666;
+      text-decoration: underline;
+    }
   }
 }
 
 .wp-meta-more-posts {
   margin-bottom: @magicNumber * 2;
 }
+
+
+
+//
+// BELOW IS OLDER, SHOULD BE REVIEWED
+//
 
 
 
@@ -113,15 +107,6 @@
 #searchform {
   margin-bottom: @magicNumber * 2;
 }
-//section.search-results{.column(16);}
-//.search-results #searchform{margin-bottom:@magicNumber*2;}
-
-
-/** --------------------------------------------------------------
- * Error 404.
- *
- */
-//.error404 #searchform{margin-bottom:@magicNumber*4;}
 
 
 /** --------------------------------------------------------------

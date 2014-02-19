@@ -20,6 +20,7 @@ ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
 add_filter( 'the_content', 'make_clickable', 12); // After shortcodes are executed
 
 
+
 /**
  * Add image size
  */
@@ -85,10 +86,34 @@ if(is_file($mos_customize_file)) {
 include(__DIR__ . "/src/CMos/CMos.php");
 $mos = new CMos($mos_config);
 
+
+// Remove automatic paragraphs
+remove_filter( 'the_content', 'wpautop' );
+add_filter( 'the_content', 'wpautop' , 99);
+add_filter( 'the_content', 'shortcode_unautop', 100 );
+
+add_filter( 'no_texturize_shortcodes', function ($shortcodes) {
+    $shortcodes[] = 'agallery';
+    return $shortcodes;
+}
+
+);
+
 // Register shortcodes
 add_shortcode('image','mos_shortcode_image');
+add_shortcode('agallery','mos_shortcode_gallery');
 add_shortcode('youtube','mos_shortcode_youtube');
+add_shortcode('title','mos_shortcode_title');
 add_shortcode('jplayer','mos_shortcode_jplayer');
+
+
+
+
+/**
+ * Add filter for slug to body class.
+ */
+add_filter('post_class', 'mos_slug2bodyclass');
+add_filter('body_class', 'mos_slug2bodyclass');
 
 
 
@@ -294,138 +319,6 @@ function mos_slideshow_shortcode($atts, $content = null) {
   return $output;
 }
 add_shortcode('aslideshow','mos_slideshow_shortcode');
-
-
-
-/**
- * Shortcode for gallery, [agallery]
- */
-function mos_gallery_shortcode($atts, $content = null) {
-  global $mos_content;
-  extract( shortcode_atts( array(
-  'src' => '',
-  'rows' => 3,
-  'cols' => 4,
-  'class' => '',
-  'caption' => '',
-  ), $atts ) );
-
-  $src = rtrim($src, '/');
-  $dir = $mos_content['webroot'].$src;
-  $config = $dir . '/config.json';
-  if (!is_dir($dir)) {
-    trigger_error("The path '$dir' to the gallery was not found", E_USER_WARNING);
-    return '';
-  } else if(!is_readable($config)) {
-    trigger_error("The file config.json was not found in the directory '$dir'", E_USER_WARNING);
-    return '';
-  }
-
-  // Get the items from the config-file
-  $items = json_decode(file_get_contents($config), true);
-  if(!$items) {
-    trigger_error("The config.json was empty or contained errors in {$src}", E_USER_WARNING);
-    return '';
-  }
-
-  // Deal with pages
-  $getPage = get_query_var('page');
-  $getCols = !empty($_GET['cols']) && is_numeric($_GET['cols']) ? $_GET['cols'] : null ;
-  $cols = isset($getCols) ? $getCols : $cols;
-  $getRows = !empty($_GET['rows']) && is_numeric($_GET['rows']) ? $_GET['rows'] : null ;
-  $rows = isset($getRows) ? $getRows : $rows; 
-  $getCols = isset($getCols) ? "&amp;cols={$getCols}" : null;
-  $getRows = isset($getRows) ? "&amp;rows={$getRows}" : null;
-  $colrow = $getCols . $getRows;
-  $max = $rows * $cols;
-  $nrImages = count($items);
-  $nrPages = floor((($nrImages - 1) / $max) + 1);
-  $currentPage = empty($getPage) ? 1 : $getPage ;
-  $pages = '';
-  $i = 1;
-  while($i <= $nrPages) {
-    if($i == $currentPage) {
-      $pages .= " <strong>{$i}</strong>";
-    } else {
-      $pages .= " <a href='?page={$i}{$colrow}'>{$i}</a>";
-    }
-    $i++;
-  }
-
-  // Keep track on the navigation options
-  $navLeftMost= '&nbsp;&nbsp; ';
-  $navRightMost = ' &nbsp;&nbsp;';
-  $navLeft = '&nbsp; ';
-  $navRight = ' &nbsp;';
-  if($currentPage != 1) {
-    $navLeft = "<a href='?page=" . ($currentPage-1) . "{$colrow}'>&lt;</a> ";
-  }
-  if($currentPage > 2) {
-    $navLeftMost = "<a href='?page=1{$colrow}'>&lt;&lt;</a> ";
-  }
-  if($currentPage != $nrPages) {
-    $navRight = " <a href='?page=" . ($currentPage+1) . "{$colrow}'>&gt;</a>";
-  }
-  if($currentPage < ($nrPages - 1)) {
-    $navRightMost = " <a href='?page={$nrPages}{$colrow}'>&gt;&gt;</a>";
-  }
-  $pages = "{$navLeftMost}{$navLeft}{$pages}{$navRight}{$navRightMost}";
-  //$navLeft = isset($navLeft) ? $navLeft : '&nbsp;&nbsp; &nbsp; ';
-  //$navRight = isset($navRight) ? $navRight : ' &nbsp; &nbsp;&nbsp;';
-
-  // Out with the images
-  $cols = "cols{$cols}";
-  $size = array(
-    'cols1' => 'w=612&h=500',
-    'cols2' => 'w=266&h=260&crop-to-fit',
-    'cols3' => 'w=177&h=220&crop-to-fit',
-    'cols4' => 'w=133&h=152&crop-to-fit',
-  );
-  if(!isset($size[$cols])) {
-    trigger_error("Can only display cols1 to cols4, not {$cols}", E_USER_WARNING);
-  }
-  $offset = ($currentPage - 1) * $max;
-  $i = 0;
-  $images = null;
-  foreach($items as $key => $val) {
-    if(++$i <= $offset) continue; 
-    if($i > ($max + $offset)) break;
-    $file = $dir . '/' . $key;
-    $titleCaption = empty($val) ? null : " &mdash; {$val}";
-    $title = " title='{$i} / {$nrImages}{$titleCaption}'";
-    if(!is_readable($file)) {
-      trigger_error("The image '{$key}' was not found in the directory '$dir'", E_USER_WARNING);
-    } else {
-      $imgSrc = "/image/" . substr($src, 5) . '/' . $key;
-      $caption = $val;
-      $href = ($cols == 'cols1') ? "href='{$src}/{$key}'" : "href='?page={$i}&amp;cols=1&amp;rows=1'";
-      $images .= "<a {$href}{$title}><div class='container'><img src='{$imgSrc}?{$size[$cols]}' alt='' /></div></a>";
-    }
-  }
-
-  $output = <<<EOD
-<div class='ly-gallery{$class} {$cols}'>
-  <div class='ly-gallery-nav-left'>{$navLeft}</div>
-  <div class='ly-gallery-content'>{$images}</div>
-  <div class='ly-gallery-nav-right'>{$navRight}</div>
-  <div class='ly-gallery-nav-pages'>$pages</div>
-</div>
-<script>
-  $(function() {
-    $('.ly-gallery-content .container').hover(function(){
-      var title = $(this).parent().attr('title');
-      $('#ly-gallery-output').html(title);
-    }, function() {
-      $('#ly-gallery-output').html('');
-    });
- });
-</script>
-EOD;
-
-  return $output;
-}
-add_shortcode('agallery','mos_gallery_shortcode');
-
 
 
 

@@ -26,9 +26,8 @@ class CMos implements ArrayAccess {
       'lang' => 'en',
 
       // Path to webbroot
-      //'webroot' => realpath(__DIR__ . '/../../../../../../'),
-      'webroot' => realpath(dirname(__FILE__) . '/../../../../../../'),
-      //'webroot' => __DIR__ . '/../../../../../../',
+      'webroot' => realpath(__DIR__ . '/../../../../../../'),
+      //'webroot' => realpath(dirname(__FILE__) . '/../../../../../../'),
 
       // Meta
       'meta-description' => 'Some descriptive text about the site.',
@@ -84,12 +83,15 @@ class CMos implements ArrayAccess {
 
       // General
       'show-title-on-pages' => true,
+      'show-title-on-posts' => true,
       'display-blog-on-frontpage' => false,
       'link-blog-title' => true,
       'display-tagged-as' => true,
-      'read-more-text' => 'Read more »', 
+      'read-more-text' => __('Read more »', 'mos'), 
       'comments-enabled' => false,
+      'leave-reply-link-enabled' => false,
       'edit-link-enabled' => true,
+      'share-link-enabled' => false,
  
       // Format the text when post is posted
       'show-posted-on' => true,
@@ -103,6 +105,12 @@ class CMos implements ArrayAccess {
       // Sidebar right
       'sidebar-right-enabled' => true,
       'sidebar-right-template' => null, //'right', or custom sidebar
+
+      // Display content in sidebar, use page id or page type
+      //'sidebar-page-21' => 134,
+      //'sidebar-page-last-21' => 134,
+      //'sidebar-page-home'         => 271,
+      //'sidebar-page-last-home'    => 1120,
 
       // Sidebar tags & categories ('front', 'home', 'page', 'single', 'tag', 'categories')
       'sidebar-display-categories'  => array('home', 'single', 'tag', 'category', 'archive', 'search'),
@@ -177,6 +185,8 @@ class CMos implements ArrayAccess {
       update_option($val . '_size_h', $this->data[$val][s]);
       update_option($val . '_crop', $this->data[$val][2]);
     }*/
+
+    load_theme_textdomain( 'mos', get_template_directory() . '/languages' );
 
   }
 
@@ -404,9 +414,12 @@ class CMos implements ArrayAccess {
     ); */
     $author = " <a href='" . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . "' title='" . esc_attr(sprintf( __( 'Show all posts made by %s', 'mos' ), get_the_author())) . "'>" . get_the_author() . "</a>";
     $permalink = esc_url(get_permalink());
-    $year = esc_html(get_the_date('Y'));
-    $month = esc_html(get_the_date('n'));
-    $day = esc_html(get_the_date('j'));
+    $year   = esc_html(get_the_date('Y'));
+    $month  = esc_html(get_the_date('n'));
+    $mnt    = esc_html(get_the_date('M'));
+    $day    = esc_html(get_the_date('j'));
+    $hour   = esc_html(get_the_date('H'));
+    $min    = esc_html(get_the_date('i'));
 
     if($this->data['lang'] == 'sv') {
       $months = array('januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december');
@@ -419,9 +432,10 @@ class CMos implements ArrayAccess {
 
     switch($this->data['format-posted-on'] . $this->data['lang']) {
       case '1sv': return "Den {$day}:{$e} {$months[$month-1]} anno $year" . ($this->data['posted-on-display-author'] ? " av $author" : null); break;
+      case '1en': return __('Published', 'mos') . " {$months[$month-1]} {$day}, $year" . ($this->data['posted-on-display-author'] ? " by $author" : null); break;
 
-      case '1en': 
-      default :   return __('Published', 'mos') . " {$months[$month-1]} {$day}, $year" . ($this->data['posted-on-display-author'] ? " by $author" : null); break;
+      case '2sv':
+      case '2en':  return "{$day} {$mnt} $year"; break;
     }
   }
 
@@ -572,6 +586,156 @@ class CMos implements ArrayAccess {
   }
 
 
+
+  /**
+   * Shortcode for gallery, [agallery]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  public function ShortcodeGallery($atts, $content = null) {
+    global $mos_content;
+
+    extract( shortcode_atts( array(
+      'src' => '',
+      'rows' => 3,
+      'cols' => 4,
+      'class' => '',
+      'caption' => '',
+      'single_to_next' => true, // Click image when cols=1 & rows=1 takes to next
+    ), $atts ) );
+
+    // Check environment
+    $src = rtrim($src, '/');
+    $dir = $this->data['webroot'] . $src;
+    $config = $dir . '/config.json';
+    if (!is_dir($dir)) {
+      trigger_error("The path '$dir' to the gallery was not found", E_USER_WARNING);
+      return '';
+    } else if(!is_readable($config)) {
+      trigger_error("The file config.json was not found in the directory '$dir'", E_USER_WARNING);
+      return '';
+    }
+
+    // Get the items from the config-file
+    $items = json_decode(file_get_contents($config), true);
+    if(!$items) {
+      trigger_error("The config.json was empty or contained errors in {$src}", E_USER_WARNING);
+      return '';
+    }
+
+    // Deal with pages
+    $getPage = get_query_var('page');
+    $getCols = !empty($_GET['cols']) && is_numeric($_GET['cols']) ? $_GET['cols'] : null ;
+    $cols = isset($getCols) ? $getCols : $cols;
+    $getRows = !empty($_GET['rows']) && is_numeric($_GET['rows']) ? $_GET['rows'] : null ;
+    $rows = isset($getRows) ? $getRows : $rows;
+    $isSingle = ($cols == 1 && $rows == 1) ? true : false;
+    $getCols = isset($getCols) ? "&amp;cols={$getCols}" : null;
+    $getRows = isset($getRows) ? "&amp;rows={$getRows}" : null;
+    $colrow = $getCols . $getRows;
+    $max = $rows * $cols;
+    $nrImages = count($items);
+    $nrPages = floor((($nrImages - 1) / $max) + 1);
+    $currentPage = empty($getPage) ? 1 : $getPage ;
+    $pages = '';
+    $i = 1;
+    while($i <= $nrPages) {
+      if($i == $currentPage) {
+        $pages .= " <span class='selected'>{$i}</span>";
+      } else {
+        $pages .= " <a href='?page={$i}{$colrow}'>{$i}</a>";
+      }
+      $i++;
+    }
+
+    // Keep track on the navigation options
+    $navLeftMost= '&nbsp;&nbsp; ';
+    $navRightMost = ' &nbsp;&nbsp;';
+    $navLeft = '&nbsp; ';
+    $navRight = ' &nbsp;';
+    if($currentPage != 1) {
+      $navLeft = "<a href='?page=" . ($currentPage-1) . "{$colrow}'>&lt;</a> ";
+    }
+    if($currentPage > 2) {
+      $navLeftMost = "<a href='?page=1{$colrow}'>&lt;&lt;</a> ";
+    }
+    if($currentPage != $nrPages) {
+      $navRight = " <a href='?page=" . ($currentPage+1) . "{$colrow}'>&gt;</a>";
+    }
+    if($currentPage < ($nrPages - 1)) {
+      $navRightMost = " <a href='?page={$nrPages}{$colrow}'>&gt;&gt;</a>";
+    }
+    $pages = "{$navLeftMost}{$navLeft}{$pages}{$navRight}{$navRightMost}";
+    //$navLeft = isset($navLeft) ? $navLeft : '&nbsp;&nbsp; &nbsp; ';
+    //$navRight = isset($navRight) ? $navRight : ' &nbsp; &nbsp;&nbsp;';
+
+    // Out with the images
+    $cols = "cols{$cols}";
+    $size = array(
+      'cols1' => 'w=612&amp;h=500',
+      'cols2' => 'w=266&amp;h=260&amp;crop-to-fit',
+      'cols3' => 'w=177&amp;h=220&amp;crop-to-fit',
+      'cols4' => 'w=133&amp;h=152&amp;crop-to-fit',
+    );
+    if(!isset($size[$cols])) {
+      trigger_error("Can only display cols1 to cols4, not {$cols}", E_USER_WARNING);
+    }
+    $offset = ($currentPage - 1) * $max;
+    $i = 0;
+    $images = null;
+    foreach($items as $key => $val) {
+      if(++$i <= $offset) continue; 
+      if($i > ($max + $offset)) break;
+      $file = $dir . '/' . $key;
+      $titleCaption = empty($val) ? null : " &mdash; {$val}";
+      $title = " title='{$i} / {$nrImages}{$titleCaption}'";
+      if(!is_readable($file)) {
+        trigger_error("The image '{$key}' was not found in the directory '$dir'", E_USER_WARNING);
+      } else {
+        $imgSrc = "/image/" . substr($src, 5) . '/' . $key;
+        $caption = $val;
+
+        // Where to navigate when clicking an image
+        if ($single_to_next) {
+          $navNext = ($currentPage != $nrPages) ? $currentPage + 1 : 0; 
+          $href = "href='?page={$navNext}&amp;cols=1&amp;rows=1'";
+        }
+        else {
+          $href = ($cols == 'cols1') ? "href='{$src}/{$key}'" : "href='?page={$i}&amp;cols=1&amp;rows=1'";
+        }
+        $images .= "\n<div class='container'><a {$href}{$title}><img src='{$imgSrc}?{$size[$cols]}' alt='' /></a></div>";
+      }
+    }
+
+    $output = <<<EOD
+<div class='ly-gallery{$class} {$cols}'>
+  <div class='ly-gallery-nav-left'>{$navLeft}</div>
+  <div class='ly-gallery-content'>{$images}</div>
+  <div class='ly-gallery-nav-right'>{$navRight}</div>
+  <div class='ly-gallery-nav-pages'>$pages</div>
+</div>
+<script>
+  $(function() {
+    $('.ly-gallery-content .container').hover(function(){
+      var title = $(this).parent().attr('title');
+      $('#ly-gallery-output').html(title);
+    }, function() {
+      $('#ly-gallery-output').html('');
+    });
+ });
+</script>
+EOD;
+
+    //return do_shortcode('[raw]'.$output.'[/raw]');
+    return $output;
+  }
+
+
+
+
+
   /**
    * Shortcode for youtube, [ayoutube]
    *
@@ -600,6 +764,27 @@ class CMos implements ArrayAccess {
 
     $output = "<figure{$class}><iframe src='http://www.youtube.com/embed/{$id}' frameborder='0'{$width}{$height}></iframe>{$caption}</figure>";
     return $output;
+  }
+
+
+
+  /**
+   * Shortcode for a blogpost title, [title]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  function ShortcodeTitle($atts, $content = null) {
+    global $post;
+
+    $title = get_the_title($post->ID);
+
+    if($this->PageType() != 'single' && $this['link-blog-title']) {
+      $title = "<a href='" . get_permalink($post->ID) . "'>$title</a>";
+    }
+
+    return "<h1 class='wp-post-title'>$title</h1>";
   }
 
 
@@ -648,6 +833,25 @@ class CMos implements ArrayAccess {
 
 
 
+  /**
+   * Add page/post slug to body class.
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  function AddSlugToBodyClass($classes)  {
+    global $post;
+  
+    if(!is_home()) {
+      $classes[] = $post->post_name; 
+    }
+  
+    return array_unique($classes);
+  }
+
+
+
 }
 
 
@@ -662,7 +866,10 @@ function mos_get_breadcrumb() { global $mos; return $mos->GetBreadcrumb(); }
 function mos_posted_on() { global $mos; return $mos->PostedOn(); }
 function mos_page_type() { global $mos; return $mos->PageType(); }
 function mos_shortcode_image($atts, $content = null) { global $mos; return $mos->ShortcodeImage($atts, $content); }
+function mos_shortcode_gallery($atts, $content = null) { global $mos; return $mos->ShortcodeGallery($atts, $content); }
 function mos_shortcode_youtube($atts, $content = null) { global $mos; return $mos->ShortcodeYouTube($atts, $content); }
+function mos_shortcode_title($atts, $content = null) { global $mos; return $mos->ShortcodeTitle($atts, $content); }
 function mos_shortcode_jplayer($atts, $content = null) { global $mos; return $mos->ShortcodeJPlayer($atts, $content); }
+function mos_slug2bodyclass($classes) { global $mos; return $mos->AddSlugToBodyClass($classes); }
 
 

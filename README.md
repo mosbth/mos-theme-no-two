@@ -20,9 +20,9 @@ The following external modules are included in the theme.
 ### lessphp
 lessphp by leaf to compile LESS.
 * Website: http://leafo.net/lessphp
-* Version: 0.3.8 (2012-08-18)
+* Version included: 0.4.0 (2013-08-09)
 * License: Dual license, MIT LICENSE and GPL VERSION 3
-* Path: `lessphp/*`
+* Path: `style/lessphp`
 
 
 ### The Semantic Grid System
@@ -189,6 +189,13 @@ Language
   
 History
 --------------------------------------
+
+v0.4.x (latest)
+
+* Updated to lessphp 0.4.0 and style.php with release date 2013-10-28.
+* Added correct base for translation in `language`
+* For anna.
+
 
 v0.4.2 (2013-09-16)
 

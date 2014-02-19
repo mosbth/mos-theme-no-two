@@ -1,33 +1,16 @@
 <?php 
 global $post; 
 
-// Should we display recent posts for this page?
-$recent_posts = false;
-if(in_array(mos_page_type(), mos_get('sidebar-display-recent-posts'))) {
-  $recent_posts = true;  
-}
-
-// Should we display searchform for this page?
-$searchform = false;
-if(in_array(mos_page_type(), mos_get('sidebar-display-searchform'))) {
-  $searchform = true;  
-}
-
-// Should we display categories widget for this page?
-$display_categories = false;
-if(in_array(mos_page_type(), mos_get('sidebar-display-categories'))) {
-  $display_categories = true;
-}
-
-// Should we display tags widget for this page?
-$display_tags = false;
-if(in_array(mos_page_type(), mos_get('sidebar-display-tags'))) {
-  $display_tags = true;  
-}
-
+/**
+ * Manage settings for sidebar
+ */
+$recent_posts       = in_array(mos_page_type(), mos_get('sidebar-display-recent-posts'))  ? true : false;  
+$searchform         = in_array(mos_page_type(), mos_get('sidebar-display-searchform'))    ? true : false;
+$display_categories = in_array(mos_page_type(), mos_get('sidebar-display-categories'))    ? true : false;
+$display_tags       = in_array(mos_page_type(), mos_get('sidebar-display-tags'))          ? true : false;
 ?>
 
-<div class='sidebar'>
+<div class='sidebar-content'>
 
 <?php 
 $pageType = mos_page_type();
@@ -85,6 +68,21 @@ else if(mos_has('sidebar-page-' . $pageType, false)) {
 </div>
 <?php endif; ?>
 
+
+<?php 
+$pageType = mos_page_type();
+
+if(mos_has('sidebar-page-last-' . $post->ID, false)) {
+  $key = 'sidebar-page-last-' . $post->ID;
+  $current = get_page(mos_get($key));
+  echo "<div class='sidebar-page {$key}'>" . apply_filters('the_content', $current->post_content) . "</div>"; 
+}
+else if(mos_has('sidebar-page-last-' . $pageType, false)) {
+  $key = 'sidebar-page-last-' . $pageType;
+  $current = get_page(mos_get($key));
+  echo "<div class='sidebar-page {$key}'>" . apply_filters('the_content', $current->post_content) . "</div>"; 
+}
+?>
 
 
 </div>

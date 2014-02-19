@@ -31,7 +31,7 @@ get_header();
   <div id='inner-wrap-main'>
     <div id='main'>
 
-      <?php if(mos_has('sidebar-left-enabled')): ?><div id='sidebar-left' role='complementary'><?=get_sidebar(mos_get('sidebar-left-template'))?></div><?php endif; ?>
+      <?php if(mos_has('sidebar-left-enabled')): ?><div id='sidebar-left' role='complementary'><div class='sidebar sidebar-left'><?=get_sidebar(mos_get('sidebar-left-template'))?></div></div><?php endif; ?>
       
       <div id='primary'<?=$pageClass?> role='main'>
         <div id='content'>
@@ -77,11 +77,11 @@ get_header();
 
 
           <?php if(have_posts()): ?>
-          <article class='wp'>
+          <section <?=post_class('wp')?>>
           	<?php while(have_posts()): the_post()?>
               <?=get_template_part('content', get_post_format())?>
             <?php endwhile?>
-          </article>
+          </section>
           <nav>
             <div class='wp-meta-more-posts'><?=previous_posts_link(__('« Newer posts', 'mos'))?> <?=next_posts_link(__('Older posts »', 'mos'))?></div>
           </nav>
@@ -123,7 +123,7 @@ get_header();
         </div>
       </div>
       
-      <?php if(mos_has('sidebar-right-enabled')): ?><div id='sidebar-right' role='complementary'><?=get_sidebar(mos_get('sidebar-right-template'))?></div><?php endif; ?>
+      <?php if(mos_has('sidebar-right-enabled')): ?><div id='sidebar-right' role='complementary'><div class='sidebar sidebar-right'><?=get_sidebar(mos_get('sidebar-right-template'))?></div></div><?php endif; ?>
     
     </div>
   </div>
