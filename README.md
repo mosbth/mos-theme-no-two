@@ -190,11 +190,12 @@ Language
 History
 --------------------------------------
 
-v0.4.x (latest)
+v0.4.3 (2014-02-19)
 
 * Updated to lessphp 0.4.0 and style.php with release date 2013-10-28.
 * Added correct base for translation in `language`
 * For anna.
+* Lots updates for montage.
 
 
 v0.4.2 (2013-09-16)
