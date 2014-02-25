@@ -190,6 +190,10 @@ Language
 History
 --------------------------------------
 
+v0.4.x (latest)
+
+* intermediate to prepare for mos. 
+
 v0.4.3 (2014-02-19)
 
 * Updated to lessphp 0.4.0 and style.php with release date 2013-10-28.

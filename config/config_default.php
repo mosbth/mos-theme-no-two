@@ -2,7 +2,7 @@
 /**
  * Set content data
  */
-$mos_config = array(
+return array(
 
   // Class attribute for <html> to apply specific style
   //'html-class' => 'mos-default',

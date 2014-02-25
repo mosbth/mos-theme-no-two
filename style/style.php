@@ -31,6 +31,7 @@
  *
  */
 
+
 /**
  * Add config-file if available
  * 
@@ -107,7 +108,7 @@ function autoCompileLess($inputFile, $outputFile, $config) {
 //
 // Compile and output the resulting css-file, use caching whenever suitable.
 //
-
+date_default_timezone_set('UTC');
 $less = $config['style_file'] . '.less';
 $css  = $config['style_file'] . '.css';
 $changed = autoCompileLess($less, $css, $config);

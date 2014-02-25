@@ -15,6 +15,7 @@
 <body <?=body_class()?>>  
 
 <div id='outer-wrap-all'>
+  <?php if(mos_has('outer-wrap-all-custom')): ?><div id='outer-wrap-all-custom'><?=mos_get('outer-wrap-all-custom')?></div><?php endif; ?>
   <div id='inner-wrap-all'>
     <div id='wrap-all'>
 

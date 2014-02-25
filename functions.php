@@ -69,22 +69,31 @@ function mos_remove_admin_menus() {
 add_action( 'admin_menu', 'mos_remove_admin_menus' );
 
 
+// Leave <div> untouched in wysiwyg editor
+add_filter('tiny_mce_before_init', function($init) {
+  $init['extended_valid_elements'] = 'div[*]';
+  //$init['theme_advanced_blockformats'] = 'p,address,pre,code,h1,h2,h3,h4,h5,h6';
+  //$init['theme_advanced_disable'] = 'forecolor';
+  return $init;
+});
+
+
+
 
 /**
  * Include customizations for this theme and create the mos object and its interface
  *
  */
+include(__DIR__ . "/src/CMos/CMos.php");
+
 $mos_customize_file = __DIR__ . '/config/config.php';
 $mos_customize_file_default = __DIR__ . '/config/config_default.php';
-if(is_file($mos_customize_file)) {
-  include($mos_customize_file); 
-} elseif(is_file($mos_customize_file_default)) {
-  include($mos_customize_file_default); 
-}
 
-// Create the almighty $mos-object.
-include(__DIR__ . "/src/CMos/CMos.php");
-$mos = new CMos($mos_config);
+if (is_file($mos_customize_file)) {
+  $mos = new CMos(include $mos_customize_file); 
+} else {
+  $mos = new CMos(require $mos_customize_file_default); 
+}
 
 
 // Remove automatic paragraphs
