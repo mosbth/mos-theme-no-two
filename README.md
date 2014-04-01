@@ -193,6 +193,8 @@ History
 v0.4.x (latest)
 
 * intermediate to prepare for mos. 
+* Update from sj.
+
 
 v0.4.3 (2014-02-19)
 

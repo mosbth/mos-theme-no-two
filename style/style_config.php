@@ -32,8 +32,8 @@ $config['imports'] = null;
 // compressed — Compresses all the unrequired whitespace
 // classic — lessphp’s original formatter
 //
-$config['formatter'] = null;
-//$config['formatter'] = 'compressed';
+//$config['formatter'] = null;
+$config['formatter'] = 'compressed';
 
 
 //
