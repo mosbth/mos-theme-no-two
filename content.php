@@ -48,14 +48,14 @@
     <?php endif; ?>
 
     <?php $show_sep = false; ?>
-    <?php if('post' == get_post_type()) : // Hide category and tag text for pages on Search ?>
+    <?php if( mos_has('display-category') && 'post' == get_post_type()) : // Hide category and tag text for pages on Search ?>
 
       <?php
       $categories_list = get_the_category_list( __( ', ', 'mos' ) );
       if ( $categories_list ):
       ?>
       <span class="cat-links">
-        <?php printf( __( /*'<span class="%1$s">Posted in</span> %2$s'*/ '%2$s', 'mos' ), '', $categories_list );
+        <?php printf( mos_get('display-category-prepend') . __( '%2$s', 'mos' ), '', $categories_list );
         $show_sep = true; ?>
       </span>
     <?php endif; // End if categories ?>
@@ -99,12 +99,12 @@
 </article>
 
 
-<?php if ( is_single() && (comments_open() || get_comments_number() ) ) : ?>
+<?php if ( mos_has('comments-enabled') && is_single() && (comments_open() || get_comments_number() ) ) : ?>
   <div id='comments'><?=comments_template()?></div>
 <?php endif; ?>
 
 
-<?php if ( is_single() ) : ?>
+<?php if ( is_single() && mos_has('blog-back-link') ) : ?>
   <div class='blog-back'><h2><a href='/blogg'>&lt;&lt; Tillbaka till bloggen</a></h2></div>
 <?php endif; ?>
 

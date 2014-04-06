@@ -67,6 +67,7 @@ class CMos implements ArrayAccess {
       'breadcrumb-start-url' => 'blogg', // ?
       'breadcrumb-delimiter' => '&raquo;',
       'breadcrumb-show-current' => false,
+      'breadcrumb-show-category-part' => false,
 
       // Flash
       //'flash'   => "<h4>Flash</h4>",
@@ -86,13 +87,16 @@ class CMos implements ArrayAccess {
       'show-title-on-posts' => true,
       'display-blog-on-frontpage' => false,
       'link-blog-title' => true,
+      'display-category' => true,
+      'display-category-prepend' => '', //__('Posted in', 'mos'),
       'display-tagged-as' => true,
       'read-more-text' => __('Read more »', 'mos'), 
       'comments-enabled' => false,
       'leave-reply-link-enabled' => false,
       'edit-link-enabled' => true,
       'share-link-enabled' => false,
- 
+      'blog-back-link' => false,
+
       // Format the text when post is posted
       'show-posted-on' => true,
       'format-posted-on' => 1,
@@ -279,9 +283,10 @@ class CMos implements ArrayAccess {
   /**
    * Echo a breadcrumb, based on dimox_breadcrumbs()
    *
-   * @param $pageTemplate to say what template is calling the method.
    */
-  public function GetBreadcrumb($pageTemplate=null) {
+  public function GetBreadcrumb() {
+
+    $pageTemplate = $this->PageType();
 
     // Need to rewrite this test of page template.
     if($pageTemplate === null   && $this->data['breadcrumb-enable'] ||
@@ -297,6 +302,7 @@ class CMos implements ArrayAccess {
     $home         = $this->data['breadcrumb-start'];
     $delimiter    = $this->data['breadcrumb-delimiter'];
     $showCurrent  = $this->data['breadcrumb-show-current'];
+    $displayCategory = $this->data['breadcrumb-show-category-part'];
     $before = '<span class="current">'; // tag before the current crumb
     $after = '</span>'; // tag after the current crumb
    
@@ -305,11 +311,11 @@ class CMos implements ArrayAccess {
    
     if (is_home() || is_front_page()) {
    
-      if ($showOnHome) echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a><li></ul>';
+      if ($showOnHome) echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' <li></ul>';
    
     } else {
    
-      echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a></li> ' . $delimiter . ' ';
+      echo '<ul class="breadcrumb"><li><a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' </li>';
    
       if ( is_category() ) {
         global $wp_query;
@@ -339,8 +345,9 @@ class CMos implements ArrayAccess {
           echo '<li><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a></li> ' . $delimiter . ' ';
           if ($showCurrent == 1) echo $before . get_the_title() . $after;
         } else {
-          $cat = get_the_category(); $cat = $cat[0];
-          echo get_category_parents($cat, true, ' ' . $delimiter . ' ');
+          $cat = get_the_category(); 
+          $cat = $cat[0];
+          if ($displayCategory) echo get_category_parents($cat, true, ' ' . $delimiter . ' ');
           if ($showCurrent == 1) echo $before . get_the_title() . $after;
         }
    
@@ -367,8 +374,12 @@ class CMos implements ArrayAccess {
           $parent_id  = $page->post_parent;
         }
         $breadcrumbs = array_reverse($breadcrumbs);
-        foreach ($breadcrumbs as $crumb) echo $crumb . ' ' . $delimiter . ' ';
-        if ($showCurrent == 1) echo $before . get_the_title() . $after;
+        foreach ($breadcrumbs as $crumb) {
+          echo $crumb . ' ' . $delimiter . ' ';
+        }
+        if ($showCurrent == 1) {
+          echo $before . get_the_title() . $after;
+        }
    
       } elseif ( is_search() ) {
         echo $before . 'sökresultat för "' . get_search_query() . '"' . $after;
@@ -386,9 +397,14 @@ class CMos implements ArrayAccess {
       }
    
       if ( get_query_var('paged') ) {
-        if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';
+        if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) {
+          echo ' (';
+        }
         echo __('Page') . ' ' . get_query_var('paged');
-        if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
+
+        if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) {
+          echo ')';
+        }
       }
    
       echo '</ul>';
@@ -436,6 +452,9 @@ class CMos implements ArrayAccess {
 
       case '2sv':
       case '2en':  return "{$day} {$mnt} $year"; break;
+
+      case '3sv':
+      case '3en':  return "{$day} {$months[$month-1]} $year"; break;
     }
   }
 
