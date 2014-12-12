@@ -28,7 +28,7 @@ else if(mos_has('sidebar-page-' . $pageType, false)) {
 ?>
 
 
-<?php if($recent_posts): ?>
+<?php if($searchform): ?>
 <div class="widget box">
   <?php get_search_form(); ?>
 </div>

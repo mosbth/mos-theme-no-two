@@ -2,12 +2,12 @@
 
   <header>
   
-    <?php if(false && ('post' == get_post_type()) && mos_has('show-posted-on')) : ?>
+    <?php if('post' == get_post_type() && mos_has('show-posted-on')) : ?>
     <span class="published"><span><?=mos_posted_on()?></span></span>
     <?php endif; ?>
     
-    <?php if(('post' == get_post_type()) && mos_has('show-posted-on')) : ?>
-    <span class="published"><span class='post-date'><?=mos_posted_on()?></span><span class='comment-count'><a class='a-comments' href="<?php the_permalink(); ?>#comments" title="<?=__( 'View comments for this post', 'mos' ); ?>"><?=get_comments_number()?></a></span></span>
+    <?php if(('post' == get_post_type()) && mos_has('show-comment-count')) : ?>
+    <span class='comment-count'><a class='a-comments' href="<?php the_permalink(); ?>#comments" title="<?=__( 'View comments for this post', 'mos' ); ?>"><?=get_comments_number()?></a></span>
     <?php endif; ?>
 
     <?php if('page' == get_post_type() && mos_has('show-title-on-pages')): ?>
@@ -35,16 +35,8 @@
 
   <footer class="footer">
 
-    <?php if ( 'post' == get_post_type() && mos_has('share-link-enabled') ) : 
-      $text = urlencode(html_entity_decode(get_the_title(), ENT_COMPAT, 'UTF-8'));
-      $permalink = get_permalink();
-      $twitter  = "http://twitter.com/share?text=$text&amp;url=$permalink";
-      $facebook = "http://www.facebook.com/sharer.php?u=$permalink";
-    ?>
-      <span class='share-link'>
-        <a href='<?=$facebook?>' title='<?=__('Share on Facebook', 'mos')?>'><img src='/img/v2/facebook-dela-grey.jpg'/></a>
-        <a href='<?=$twitter?>' title='<?=__('Share on Twitter', 'mos')?>'><img src='/img/v2/twitter_grey.jpg'/></a>
-      </span>
+    <?php if('post' == get_post_type() && mos_has('show-posted-on-footer')) : ?>
+    <span class="published"><span><?=mos_posted_on()?></span></span>
     <?php endif; ?>
 
     <?php $show_sep = false; ?>
@@ -88,6 +80,19 @@
       <?=edit_post_link( __( 'Edit', 'mos' ), '<span class="edit-link">', '</span>' ); ?>
     <?php endif; ?>
 
+    <?php if ( 'post' == get_post_type() && mos_has('share-link-enabled') ) : 
+      $text = urlencode(html_entity_decode(get_the_title(), ENT_COMPAT, 'UTF-8'));
+      $permalink = get_permalink();
+      $twitter  = "http://twitter.com/share?text=$text&amp;url=$permalink";
+      $twitterImg = mos_get('share-link-img-twitter');
+      $facebook = "http://www.facebook.com/sharer.php?u=$permalink";
+      $facebookImg = mos_get('share-link-img-facebook');
+    ?>
+      <span class='share-link'>
+        <?php if($facebookImg) : ?><a href='<?=$facebook?>' title='<?=__('Share on Facebook', 'mos')?>'><img src='<?=$facebookImg?>'/></a><?php endif; ?>
+        <?php if($twitterImg) : ?><a href='<?=$twitter?>' title='<?=__('Share on Twitter', 'mos')?>'><img src='<?=$twitterImg?>'/></a><?php endif; ?>
+      </span>
+    <?php endif; ?>
 
     <?php if (false && is_single() && get_the_author_meta( 'description' ) && is_multi_author() ) : ?>
       <?php get_template_part( 'author-bio' ); ?>

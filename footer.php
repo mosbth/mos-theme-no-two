@@ -11,11 +11,22 @@
 <?php endif; ?>
 
 <div id='outer-wrap-footer' class='footer' role='contentinfo'>
+
+<?php if(mos_has('footer-before')): ?>
+<div id='outer-wrap-footer-before'>
+  <div id='outer-wrap-footer-before-left'></div>
+  <div id='inner-wrap-footer-before'>
+    <div id='footer-before'><?=mos_get('footer-before')?></div>
+  </div>
+  <div id='outer-wrap-footer-before-right'></div>
+</div>
+<?php endif; ?>
+
   <div id='outer-wrap-footer-left'></div>
-	<div id='inner-wrap-footer-column'>
+  <div id='inner-wrap-footer-column'>
     <?php if(mos_has('footer-extra')): ?><span id='footer-extra'><?=mos_get('footer-extra')?></span><?php endif; ?>
-		<?php if(mos_has('footer-column-one', 'footer-column-two', 'footer-column-three', 'footer-column-four')): ?>
-		<div id='footer-column-wrapper-one' class='footer-column-wrapper'>
+    <?php if(mos_has('footer-column-one', 'footer-column-two', 'footer-column-three', 'footer-column-four')): ?>
+    <div id='footer-column-wrapper-one' class='footer-column-wrapper'>
       <div id='footer-column-one' class='footer-column footer-column-one'><?=mos_get('footer-column-one')?></div>
       <div id='footer-column-two' class='footer-column footer-column-two'><?=mos_get('footer-column-two')?></div>
       <div id='footer-column-three' class='footer-column footer-column-three'><?=mos_get('footer-column-three')?></div>
@@ -25,7 +36,7 @@
   </div>
   <div id='inner-wrap-footer'>
     <?php if(mos_has('footer-custom')): ?><div id='footer-custom'><?=mos_get('footer-custom')?></div><?php endif; ?>
-  	<?php if(mos_has('footer')): ?><div id='footer'><p><?=mos_get('footer')?></p></div><?php endif; ?>
+    <?php if(mos_has('footer')): ?><div id='footer'><p><?=mos_get('footer')?></p></div><?php endif; ?>
   </div>
   <div id='outer-wrap-footer-right'></div>
 </div>

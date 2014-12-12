@@ -114,6 +114,10 @@ add_shortcode('agallery','mos_shortcode_gallery');
 add_shortcode('youtube','mos_shortcode_youtube');
 add_shortcode('title','mos_shortcode_title');
 add_shortcode('jplayer','mos_shortcode_jplayer');
+add_shortcode('instagram','mos_shortcode_instagram');
+add_shortcode('soundcloud','mos_shortcode_soundcloud');
+add_shortcode('jgallery','mos_shortcode_jgallery');
+add_shortcode('jgalleryimg','mos_shortcode_jgalleryimg');
 
 
 

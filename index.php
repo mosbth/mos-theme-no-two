@@ -31,6 +31,27 @@ get_header();
   <div id='inner-wrap-main'>
     <div id='main'>
 
+<?php 
+// main-custom-
+global $post; 
+$key = 'main-custom-' . $post->ID;
+if(mos_has($key, false)) {
+  echo mos_get($key);
+}
+
+// main-custom-
+$key = 'main-custom-' . mos_page_type();
+if(mos_has($key, false)) {
+    echo mos_get($key);
+}
+
+// main-custom-
+$key = 'main-custom-' . $post->post_name;
+if(mos_has($key, false)) {
+    echo mos_get($key);
+}
+?>
+
       <?php if(mos_has('sidebar-left-enabled')): ?><div id='sidebar-left' role='complementary'><div class='sidebar sidebar-left'><?=get_sidebar(mos_get('sidebar-left-template'))?></div></div><?php endif; ?>
       
       <div id='primary'<?=$pageClass?> role='main'>

@@ -52,6 +52,12 @@ class CMos implements ArrayAccess {
       'site-slogan' => true, // Use slogan as defined by wordpress
       'site-extra' => null, // Extra elements within site header.
 
+      // Outer wrap for background
+      'outer-wrap-all-custom' => null,
+      //'outer-wrap-all-custom-21' => null, // page id
+      //'outer-wrap-all-custom-front' => null, // page type
+      //'outer-wrap-all-custom-about' => null, // page name
+
       // Navbars
       'navbar1-class' => 'nb-plain', //nb-plain 
       'navbar2-class' => 'nb-plain', 
@@ -92,13 +98,17 @@ class CMos implements ArrayAccess {
       'display-tagged-as' => true,
       'read-more-text' => __('Read more »', 'mos'), 
       'comments-enabled' => false,
+      'show-comment-count' => false,
       'leave-reply-link-enabled' => false,
-      'edit-link-enabled' => true,
+      'edit-link-enabled' => false,
       'share-link-enabled' => false,
+      'share-link-img-facebook' => null, // "/img/diana/ikoner/likeFB.png",
+      'share-link-img-twitter' => null, 
       'blog-back-link' => false,
 
       // Format the text when post is posted
       'show-posted-on' => true,
+      'show-posted-on-footer' => false,
       'format-posted-on' => 1,
       'posted-on-display-author' => true,
 
@@ -467,7 +477,7 @@ class CMos implements ArrayAccess {
    */
   public function PageType() {
     if (is_home()) {
-      return 'home';
+      return 'blog';
     }
     elseif (is_front_page()) {
       return 'front';
@@ -764,11 +774,16 @@ EOD;
    */
   function ShortcodeYouTube($atts, $content = null) {
     extract( shortcode_atts( array(
-    'id' => '',
-    'width' => '',
-    'height' => '',
-    'class' => '',
-    'caption' => '',
+    'id'       => null,
+    'list'     => null,
+    'listType' => "playlist",
+    'width'   => null,
+    'height'  => null,
+    'class'   => null,
+    'caption' => null,
+    'theme'   => null,
+    'color'   => null,
+    'playlist' => null,
     'resolution' => null, // Obsolete
     'aspect_ratio' => '16:9',
     ), $atts ) );
@@ -776,12 +791,22 @@ EOD;
     $aspect_ratio = $resolution ? $resolution : $aspect_ratio; // Remove when resolution is removed.
     list($width, $height) = $this->CalculateWidthAndHeight($width, $height, $aspect_ratio);
 
-    $class = empty($class) ? null : " class='{$class}'";
-    $width = empty($width) ? null : " width='{$width}'";
-    $height = empty($height) ? null : " height='{$height}'";
-    $caption = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
+    $class    = empty($class)   ? null : " class='{$class}'";
+    $width    = empty($width)   ? null : " width='{$width}'";
+    $height   = empty($height)  ? null : " height='{$height}'";
+    $caption  = empty($caption) ? null : "<figcaption>{$caption}</figcaption>";
+    $theme    = empty($theme)   ? null : "&amp;theme=$theme";
+    $color    = empty($color)   ? null : "&amp;color=$color";
+    $playlist = empty($playlist) ? null : "&amp;playlist=$playlist";
 
-    $output = "<figure{$class}><iframe src='http://www.youtube.com/embed/{$id}' frameborder='0'{$width}{$height}></iframe>{$caption}</figure>";
+    // Use playlist as source or single video
+    if ($id) {
+      $url = "http://www.youtube.com/embed/{$id}?";
+    } else if ($list) {
+      $url = "http://www.youtube.com/embed?listType={$listType}&amp;list={$list}";
+    }
+
+    $output = "<figure{$class}><iframe src='{$url}{$theme}{$color}{$playlist}' frameborder='0'{$width}{$height}></iframe>{$caption}</figure>";
     return $output;
   }
 
@@ -804,6 +829,113 @@ EOD;
     }
 
     return "<h1 class='wp-post-title'>$title</h1>";
+  }
+
+
+
+  /**
+   * Shortcode for instagram, [instagram]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  function ShortcodeInstagram($atts, $content = null) {
+    extract( shortcode_atts( array(
+      'src' => null,
+      'class' => null,
+      'style' => null,
+      'transparent' => true,
+    ), $atts ) );
+
+    $src   = empty($src)   ? null : " src='{$src}'";
+    $class = empty($class) ? null : " class='{$class}'";
+    $style = empty($style) ? null : " style='{$style}'";
+    $transparent = $transparent ? " allowtransparency='true'" : " allowtransparency='false'";
+
+    // style='border:none;overflow:hidden;width:222px; height: 296px' 
+    $output = "<iframe $src $transparent $class $style frameborder='0' scrolling='no'></iframe>";
+    return $output;
+  }
+
+
+
+  /**
+   * Shortcode for soundcloud, [soundcloud]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  function ShortcodeSoundcloud($atts, $content = null) {
+    extract( shortcode_atts( array(
+      'url' => null,
+      'params' => null,
+      'width' => "100%",
+      'height' => "450px",
+      'iframe' => true,
+    ), $atts ) );
+
+    $url    = empty($url)    ? null : (" src='https://w.soundcloud.com/player/?url=" . htmlentities($url) . htmlentities("&{$params}") . "'");
+    $width  = empty($width)  ? null : " width='{$width}'";
+    $height = empty($height) ? null : " height='{$height}'";
+
+    // if $iframe
+
+    //[soundcloud url="https://api.soundcloud.com/tracks/178012707" params="color=000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false" width="100%" height="166" iframe="true" /]
+
+    //<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/178012707&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+    $output = "<iframe $url $width $height scrolling='no' frameborder='no'></iframe>";
+    return $output;
+  }
+
+
+
+  /**
+   * Shortcode for jQuery Galleryj, [jgallery]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  function ShortcodeJgallery($atts, $content = null) {
+    extract( shortcode_atts( array(
+      'class' => 'jgallery',
+      'width' => "100%",
+      'height' => "450px",
+    ), $atts ) );
+
+    $class = empty($class) ? null : " class='$class'";
+    $width  = empty($width)  ? null : " width='{$width}'";
+    $height = empty($height) ? null : " height='{$height}'";
+
+    $output = str_replace("\r\n", '', "<div $class><div class='jg-left'>&lt;</div><div class='jg-right'>&gt;</div><div class='jg-wrap'>" . do_shortcode($content) . "</div></div>");
+    return $output;
+  }
+
+
+
+  /**
+   * Shortcode for jQuery Gallery image, [jgalleryimg]
+   *
+   * @param array $atts attributes for shortcode.
+   * @param string $content the content of the shortcode, if any.
+   * @return string as the result from the shortcode operation.
+   */
+  function ShortcodeJgalleryimg($atts, $content = null) {
+    extract( shortcode_atts( array(
+      'thumb' => null,
+      'large' => null,
+      'width' => null,
+      'height' => null,
+    ), $atts ) );
+
+    $width  = empty($width)  ? null : " width='{$width}'";
+    $height = empty($height) ? null : " height='{$height}'";
+
+    $output = "<a href='$large'><img class='jg-img' src='$thumb' alt=''></a>";
+    return $output;
   }
 
 
@@ -889,6 +1021,10 @@ function mos_shortcode_gallery($atts, $content = null) { global $mos; return $mo
 function mos_shortcode_youtube($atts, $content = null) { global $mos; return $mos->ShortcodeYouTube($atts, $content); }
 function mos_shortcode_title($atts, $content = null) { global $mos; return $mos->ShortcodeTitle($atts, $content); }
 function mos_shortcode_jplayer($atts, $content = null) { global $mos; return $mos->ShortcodeJPlayer($atts, $content); }
+function mos_shortcode_instagram($atts, $content = null) { global $mos; return $mos->ShortcodeInstagram($atts, $content); }
+function mos_shortcode_soundcloud($atts, $content = null) { global $mos; return $mos->ShortcodeSoundcloud($atts, $content); }
+function mos_shortcode_jgallery($atts, $content = null) { global $mos; return $mos->ShortcodeJgallery($atts, $content); }
+function mos_shortcode_jgalleryimg($atts, $content = null) { global $mos; return $mos->ShortcodeJgalleryimg($atts, $content); }
 function mos_slug2bodyclass($classes) { global $mos; return $mos->AddSlugToBodyClass($classes); }
 
 
