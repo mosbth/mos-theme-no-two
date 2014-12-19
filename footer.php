@@ -24,7 +24,9 @@
 
   <div id='outer-wrap-footer-left'></div>
   <div id='inner-wrap-footer-column'>
+
     <?php if(mos_has('footer-extra')): ?><span id='footer-extra'><?=mos_get('footer-extra')?></span><?php endif; ?>
+
     <?php if(mos_has('footer-column-one', 'footer-column-two', 'footer-column-three', 'footer-column-four')): ?>
     <div id='footer-column-wrapper-one' class='footer-column-wrapper'>
       <div id='footer-column-one' class='footer-column footer-column-one'><?=mos_get('footer-column-one')?></div>
@@ -35,8 +37,9 @@
     <?php endif; ?>
   </div>
   <div id='inner-wrap-footer'>
+    <?=mos_add_content_for("footer-custom-")?>
     <?php if(mos_has('footer-custom')): ?><div id='footer-custom'><?=mos_get('footer-custom')?></div><?php endif; ?>
-    <?php if(mos_has('footer')): ?><div id='footer'><p><?=mos_get('footer')?></p></div><?php endif; ?>
+    <?php if(mos_has('footer')): ?><div id='footer'><?=mos_get('footer')?></div><?php endif; ?>
   </div>
   <div id='outer-wrap-footer-right'></div>
 </div>
@@ -50,6 +53,7 @@
 <?php if(mos_has('jquery')):?><script src='<?=mos_get('jquery')?>'></script><?php endif; ?>
 <?php if(mos_has('javascript-include')): foreach(mos_get('javascript-include') as $val): ?><script src='<?=$val?>'></script><?php endforeach; endif; ?>
 <?php if(mos_has('javascript-inline')):?><script><?=mos_get('javascript-inline')?></script><?php endif; ?>
+<?=mos_add_content_for("javascript-custom-")?>
 <?php if(mos_has('google-analytics')): ?>
 <script>
   var _gaq=[['_setAccount','<?=mos_get('google-analytics')?>'],['_trackPageview']];

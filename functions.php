@@ -147,6 +147,32 @@ function mos_remove_more_jump_link($link) {
 add_filter('the_content_more_link', 'mos_remove_more_jump_link');
 
 
+
+
+/**
+ * Add extra elements, specific for each page.
+ *
+ *
+ */
+function mos_add_content_for($id) 
+{
+  global $post; 
+
+  $keys = array(
+    $id . $post->ID,
+    $id . mos_page_type(),    
+    $id . $post->post_name,
+  ); 
+
+  foreach($keys as $key) {
+    if(mos_has($key, false)) {
+      return mos_get($key);
+    }
+  }
+}
+
+
+
 /**
  * Template for comments and pingbacks.
  *

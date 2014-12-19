@@ -904,13 +904,29 @@ EOD;
       'class' => 'jgallery',
       'width' => "100%",
       'height' => "450px",
+      'js' => null,
     ), $atts ) );
+
+    if ($js) {
+      $this->data['javascript-include'][] = $js;
+    }
 
     $class = empty($class) ? null : " class='$class'";
     $width  = empty($width)  ? null : " width='{$width}'";
     $height = empty($height) ? null : " height='{$height}'";
 
-    $output = str_replace("\r\n", '', "<div $class><div class='jg-left'>&lt;</div><div class='jg-right'>&gt;</div><div class='jg-wrap'>" . do_shortcode($content) . "</div></div>");
+    /*
+    [jgallery js="/js/jgallery.js"]
+    [jgalleryimg thumb="/img/diana/galleri/thumb/1.jpg" large="/img/diana/galleri/1.jpg"]
+    [jgalleryimg thumb="/img/diana/galleri/thumb/2.jpg" large="/img/diana/galleri/2.jpg"]
+    [jgalleryimg thumb="/img/diana/galleri/thumb/3.jpg" large="/img/diana/galleri/3.jpg"]
+    [jgalleryimg thumb="/img/diana/galleri/thumb/4.jpg" large="/img/diana/galleri/4.jpg"]
+    [jgalleryimg thumb="/img/diana/galleri/thumb/5.jpg" large="/img/diana/galleri/5.jpg"]
+    [jgalleryimg thumb="/img/diana/galleri/thumb/6.jpg" large="/img/diana/galleri/6.jpg"]
+    [/jgallery]
+    */
+    
+    $output = str_replace("\r\n", '', "<div $class><div class='jg-left'><a href=#><i class='fa fa-2x fa-chevron-left'></i></a></div><div class='jg-right'><a href=#><i class='fa fa-2x fa-chevron-right'></a></i></div><div class='jg-wrap'><ul>" . do_shortcode($content) . "</ul></div></div>");
     return $output;
   }
 
@@ -934,7 +950,7 @@ EOD;
     $width  = empty($width)  ? null : " width='{$width}'";
     $height = empty($height) ? null : " height='{$height}'";
 
-    $output = "<a href='$large'><img class='jg-img' src='$thumb' alt=''></a>";
+    $output = "<li><a href='$large'><img class='jg-img' src='$thumb' alt=''></a></li>";
     return $output;
   }
 
