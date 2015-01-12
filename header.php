@@ -15,28 +15,9 @@
 <body <?=body_class(mos_page_type())?>>  
 
 <div id='outer-wrap-all'>
+
   <?php if(mos_has('outer-wrap-all-custom')): ?><div id='outer-wrap-all-custom'><?=mos_get('outer-wrap-all-custom')?></div><?php endif; ?>
-
-<?php 
-// outer-wrap-all-custom-
-global $post; 
-$key = 'outer-wrap-all-custom-' . $post->ID;
-if(mos_has($key, false)) {
-  echo mos_get($key);
-}
-
-// outer-wrap-all-custom-front
-$key = 'outer-wrap-all-custom-' . mos_page_type();
-if(mos_has($key, false)) {
-    echo mos_get($key);
-}
-
-// outer-wrap-all-custom-about
-$key = 'outer-wrap-all-custom-' . $post->post_name;
-if(mos_has($key, false)) {
-    echo mos_get($key);
-}
-?>
+  <?=mos_add_content_for("outer-wrap-all-custom-")?>
 
   <div id='inner-wrap-all'>
     <div id='wrap-all'>
