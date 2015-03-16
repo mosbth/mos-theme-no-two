@@ -121,6 +121,25 @@ add_shortcode('jgalleryimg','mos_shortcode_jgalleryimg');
 
 
 
+/**
+ * Register our sidebars and widgetized areas.
+ *
+ */
+function arphabet_widgets_init() {
+
+  register_sidebar( array(
+    'name'          => 'Sidebar 1',
+    'id'            => 'sidebar-1',
+    'before_widget' => '<div>',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h4>',
+    'after_title'   => '</h4>',
+  ) );
+
+}
+add_action( 'widgets_init', 'arphabet_widgets_init' );
+
+
 
 /**
  * Add filter for slug to body class.

@@ -126,13 +126,15 @@ class CMos implements ArrayAccess {
       //'sidebar-page-home'         => 271,
       //'sidebar-page-last-home'    => 1120,
 
-      // Sidebar tags & categories ('front', 'home', 'page', 'single', 'tag', 'categories')
-      'sidebar-display-categories'  => array('home', 'single', 'tag', 'category', 'archive', 'search'),
-      'sidebar-display-tags'        => array('home', 'single', 'tag', 'category', 'archive', 'search'),
-      'sidebar-display-searchform'  => array('home', 'single', 'tag', 'category', 'archive'),
+      // Sidebar tags & categories ('front', 'home', 'blog', 'page', 'single', 'tag', 'categories')
+      'sidebar-display-categories'  => array('home', 'blog', 'single', 'tag', 'category', 'archive', 'search'),
+      'sidebar-display-tags'        => array('home', 'blog', 'single', 'tag', 'category', 'archive', 'search'),
+      'sidebar-display-searchform'  => array('home', 'blog', 'single', 'tag', 'category', 'archive'),
+      'sidebar-display-dates'       => array('home', 'blog', 'single', 'tag', 'category', 'archive', 'search'),
+      'sidebar-display-active-sidebar' => array('home', 'blog', 'single', 'tag', 'category', 'archive', 'search'),
 
       // Sidebar recent posts
-      'sidebar-display-recent-posts' => array('home', 'single', 'tag', 'category', 'archive'),
+      'sidebar-display-recent-posts' => array('home', 'blog', 'single', 'tag', 'category', 'archive'),
       'recent-posts-args' => array( 'numberposts' => '7' ),
 
       // Title on category widget
