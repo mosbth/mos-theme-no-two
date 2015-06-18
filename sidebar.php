@@ -8,6 +8,8 @@ $recent_posts       = in_array(mos_page_type(), mos_get('sidebar-display-recent-
 $searchform         = in_array(mos_page_type(), mos_get('sidebar-display-searchform'))    ? true : false;
 $display_categories = in_array(mos_page_type(), mos_get('sidebar-display-categories'))    ? true : false;
 $display_tags       = in_array(mos_page_type(), mos_get('sidebar-display-tags'))          ? true : false;
+$display_dates      = in_array(mos_page_type(), mos_get('sidebar-display-dates'))         ? true : false;
+$display_active_sidebar = in_array(mos_page_type(), mos_get('sidebar-display-active-sidebar')) ? true : false;
 ?>
 
 <div class='sidebar-content'>
@@ -26,6 +28,7 @@ else if(mos_has('sidebar-page-' . $pageType, false)) {
   echo "<div class='sidebar-page {$key}'>" . apply_filters('the_content', $current->post_content) . "</div>"; 
 }
 ?>
+
 
 
 <?php if($searchform): ?>
@@ -51,6 +54,7 @@ else if(mos_has('sidebar-page-' . $pageType, false)) {
 <?php endif; ?>
 
 
+
 <?php if($display_categories): ?>
 <div id='categories' class='widget box'>
   <?php $title = mos_has('category-widget-title') ? mos_get('category-widget-title') : __( 'Categories', 'mos' ); ?>
@@ -60,12 +64,31 @@ else if(mos_has('sidebar-page-' . $pageType, false)) {
 <?php endif; ?>
 
 
+
 <?php if($display_tags): ?>
 <div id="tags" class="widget box">
   <?php $title = mos_has('tag-widget-title') ? mos_get('tag-widget-title') : __( 'Tags', 'mos' ); ?>
   <h4><?=$title?></h4>
   <?=wp_tag_cloud(mos_get('widget-tag-options'))?>
 </div>
+<?php endif; ?>
+
+
+<?php if($display_dates): ?>
+<div id="dates" class="widget box">
+  <?php $title = mos_has('date-widget-title') ? mos_get('date-widget-title') : __( 'Date archive', 'mos' ); ?>
+  <h4><?=$title?></h4>
+  <?=wp_get_archives(array("type" => "monthly", "show_post_count" => true))?>
+</div>
+<?php endif; ?>
+
+
+<?php if($display_active_sidebar): ?>
+<?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+  <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
+    <?php dynamic_sidebar( 'sidebar-1' ); ?>
+  </div><!-- #primary-sidebar -->
+<?php endif; ?>
 <?php endif; ?>
 
 
