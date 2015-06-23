@@ -85,10 +85,12 @@ get_header();
               <?=get_template_part('content', get_post_format())?>
             <?php endwhile?>
           </section>
+		
+		<!--
           <nav>
-            <div class='wp-meta-more-posts'><?=previous_posts_link(__('« Newer posts', 'mos'))?> <?=next_posts_link(__('Older posts »', 'mos'))?></div>
+            <div class='wp-meta-more-posts'><i class="fa fa-arrow-left"></i> <?=previous_posts_link(__('Newer posts', 'mos'))?> <?=next_posts_link(__('Older posts', 'mos'))?> <i class="fa fa-arrow-right"></i></div>
           </nav>
-
+		-->
 
           <?php elseif (is_404()) :?>
           <article class='wp'>

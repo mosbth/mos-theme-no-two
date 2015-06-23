@@ -98,7 +98,6 @@
       <?php get_template_part( 'author-bio' ); ?>
     <?php endif; ?>
 
-
   </footer>
 
 </article>
@@ -109,7 +108,24 @@
 <?php endif; ?>
 
 
-<?php if ( is_single() && mos_has('blog-back-link') ) : ?>
+<?php if (is_single() && mos_has('blog-back-link')) : ?>
   <div class='blog-back'><h2><a href='/blogg'>&lt;&lt; Tillbaka till bloggen</a></h2></div>
 <?php endif; ?>
 
+<?php if (is_single() && mos_has('blog-single-previous-next')) {
+    // Previous/next post navigation.
+    the_post_navigation([
+        'screen_reader_text' => __('There is more to read', 'mos-theme-number-two'),
+        'next_text' => '<span class="meta-nav">'
+            . '<i class="fa fa-arrow-right"></i> '
+            . __('Next', 'mos-theme-number-two')
+            . '</span> '
+            . '<span class="post-title">%title</span>',
+        'prev_text' => '<span class="meta-nav">'
+            . '<i class="fa fa-arrow-left"></i> '
+            . __('Previous', 'mos-theme-number-two')
+            . '</span> '
+            . '<span class="post-title">%title</span>',
+    ]);
+}
+?>

@@ -13,6 +13,12 @@ ini_set('display_errors', 1);     // Display all errors
 ini_set('output_buffering', 0);   // Do not buffer outputs, write directly
 */
 
+/**
+ * Load translation
+ */
+//load_theme_textdomain('mos');
+
+
 
 /**
  * Add existing filters.
@@ -64,7 +70,7 @@ function mos_remove_admin_menus() {
     foreach($mos_content['admin-menu-remove'] as $val) {
       remove_menu_page($val);
     }
-  }  
+  }
 }
 add_action( 'admin_menu', 'mos_remove_admin_menus' );
 
@@ -173,7 +179,7 @@ add_filter('the_content_more_link', 'mos_remove_more_jump_link');
  *
  *
  */
-function mos_add_content_for($id) 
+function mos_add_content_for($id)
 {
   global $post; 
 
@@ -223,7 +229,7 @@ function mos_comment($comment, $args, $depth) {
 						echo get_avatar( $comment, $avatar_size );
 
 						/* translators: 1: comment author, 2: date and time */
-						printf( __( '%1$s den %2$s <span class="says">säger:</span>', 'mos' ),
+						printf( __( '%1$s den %2$s <span class="says">says:</span>', 'mos' ),
 							sprintf( '<span class="fn">%s</span>', get_comment_author_link() ),
 							sprintf( '<a href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>',
 								esc_url( get_comment_link( $comment->comment_ID ) ),
@@ -388,8 +394,3 @@ add_shortcode('aslideshow','mos_slideshow_shortcode');
 function dump($a) {
   echo "<pre>" . print_r($a, 1) . "</pre>";
 }
-
-
-
-
-

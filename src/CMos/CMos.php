@@ -96,7 +96,7 @@ class CMos implements ArrayAccess {
       'display-category' => true,
       'display-category-prepend' => '', //__('Posted in', 'mos'),
       'display-tagged-as' => true,
-      'read-more-text' => __('Read more »', 'mos'), 
+      'read-more-text' => __('Read more', 'mos') . ' <i class="fa fa-angle-double-right"></i>', 
       'comments-enabled' => false,
       'show-comment-count' => false,
       'leave-reply-link-enabled' => false,
@@ -105,6 +105,7 @@ class CMos implements ArrayAccess {
       'share-link-img-facebook' => null, // "/img/diana/ikoner/likeFB.png",
       'share-link-img-twitter' => null, 
       'blog-back-link' => false,
+      'blog-single-previous-next' => false,
 
       // Format the text when post is posted
       'show-posted-on' => true,
@@ -1044,5 +1045,3 @@ function mos_shortcode_soundcloud($atts, $content = null) { global $mos; return 
 function mos_shortcode_jgallery($atts, $content = null) { global $mos; return $mos->ShortcodeJgallery($atts, $content); }
 function mos_shortcode_jgalleryimg($atts, $content = null) { global $mos; return $mos->ShortcodeJgalleryimg($atts, $content); }
 function mos_slug2bodyclass($classes) { global $mos; return $mos->AddSlugToBodyClass($classes); }
-
-
