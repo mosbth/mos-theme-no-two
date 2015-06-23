@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mos\n"
-"POT-Creation-Date: 2015-06-23 11:49+0100\n"
-"PO-Revision-Date: 2015-06-23 11:49+0100\n"
+"POT-Creation-Date: 2015-06-23 12:01+0100\n"
+"PO-Revision-Date: 2015-06-23 12:01+0100\n"
 "Last-Translator: Mikael Roos <mikael.t.h.roos@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -30,8 +30,8 @@ msgid "View comments for this post"
 msgstr "Visa kommentarer för denna post"
 
 #: content.php:31
-msgid "&raquo; read more"
-msgstr "&raquo; läs mer"
+msgid "&raquo; Read more"
+msgstr "&raquo; Läs mer"
 
 #: content.php:32
 msgid "Pages:"
@@ -87,16 +87,16 @@ msgstr "Nästa"
 msgid "Previous"
 msgstr "Föregående"
 
-#: functions.php:208 functions.php:250
+#: functions.php:214 functions.php:256
 msgid "Redigera"
 msgstr "Redigera"
 
-#: functions.php:226
+#: functions.php:232
 #, php-format
 msgid "%1$s den %2$s <span class=\"says\">says:</span>"
 msgstr "%1$s den %2$s <span class=\"says\">säger:</span>"
 
-#: functions.php:232
+#: functions.php:238
 #, php-format
 msgid "%1$s den %2$s"
 msgstr "%1$s den %2$s"
@@ -118,27 +118,27 @@ msgstr "Författare: "
 msgid "Searchresults for: %s"
 msgstr "Sökresultat för: %s"
 
-#: index.php:89
+#: index.php:91
 msgid "Newer posts"
 msgstr "Nyare poster"
 
-#: index.php:89
+#: index.php:91
 msgid "Older posts"
 msgstr "Äldre poster"
 
-#: index.php:96
+#: index.php:98
 msgid "404, page not found"
 msgstr "404, sidan hittas ej"
 
-#: index.php:99
+#: index.php:101
 msgid "This is an error. The page you are trying to reach does not exists."
 msgstr "Detta är ett fel. Sidan du försöker hitta finns ej."
 
-#: index.php:107 index.php:118
+#: index.php:109 index.php:120
 msgid "No results were found."
 msgstr "Inget hittades."
 
-#: index.php:115
+#: index.php:117
 msgid "Nothing Found"
 msgstr "Inget hittades."
 

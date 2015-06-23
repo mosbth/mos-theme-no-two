@@ -28,7 +28,7 @@
       <?php the_excerpt(); ?>
     <?php endif; ?>
   <?php else : ?>
-    <?php the_content( __( '&raquo; read more', 'mos' ) ); ?>
+    <?php the_content( __( '&raquo; Read more', 'mos' ) ); ?>
     <?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . __( 'Pages:', 'mos' ) . '</span>', 'after' => '</div>' ) ); ?>
   <?php endif; ?>
 
@@ -115,15 +115,15 @@
 <?php if (is_single() && mos_has('blog-single-previous-next')) {
     // Previous/next post navigation.
     the_post_navigation([
-        'screen_reader_text' => __('There is more to read', 'mos-theme-number-two'),
+        'screen_reader_text' => __('There is more to read', 'mos'),
         'next_text' => '<span class="meta-nav">'
             . '<i class="fa fa-arrow-right"></i> '
-            . __('Next', 'mos-theme-number-two')
+            . __('Next', 'mos')
             . '</span> '
             . '<span class="post-title">%title</span>',
         'prev_text' => '<span class="meta-nav">'
             . '<i class="fa fa-arrow-left"></i> '
-            . __('Previous', 'mos-theme-number-two')
+            . __('Previous', 'mos')
             . '</span> '
             . '<span class="post-title">%title</span>',
     ]);
