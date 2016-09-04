@@ -61,7 +61,7 @@ register_nav_menus([
     //"navbar3" => "Navigation in left sidebar",
 ]);
 
-add_theme_support( 'post-thumbnails' );
+//add_theme_support( 'post-thumbnails' );
 
 
 
