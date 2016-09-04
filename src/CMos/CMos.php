@@ -1013,8 +1013,8 @@ EOD;
   function AddSlugToBodyClass($classes)  {
     global $post;
   
-    if(!is_home()) {
-      $classes[] = $post->post_name; 
+    if(!is_home() && isset($post->post_name)) {
+      $classes[] = $post->post_name;
     }
   
     return array_unique($classes);

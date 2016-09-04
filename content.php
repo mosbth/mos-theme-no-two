@@ -1,7 +1,16 @@
 <article id="post-<?php the_ID(); ?>" <?=post_class()?>>
 
-  <header>
+<header>
   
+    <?php
+    if ('page' == get_post_type() && mos_has('featured-image-on-pages')) :
+        // check if the post has a Post Thumbnail assigned to it.
+        if (has_post_thumbnail()) {
+            the_post_thumbnail();
+        }
+    endif;
+    ?>
+
     <?php if('post' == get_post_type() && mos_has('show-posted-on')) : ?>
     <span class="published"><span><?=mos_posted_on()?></span></span>
     <?php endif; ?>
@@ -12,7 +21,7 @@
 
     <?php if('page' == get_post_type() && mos_has('show-title-on-pages')): ?>
     <h1><?=the_title()?></h1>
-  
+
     <?php elseif('post' == get_post_type() && mos_has('show-title-on-posts') && mos_has('link-blog-title') == false): ?>
     <h1 class='wp-post-title'><?=the_title()?></h1>
   

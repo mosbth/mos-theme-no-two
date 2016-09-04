@@ -53,11 +53,16 @@ add_action('init', 'init_sessions');
 /**
  * Enable menues.
  */
-register_nav_menus( array(
-	'navbar1' => 'Navigation bar within header',
-  'navbar2' => 'Navigation bar standard',
-  'navbar3' => 'Navigation in left sidebar',
-) );
+register_nav_menus([
+    "navbar-sv" => "Standard navigation bar (sv)",
+    "navbar-en" => "Standard navigation bar (en)",
+    "mobile-sv" => "Mobile collapsed menu (sv)",
+    "mobile-en" => "Mobile collapsed menu (en)",
+    //"navbar3" => "Navigation in left sidebar",
+]);
+
+add_theme_support( 'post-thumbnails' );
+
 
 
 /**
@@ -96,9 +101,9 @@ $mos_customize_file = __DIR__ . '/config/config.php';
 $mos_customize_file_default = __DIR__ . '/config/config_default.php';
 
 if (is_file($mos_customize_file)) {
-  $mos = new CMos(include $mos_customize_file); 
+  $mos = new CMos(include $mos_customize_file);
 } else {
-  $mos = new CMos(require $mos_customize_file_default); 
+  $mos = new CMos(require $mos_customize_file_default);
 }
 
 
@@ -182,6 +187,10 @@ add_filter('the_content_more_link', 'mos_remove_more_jump_link');
 function mos_add_content_for($id)
 {
   global $post; 
+
+  if (!isset($post->ID) || !isset($post->post_name)) {
+      return;
+  }
 
   $keys = array(
     $id . $post->ID,
