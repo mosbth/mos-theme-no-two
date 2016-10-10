@@ -57,7 +57,9 @@ endif; ?>
                             <span class="site-logo-text-icon" >
                                 <img src="<?= mos_get('logo') ?>" alt="Logo">
                             </span>
-                            <?= get_bloginfo('name') ?>
+                            <?php if (mos_has('site-title-no-text')) : ?>
+                                <?= get_bloginfo('name') ?>
+                            <?php endif; ?>
                         </a>
                     </span>
                 <?php endif; ?>

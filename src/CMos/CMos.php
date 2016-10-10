@@ -49,6 +49,7 @@ class CMos implements ArrayAccess {
       'site-header' => null, // Define own header with custom elements.
       'site-logo' => null, //"<img src='" . get_stylesheet_directory_uri() . "/img/logo_40x40.png' height='40' width='40' alt='logo' />",
       'site-title' => true, // Use title as defined by wordpress
+      'site-title-no-text' => false, // Do not display blogname as title
       'site-slogan' => true, // Use slogan as defined by wordpress
       'site-extra' => null, // Extra elements within site header.
 
@@ -561,13 +562,14 @@ class CMos implements ArrayAccess {
       'croptofit' => false,
       'quality' => null,
       'no_link' => false,
+      'link' => false,
       'aspect_ratio' => false,
     ), $atts ) );
 
     $srcOrig = $src;
     $file = $this->data['webroot'] . $src;
 
-    if (file_exists($file)) {
+    if (true /*file_exists($file)*/) {
 
       list($width, $height) = $this->CalculateWidthAndHeight($width, $height, $aspect_ratio);
 
@@ -580,16 +582,18 @@ class CMos implements ArrayAccess {
         }
       }
 
-      if($resize || $crop || $croptofit || $quality) {
-        $w = empty($width) ? null : "w={$width}&amp;";
-        $h = empty($height) ? null : "h={$height}&amp;";
-        $crop = empty($crop) ? null : "crop={$crop}&amp;";
-        $croptofit = empty($croptofit) ? null : "crop-to-fit&amp;";
-        $q = empty($quality) ? null : "q={$quality}&amp;";
-        $src = "/image/" . substr($src, 5);
-        $src = "{$src}?{$crop}{$w}{$h}{$croptofit}{$q}";
-        $src = substr($src, 0, -5);
-      }
+     // if($resize || $crop || $quality) {
+     // Prepare request to cimage
+    $w = empty($width) ? null : "w={$width}&amp;";
+    $h = empty($height) ? null : "h={$height}&amp;";
+    $crop = empty($crop) ? null : "crop={$crop}&amp;";
+    $croptofit = empty($croptofit) ? null : "crop-to-fit&amp;";
+    $q = empty($quality) ? null : "q={$quality}&amp;";
+    //$src = "/image/" . substr($src, 5);
+    //$src = "{$src}?{$w}{$h}{$croptofit}{$crop}{$q}";
+    $src = "/cimage/imgp.php?src={$src}&amp;{$w}{$h}{$croptofit}{$crop}{$q}";
+    //$src = substr($src, 0, -5);
+      //}
 
       $src = "src='{$src}'";
       $alt = " alt='{$alt}'";
@@ -605,7 +609,12 @@ class CMos implements ArrayAccess {
         $ahref = $aclose = null;
       }
 
-      $output = "<figure{$class}>{$ahref}<img {$src}{$alt}{$width}{$height}{$class} />{$aclose}{$caption}</figure>";
+      if ($link) {
+          $ahref = "<a href='{$link}'>";
+      }
+
+      // Generate resulting html
+      $output = "<figure{$class}>{$ahref}<img {$src}{$alt}{$width}{$height} />{$aclose}{$caption}</figure>";
       return $output;
     }
     else {
