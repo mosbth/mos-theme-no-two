@@ -34,13 +34,30 @@ get_header();
 </div>
 <?php endif; ?>
 
+
+
+<!-- featured image -->
+<?php if (has_post_thumbnail() && mos_has('featured-image-above-main')) : ?>
+<div class="outer-wrap outer-wrap-featured">
+    <div class="inner-wrap inner-wrap-featured">
+        <div class="row">
+            <div class="featured-wrap">
+                <?= the_post_thumbnail("featuredImageCropped"); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+
 <?php
-/*if ( has_post_thumbnail() ) {
+/*
+if ( has_post_thumbnail() ) {
 	echo "<div class=\"featured-image\">";
 	the_post_thumbnail("featuredImageCropped");
 	echo "</div>";
 } 
-the_content(); 
+the_content();
 */
 ?>
 
